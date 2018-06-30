@@ -218,3 +218,8 @@ pip-log.txt
 *\History
 *.PrjPcbStructure
 *~$*
+*/Project Outputs*/*
+*/Project Logs*/*
+
+# Quartus
+*.sof
