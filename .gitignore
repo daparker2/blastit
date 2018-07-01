@@ -206,9 +206,9 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-#
+########
 # Altium
-#
+########
 
 */History/*
 *.PrjPCBStructure
@@ -221,5 +221,33 @@ pip-log.txt
 */Project Outputs*/*
 */Project Logs*/*
 
-# Quartus
+############
+# Quartus II 
+############
+
+*/db/*
+*/incremental_db/*
+*/simulation/*
+*.bak
+*.asm
+*.cdf
+*.done
+*.drc
+*.eda
+*.fit
+*.fit.smsg
+*.summary
+*.flow
+*.jdi
+*.map
+*.map.smsg
+*.map.summary
+*.merge
+*.merge_summary
+*.htm
+*.report
+*.smsg
+*.qws
+*.sld
 *.sof
+*.rpt
