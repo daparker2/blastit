@@ -228,6 +228,9 @@ pip-log.txt
 */db/*
 */incremental_db/*
 */simulation/*
+*/output_files/*
+*/timing/*
+*/board/*
 *.bak
 *.asm
 *.cdf
