@@ -254,3 +254,28 @@ pip-log.txt
 *.sld
 *.sof
 *.rpt
+
+#######
+# Qsys
+#######
+*/.qsys_edit/*
+
+##########
+# Eclipse
+##########
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# auto generated Qsys stuff
+controller.csv
+controller.html
+controller_tb.csv
