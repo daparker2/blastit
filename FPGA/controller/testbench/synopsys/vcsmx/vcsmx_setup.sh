@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.10.21:10:06
+# ACDS 13.1 162 win32 2018.07.11.00:26:07
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -65,7 +65,6 @@ mkdir -p ./libraries/cmd_xbar_mux_001/
 mkdir -p ./libraries/cmd_xbar_mux/
 mkdir -p ./libraries/cmd_xbar_demux_001/
 mkdir -p ./libraries/cmd_xbar_demux/
-mkdir -p ./libraries/limiter/
 mkdir -p ./libraries/id_router_003/
 mkdir -p ./libraries/id_router_001/
 mkdir -p ./libraries/id_router/
@@ -79,20 +78,26 @@ mkdir -p ./libraries/nios2_qsys_0_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
+mkdir -p ./libraries/ign_en/
 mkdir -p ./libraries/jtag_uart_0/
 mkdir -p ./libraries/boost/
-mkdir -p ./libraries/disp_en/
+mkdir -p ./libraries/warning_en/
+mkdir -p ./libraries/command_en/
+mkdir -p ./libraries/system_status/
+mkdir -p ./libraries/disp_en_brightness/
 mkdir -p ./libraries/command_rx/
 mkdir -p ./libraries/command_tx/
-mkdir -p ./libraries/ign/
 mkdir -p ./libraries/iram/
 mkdir -p ./libraries/sysid_c001/
 mkdir -p ./libraries/dram/
 mkdir -p ./libraries/nios2_qsys_0/
+mkdir -p ./libraries/controller_inst_ign_en_bfm/
 mkdir -p ./libraries/controller_inst_boost_bfm/
-mkdir -p ./libraries/controller_inst_disp_en_bfm/
+mkdir -p ./libraries/controller_inst_warning_en_bfm/
+mkdir -p ./libraries/controller_inst_command_en_bfm/
+mkdir -p ./libraries/controller_inst_system_status_bfm/
+mkdir -p ./libraries/controller_inst_disp_en_brightness_bfm/
 mkdir -p ./libraries/controller_inst_command_rx_bfm/
-mkdir -p ./libraries/controller_inst_ign_bfm/
 mkdir -p ./libraries/controller_inst_command_tx_bfm/
 mkdir -p ./libraries/controller_inst_clk_bfm/
 mkdir -p ./libraries/controller_inst/
@@ -108,15 +113,6 @@ mkdir -p ./libraries/cycloneiii_ver/
 if [ $SKIP_FILE_COPY -eq 0 ]; then
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.hex ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.mif ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.mif ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.mif ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.dat ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.hex ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.mif ./
@@ -155,10 +151,6 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv"        -work cmd_xbar_mux                                                                     
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv"  -work cmd_xbar_demux_001                                                               
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv"      -work cmd_xbar_demux                                                                   
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_merlin_traffic_limiter.sv"                    -work limiter                                                                          
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_merlin_reorder_memory.sv"                     -work limiter                                                                          
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_sc_fifo.v"                             -work limiter                                                                          
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_st_pipeline_base.v"                    -work limiter                                                                          
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_003.sv"       -work id_router_003                                                                    
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_001.sv"       -work id_router_001                                                                    
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router.sv"           -work id_router                                                                        
@@ -174,26 +166,31 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v"                         -work rst_controller                                                                   
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv"                            -work irq_mapper                                                                       
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v"                      -work mm_interconnect_0                                                                
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_ign_en.v"                                 -work ign_en                                                                           
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v"                            -work jtag_uart_0                                                                      
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_boost.v"                                  -work boost                                                                            
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_disp_en.v"                                -work disp_en                                                                          
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_warning_en.v"                             -work warning_en                                                                       
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_en.v"                             -work command_en                                                                       
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_system_status.v"                          -work system_status                                                                    
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_disp_en_brightness.v"                     -work disp_en_brightness                                                               
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_rx.v"                             -work command_rx                                                                       
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_tx.v"                             -work command_tx                                                                       
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_ign.v"                                    -work ign                                                                              
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.v"                                   -work iram                                                                             
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo"                            -work sysid_c001                                                                       
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.v"                                   -work dram                                                                             
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0.vo"                          -work nios2_qsys_0                                                                     
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0.v"                           -work nios2_qsys_0                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v"  -work nios2_qsys_0                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_tck.v"     -work nios2_qsys_0                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_wrapper.v" -work nios2_qsys_0                                                                     
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_mult_cell.v"                 -work nios2_qsys_0                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_oci_test_bench.v"            -work nios2_qsys_0                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_test_bench.v"                -work nios2_qsys_0                                                                     
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"                          -work controller_inst_boost_bfm                                                        
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"                          -work controller_inst_disp_en_bfm                                                      
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"                          -work controller_inst_command_rx_bfm                                                   
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"                          -work controller_inst_ign_bfm                                                          
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv"                          -work controller_inst_ign_en_bfm                                                       
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv"                          -work controller_inst_boost_bfm                                                        
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv"                          -work controller_inst_warning_en_bfm                                                   
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"                          -work controller_inst_command_en_bfm                                                   
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"                          -work controller_inst_system_status_bfm                                                
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"                          -work controller_inst_disp_en_brightness_bfm                                           
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"                          -work controller_inst_command_rx_bfm                                                   
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv"                               -work controller_inst_command_tx_bfm                                                   
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_clock_source.sv"                       -work controller_inst_clk_bfm                                                          
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller.v"                                        -work controller_inst                                                                  

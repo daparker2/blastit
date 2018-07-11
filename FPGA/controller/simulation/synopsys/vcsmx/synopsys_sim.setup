@@ -10,7 +10,6 @@ cmd_xbar_mux_001:                                                               
 cmd_xbar_mux:                                                                      ./libraries/cmd_xbar_mux/                                                                     
 cmd_xbar_demux_001:                                                                ./libraries/cmd_xbar_demux_001/                                                               
 cmd_xbar_demux:                                                                    ./libraries/cmd_xbar_demux/                                                                   
-limiter:                                                                           ./libraries/limiter/                                                                          
 id_router_003:                                                                     ./libraries/id_router_003/                                                                    
 id_router_001:                                                                     ./libraries/id_router_001/                                                                    
 id_router:                                                                         ./libraries/id_router/                                                                        
@@ -24,12 +23,15 @@ nios2_qsys_0_instruction_master_translator:                                     
 rst_controller:                                                                    ./libraries/rst_controller/                                                                   
 irq_mapper:                                                                        ./libraries/irq_mapper/                                                                       
 mm_interconnect_0:                                                                 ./libraries/mm_interconnect_0/                                                                
+ign_en:                                                                            ./libraries/ign_en/                                                                           
 jtag_uart_0:                                                                       ./libraries/jtag_uart_0/                                                                      
 boost:                                                                             ./libraries/boost/                                                                            
-disp_en:                                                                           ./libraries/disp_en/                                                                          
+warning_en:                                                                        ./libraries/warning_en/                                                                       
+command_en:                                                                        ./libraries/command_en/                                                                       
+system_status:                                                                     ./libraries/system_status/                                                                    
+disp_en_brightness:                                                                ./libraries/disp_en_brightness/                                                               
 command_rx:                                                                        ./libraries/command_rx/                                                                       
 command_tx:                                                                        ./libraries/command_tx/                                                                       
-ign:                                                                               ./libraries/ign/                                                                              
 iram:                                                                              ./libraries/iram/                                                                             
 sysid_c001:                                                                        ./libraries/sysid_c001/                                                                       
 dram:                                                                              ./libraries/dram/                                                                             

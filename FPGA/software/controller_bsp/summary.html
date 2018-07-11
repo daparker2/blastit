@@ -22,10 +22,10 @@
 <td width="20%" bgcolor="#77BBFF">BSP Version:</td><td>default</td>
 </tr>
 <tr mode="wrap">
-<td width="20%" bgcolor="#77BBFF">BSP Generated On:</td><td>Jul 10, 2018 9:13:32 PM</td>
+<td width="20%" bgcolor="#77BBFF">BSP Generated On:</td><td>Jul 11, 2018 12:30:23 AM</td>
 </tr>
 <tr mode="wrap">
-<td width="20%" bgcolor="#77BBFF">BSP Generated Timestamp:</td><td>1531282412113</td>
+<td width="20%" bgcolor="#77BBFF">BSP Generated Timestamp:</td><td>1531294223675</td>
 </tr>
 <tr mode="wrap">
 <td width="20%" bgcolor="#77BBFF">BSP Generated Location:</td><td>C:\github\blastit\FPGA\software\controller_bsp</td>
@@ -38,73 +38,55 @@
 <th align="left" width="20%">Slave Descriptor</th><th align="left" width="40%">Address Range</th><th align="left" width="20%">Size</th><th align="left" width="20%">Attributes</th>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>sysid_c001</td><td>0x00002140 - 0x00002147</td><td>8</td><td class="listing">&nbsp;</td>
+<td>sysid_c001</td><td>0x00004100 - 0x00004107</td><td>8</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>jtag_uart_0</td><td>0x00002138 - 0x0000213F</td><td>8</td><td class="listing">printable</td>
+<td>jtag_uart_0</td><td>0x000040F8 - 0x000040FF</td><td>8</td><td class="listing">printable</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>ign</td><td>0x00002120 - 0x0000212F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>command_tx</td><td>0x000040E0 - 0x000040EF</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>command_tx</td><td>0x00002110 - 0x0000211F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>command_rx</td><td>0x000040D0 - 0x000040DF</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>command_rx</td><td>0x00002100 - 0x0000210F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>command_status</td><td>0x000040C0 - 0x000040CF</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>command_status</td><td>0x000020F0 - 0x000020FF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>disp_en_brightness</td><td>0x000040B0 - 0x000040BF</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>disp_en</td><td>0x000020E0 - 0x000020EF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>command_en</td><td>0x000040A0 - 0x000040AF</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>disp_brightness</td><td>0x000020D0 - 0x000020DF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>boost</td><td>0x00004090 - 0x0000409F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>daylight</td><td>0x000020C0 - 0x000020CF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>afr</td><td>0x00004080 - 0x0000408F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>conn</td><td>0x000020B0 - 0x000020BF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>oil_temp</td><td>0x00004070 - 0x0000407F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>err</td><td>0x000020A0 - 0x000020AF</td><td>16</td><td class="listing">&nbsp;</td>
+<td>coolant_temp</td><td>0x00004060 - 0x0000406F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>command_tx_en</td><td>0x00002090 - 0x0000209F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>intake_temp</td><td>0x00004050 - 0x0000405F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>command_rx_en</td><td>0x00002080 - 0x0000208F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>ign_en</td><td>0x00004040 - 0x0000404F</td><td>16</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>boost_wrn</td><td>0x00002070 - 0x0000207F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>system_status</td><td>0x00004020 - 0x0000403F</td><td>32</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>afr_wrn</td><td>0x00002060 - 0x0000206F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>warning_en</td><td>0x00004000 - 0x0000401F</td><td>32</td><td class="listing">&nbsp;</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>wrn</td><td>0x00002050 - 0x0000205F</td><td>16</td><td class="listing">&nbsp;</td>
+<td>dram</td><td>0x00002000 - 0x00002FFF</td><td>4096</td><td class="listing">memory</td>
 </tr>
 <tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>boost</td><td>0x00002040 - 0x0000204F</td><td>16</td><td class="listing">&nbsp;</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>afr</td><td>0x00002030 - 0x0000203F</td><td>16</td><td class="listing">&nbsp;</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>oil_temp</td><td>0x00002020 - 0x0000202F</td><td>16</td><td class="listing">&nbsp;</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>coolant_temp</td><td>0x00002010 - 0x0000201F</td><td>16</td><td class="listing">&nbsp;</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>intake_temp</td><td>0x00002000 - 0x0000200F</td><td>16</td><td class="listing">&nbsp;</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>dram</td><td>0x00001000 - 0x000017FF</td><td>2048</td><td class="listing">memory</td>
-</tr>
-<tr mode="wrap" STYLE="display: 'block'; font-family: 'courier'; color: '#000000'; font-weight: '500'; font-size: '14'; margin-top: '10pt'; text-align: 'left'">
-<td>iram</td><td>0x00000000 - 0x000007FF</td><td>2048</td><td class="listing">memory, non-volatile</td>
+<td>iram</td><td>0x00000000 - 0x00001FFF</td><td>8192</td><td class="listing">memory, non-volatile</td>
 </tr>
 </table>
 <br>

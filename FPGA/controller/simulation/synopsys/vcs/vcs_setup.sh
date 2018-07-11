@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.10.21:07:58
+# ACDS 13.1 162 win32 2018.07.11.00:24:44
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -55,15 +55,6 @@ fi
 if [ $SKIP_FILE_COPY -eq 0 ]; then
   cp -f $QSYS_SIMDIR/submodules/controller_iram.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_dram.hex ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_bht_ram.dat ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_bht_ram.hex ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_bht_ram.mif ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_dc_tag_ram.dat ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_dc_tag_ram.hex ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_dc_tag_ram.mif ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ic_tag_ram.dat ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ic_tag_ram.hex ./
-  cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ic_tag_ram.mif ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ociram_default_contents.dat ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ociram_default_contents.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_ociram_default_contents.mif ./
@@ -91,15 +82,12 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv \
-  $QSYS_SIMDIR/submodules/altera_merlin_traffic_limiter.sv \
-  $QSYS_SIMDIR/submodules/altera_merlin_reorder_memory.sv \
-  $QSYS_SIMDIR/submodules/altera_avalon_sc_fifo.v \
-  $QSYS_SIMDIR/submodules/altera_avalon_st_pipeline_base.v \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router_003.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_addr_router_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_addr_router.sv \
+  $QSYS_SIMDIR/submodules/altera_avalon_sc_fifo.v \
   $QSYS_SIMDIR/submodules/altera_merlin_slave_agent.sv \
   $QSYS_SIMDIR/submodules/altera_merlin_burst_uncompressor.sv \
   $QSYS_SIMDIR/submodules/altera_merlin_master_agent.sv \
@@ -109,20 +97,22 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v \
+  $QSYS_SIMDIR/submodules/controller_ign_en.v \
   $QSYS_SIMDIR/submodules/controller_jtag_uart_0.v \
   $QSYS_SIMDIR/submodules/controller_boost.v \
-  $QSYS_SIMDIR/submodules/controller_disp_en.v \
+  $QSYS_SIMDIR/submodules/controller_warning_en.v \
+  $QSYS_SIMDIR/submodules/controller_command_en.v \
+  $QSYS_SIMDIR/submodules/controller_system_status.v \
+  $QSYS_SIMDIR/submodules/controller_disp_en_brightness.v \
   $QSYS_SIMDIR/submodules/controller_command_rx.v \
   $QSYS_SIMDIR/submodules/controller_command_tx.v \
-  $QSYS_SIMDIR/submodules/controller_ign.v \
   $QSYS_SIMDIR/submodules/controller_iram.v \
   $QSYS_SIMDIR/submodules/controller_sysid_c001.vo \
   $QSYS_SIMDIR/submodules/controller_dram.v \
-  $QSYS_SIMDIR/submodules/controller_nios2_qsys_0.vo \
+  $QSYS_SIMDIR/submodules/controller_nios2_qsys_0.v \
   $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v \
   $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_jtag_debug_module_tck.v \
   $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_jtag_debug_module_wrapper.v \
-  $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_mult_cell.v \
   $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_oci_test_bench.v \
   $QSYS_SIMDIR/submodules/controller_nios2_qsys_0_test_bench.v \
   $QSYS_SIMDIR/controller.v \

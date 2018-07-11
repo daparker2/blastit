@@ -21,15 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
-         type = "int";
-      }
-   }
-   element controller_inst_afr_wrn_bfm
-   {
-      datum _sortIndex
-      {
-         value = "14";
+         value = "10";
          type = "int";
       }
    }
@@ -37,15 +29,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
-         type = "int";
-      }
-   }
-   element controller_inst_boost_wrn_bfm
-   {
-      datum _sortIndex
-      {
-         value = "13";
+         value = "9";
          type = "int";
       }
    }
@@ -57,19 +41,19 @@
          type = "int";
       }
    }
+   element controller_inst_command_en_bfm
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
    element controller_inst_command_rx_bfm
    {
       datum _sortIndex
       {
-         value = "4";
-         type = "int";
-      }
-   }
-   element controller_inst_command_rx_en_bfm
-   {
-      datum _sortIndex
-      {
-         value = "12";
+         value = "3";
          type = "int";
       }
    }
@@ -77,7 +61,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -89,67 +73,27 @@
          type = "int";
       }
    }
-   element controller_inst_command_tx_en_bfm
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
-      }
-   }
-   element controller_inst_conn_bfm
-   {
-      datum _sortIndex
-      {
-         value = "9";
-         type = "int";
-      }
-   }
    element controller_inst_coolant_temp_bfm
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "12";
          type = "int";
       }
    }
-   element controller_inst_daylight_bfm
+   element controller_inst_disp_en_brightness_bfm
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "5";
          type = "int";
       }
    }
-   element controller_inst_disp_brightness_bfm
+   element controller_inst_ign_en_bfm
    {
       datum _sortIndex
       {
-         value = "7";
-         type = "int";
-      }
-   }
-   element controller_inst_disp_en_bfm
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
-   element controller_inst_err_bfm
-   {
-      datum _sortIndex
-      {
-         value = "10";
-         type = "int";
-      }
-   }
-   element controller_inst_ign_bfm
-   {
-      datum _sortIndex
-      {
-         value = "3";
+         value = "14";
          type = "int";
       }
    }
@@ -157,7 +101,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "13";
          type = "int";
       }
    }
@@ -165,15 +109,23 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "11";
          type = "int";
       }
    }
-   element controller_inst_wrn_bfm
+   element controller_inst_system_status_bfm
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "6";
+         type = "int";
+      }
+   }
+   element controller_inst_warning_en_bfm
+   {
+      datum _sortIndex
+      {
+         value = "8";
          type = "int";
       }
    }
@@ -189,7 +141,7 @@
  <parameter name="globalResetBus" value="false" />
  <parameter name="hdlLanguage" value="VERILOG" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
+ <parameter name="projectName" value="blastit.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="timeStamp" value="0" />
@@ -227,17 +179,6 @@
    kind="altera_conduit_bfm"
    version="13.1"
    enabled="1"
-   name="controller_inst_ign_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="output" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
    name="controller_inst_command_rx_bfm">
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
@@ -260,110 +201,44 @@
    kind="altera_conduit_bfm"
    version="13.1"
    enabled="1"
-   name="controller_inst_disp_en_bfm">
+   name="controller_inst_disp_en_brightness_bfm">
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
+  <parameter name="SIGNAL_WIDTHS" value="9" />
   <parameter name="SIGNAL_DIRECTIONS" value="input" />
  </module>
  <module
    kind="altera_conduit_bfm"
    version="13.1"
    enabled="1"
-   name="controller_inst_disp_brightness_bfm">
+   name="controller_inst_system_status_bfm">
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="8" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_daylight_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
+  <parameter name="SIGNAL_WIDTHS" value="3" />
   <parameter name="SIGNAL_DIRECTIONS" value="output" />
  </module>
  <module
    kind="altera_conduit_bfm"
    version="13.1"
    enabled="1"
-   name="controller_inst_conn_bfm">
+   name="controller_inst_command_en_bfm">
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
+  <parameter name="SIGNAL_WIDTHS" value="2" />
   <parameter name="SIGNAL_DIRECTIONS" value="input" />
  </module>
  <module
    kind="altera_conduit_bfm"
    version="13.1"
    enabled="1"
-   name="controller_inst_err_bfm">
+   name="controller_inst_warning_en_bfm">
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_command_tx_en_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_command_rx_en_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_boost_wrn_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_afr_wrn_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
-  <parameter name="SIGNAL_DIRECTIONS" value="input" />
- </module>
- <module
-   kind="altera_conduit_bfm"
-   version="13.1"
-   enabled="1"
-   name="controller_inst_wrn_bfm">
-  <parameter name="CLOCKED_SIGNAL" value="false" />
-  <parameter name="ENABLE_RESET" value="false" />
-  <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="1" />
+  <parameter name="SIGNAL_WIDTHS" value="3" />
   <parameter name="SIGNAL_DIRECTIONS" value="input" />
  </module>
  <module
@@ -421,6 +296,17 @@
   <parameter name="SIGNAL_WIDTHS" value="12" />
   <parameter name="SIGNAL_DIRECTIONS" value="input" />
  </module>
+ <module
+   kind="altera_conduit_bfm"
+   version="13.1"
+   enabled="1"
+   name="controller_inst_ign_en_bfm">
+  <parameter name="CLOCKED_SIGNAL" value="false" />
+  <parameter name="ENABLE_RESET" value="false" />
+  <parameter name="SIGNAL_ROLES" value="export" />
+  <parameter name="SIGNAL_WIDTHS" value="1" />
+  <parameter name="SIGNAL_DIRECTIONS" value="input" />
+ </module>
  <connection
    kind="clock"
    version="13.1"
@@ -431,17 +317,6 @@
    version="13.1"
    start="controller_inst_command_tx_bfm.conduit"
    end="controller_inst.command_tx">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_ign_bfm.conduit"
-   end="controller_inst.ign">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -473,8 +348,8 @@
  <connection
    kind="conduit"
    version="13.1"
-   start="controller_inst_disp_en_bfm.conduit"
-   end="controller_inst.disp_en">
+   start="controller_inst_disp_en_brightness_bfm.conduit"
+   end="controller_inst.disp_en_brightness">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -484,8 +359,8 @@
  <connection
    kind="conduit"
    version="13.1"
-   start="controller_inst_disp_brightness_bfm.conduit"
-   end="controller_inst.disp_brightness">
+   start="controller_inst_system_status_bfm.conduit"
+   end="controller_inst.system_status">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -495,8 +370,8 @@
  <connection
    kind="conduit"
    version="13.1"
-   start="controller_inst_daylight_bfm.conduit"
-   end="controller_inst.daylight">
+   start="controller_inst_command_en_bfm.conduit"
+   end="controller_inst.command_en">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -506,74 +381,8 @@
  <connection
    kind="conduit"
    version="13.1"
-   start="controller_inst_conn_bfm.conduit"
-   end="controller_inst.conn">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_err_bfm.conduit"
-   end="controller_inst.err">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_command_tx_en_bfm.conduit"
-   end="controller_inst.command_tx_en">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_command_rx_en_bfm.conduit"
-   end="controller_inst.command_rx_en">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_boost_wrn_bfm.conduit"
-   end="controller_inst.boost_wrn">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_afr_wrn_bfm.conduit"
-   end="controller_inst.afr_wrn">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="13.1"
-   start="controller_inst_wrn_bfm.conduit"
-   end="controller_inst.wrn">
+   start="controller_inst_warning_en_bfm.conduit"
+   end="controller_inst.warning_en">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -629,6 +438,17 @@
    version="13.1"
    start="controller_inst_intake_temp_bfm.conduit"
    end="controller_inst.intake_temp">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="13.1"
+   start="controller_inst_ign_en_bfm.conduit"
+   end="controller_inst.ign_en">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />

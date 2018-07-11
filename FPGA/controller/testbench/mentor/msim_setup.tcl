@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.10.21:10:06
+# ACDS 13.1 162 win32 2018.07.11.00:26:07
 
 # ----------------------------------------
 # Auto-generated simulation script
@@ -51,15 +51,6 @@ alias file_copy {
   echo "\[exec\] file_copy"
   file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.hex ./
   file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.hex ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.dat ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.hex ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.mif ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.dat ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.hex ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.mif ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.dat ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.hex ./
-  file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.mif ./
   file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.dat ./
   file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.hex ./
   file copy -force $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.mif ./
@@ -110,8 +101,6 @@ ensure_lib                                                                      
 vmap       cmd_xbar_demux_001                                                                ./libraries/cmd_xbar_demux_001/                                                               
 ensure_lib                                                                                   ./libraries/cmd_xbar_demux/                                                                   
 vmap       cmd_xbar_demux                                                                    ./libraries/cmd_xbar_demux/                                                                   
-ensure_lib                                                                                   ./libraries/limiter/                                                                          
-vmap       limiter                                                                           ./libraries/limiter/                                                                          
 ensure_lib                                                                                   ./libraries/id_router_003/                                                                    
 vmap       id_router_003                                                                     ./libraries/id_router_003/                                                                    
 ensure_lib                                                                                   ./libraries/id_router_001/                                                                    
@@ -138,18 +127,24 @@ ensure_lib                                                                      
 vmap       irq_mapper                                                                        ./libraries/irq_mapper/                                                                       
 ensure_lib                                                                                   ./libraries/mm_interconnect_0/                                                                
 vmap       mm_interconnect_0                                                                 ./libraries/mm_interconnect_0/                                                                
+ensure_lib                                                                                   ./libraries/ign_en/                                                                           
+vmap       ign_en                                                                            ./libraries/ign_en/                                                                           
 ensure_lib                                                                                   ./libraries/jtag_uart_0/                                                                      
 vmap       jtag_uart_0                                                                       ./libraries/jtag_uart_0/                                                                      
 ensure_lib                                                                                   ./libraries/boost/                                                                            
 vmap       boost                                                                             ./libraries/boost/                                                                            
-ensure_lib                                                                                   ./libraries/disp_en/                                                                          
-vmap       disp_en                                                                           ./libraries/disp_en/                                                                          
+ensure_lib                                                                                   ./libraries/warning_en/                                                                       
+vmap       warning_en                                                                        ./libraries/warning_en/                                                                       
+ensure_lib                                                                                   ./libraries/command_en/                                                                       
+vmap       command_en                                                                        ./libraries/command_en/                                                                       
+ensure_lib                                                                                   ./libraries/system_status/                                                                    
+vmap       system_status                                                                     ./libraries/system_status/                                                                    
+ensure_lib                                                                                   ./libraries/disp_en_brightness/                                                               
+vmap       disp_en_brightness                                                                ./libraries/disp_en_brightness/                                                               
 ensure_lib                                                                                   ./libraries/command_rx/                                                                       
 vmap       command_rx                                                                        ./libraries/command_rx/                                                                       
 ensure_lib                                                                                   ./libraries/command_tx/                                                                       
 vmap       command_tx                                                                        ./libraries/command_tx/                                                                       
-ensure_lib                                                                                   ./libraries/ign/                                                                              
-vmap       ign                                                                               ./libraries/ign/                                                                              
 ensure_lib                                                                                   ./libraries/iram/                                                                             
 vmap       iram                                                                              ./libraries/iram/                                                                             
 ensure_lib                                                                                   ./libraries/sysid_c001/                                                                       
@@ -158,14 +153,20 @@ ensure_lib                                                                      
 vmap       dram                                                                              ./libraries/dram/                                                                             
 ensure_lib                                                                                   ./libraries/nios2_qsys_0/                                                                     
 vmap       nios2_qsys_0                                                                      ./libraries/nios2_qsys_0/                                                                     
+ensure_lib                                                                                   ./libraries/controller_inst_ign_en_bfm/                                                       
+vmap       controller_inst_ign_en_bfm                                                        ./libraries/controller_inst_ign_en_bfm/                                                       
 ensure_lib                                                                                   ./libraries/controller_inst_boost_bfm/                                                        
 vmap       controller_inst_boost_bfm                                                         ./libraries/controller_inst_boost_bfm/                                                        
-ensure_lib                                                                                   ./libraries/controller_inst_disp_en_bfm/                                                      
-vmap       controller_inst_disp_en_bfm                                                       ./libraries/controller_inst_disp_en_bfm/                                                      
+ensure_lib                                                                                   ./libraries/controller_inst_warning_en_bfm/                                                   
+vmap       controller_inst_warning_en_bfm                                                    ./libraries/controller_inst_warning_en_bfm/                                                   
+ensure_lib                                                                                   ./libraries/controller_inst_command_en_bfm/                                                   
+vmap       controller_inst_command_en_bfm                                                    ./libraries/controller_inst_command_en_bfm/                                                   
+ensure_lib                                                                                   ./libraries/controller_inst_system_status_bfm/                                                
+vmap       controller_inst_system_status_bfm                                                 ./libraries/controller_inst_system_status_bfm/                                                
+ensure_lib                                                                                   ./libraries/controller_inst_disp_en_brightness_bfm/                                           
+vmap       controller_inst_disp_en_brightness_bfm                                            ./libraries/controller_inst_disp_en_brightness_bfm/                                           
 ensure_lib                                                                                   ./libraries/controller_inst_command_rx_bfm/                                                   
 vmap       controller_inst_command_rx_bfm                                                    ./libraries/controller_inst_command_rx_bfm/                                                   
-ensure_lib                                                                                   ./libraries/controller_inst_ign_bfm/                                                          
-vmap       controller_inst_ign_bfm                                                           ./libraries/controller_inst_ign_bfm/                                                          
 ensure_lib                                                                                   ./libraries/controller_inst_command_tx_bfm/                                                   
 vmap       controller_inst_command_tx_bfm                                                    ./libraries/controller_inst_command_tx_bfm/                                                   
 ensure_lib                                                                                   ./libraries/controller_inst_clk_bfm/                                                          
@@ -204,10 +205,6 @@ alias com {
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv"        -L altera_common_sv_packages -work cmd_xbar_mux                                                                     
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv"  -L altera_common_sv_packages -work cmd_xbar_demux_001                                                               
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv"      -L altera_common_sv_packages -work cmd_xbar_demux                                                                   
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_merlin_traffic_limiter.sv"                    -L altera_common_sv_packages -work limiter                                                                          
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_merlin_reorder_memory.sv"                     -L altera_common_sv_packages -work limiter                                                                          
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_sc_fifo.v"                             -L altera_common_sv_packages -work limiter                                                                          
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_st_pipeline_base.v"                    -L altera_common_sv_packages -work limiter                                                                          
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_003.sv"       -L altera_common_sv_packages -work id_router_003                                                                    
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_001.sv"       -L altera_common_sv_packages -work id_router_001                                                                    
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router.sv"           -L altera_common_sv_packages -work id_router                                                                        
@@ -223,26 +220,31 @@ alias com {
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v"                                                      -work rst_controller                                                                   
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv"                            -L altera_common_sv_packages -work irq_mapper                                                                       
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v"                                                   -work mm_interconnect_0                                                                
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_ign_en.v"                                                              -work ign_en                                                                           
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v"                                                         -work jtag_uart_0                                                                      
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_boost.v"                                                               -work boost                                                                            
-  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_disp_en.v"                                                             -work disp_en                                                                          
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_warning_en.v"                                                          -work warning_en                                                                       
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_en.v"                                                          -work command_en                                                                       
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_system_status.v"                                                       -work system_status                                                                    
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_disp_en_brightness.v"                                                  -work disp_en_brightness                                                               
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_rx.v"                                                          -work command_rx                                                                       
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_tx.v"                                                          -work command_tx                                                                       
-  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_ign.v"                                                                 -work ign                                                                              
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.v"                                                                -work iram                                                                             
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo"                                                         -work sysid_c001                                                                       
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.v"                                                                -work dram                                                                             
-  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0.vo"                                                       -work nios2_qsys_0                                                                     
+  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0.v"                                                        -work nios2_qsys_0                                                                     
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v"                               -work nios2_qsys_0                                                                     
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_tck.v"                                  -work nios2_qsys_0                                                                     
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_wrapper.v"                              -work nios2_qsys_0                                                                     
-  vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_mult_cell.v"                                              -work nios2_qsys_0                                                                     
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_oci_test_bench.v"                                         -work nios2_qsys_0                                                                     
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_test_bench.v"                                             -work nios2_qsys_0                                                                     
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"                          -L altera_common_sv_packages -work controller_inst_boost_bfm                                                        
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"                          -L altera_common_sv_packages -work controller_inst_disp_en_bfm                                                      
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"                          -L altera_common_sv_packages -work controller_inst_command_rx_bfm                                                   
-  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"                          -L altera_common_sv_packages -work controller_inst_ign_bfm                                                          
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv"                          -L altera_common_sv_packages -work controller_inst_ign_en_bfm                                                       
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv"                          -L altera_common_sv_packages -work controller_inst_boost_bfm                                                        
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv"                          -L altera_common_sv_packages -work controller_inst_warning_en_bfm                                                   
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"                          -L altera_common_sv_packages -work controller_inst_command_en_bfm                                                   
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"                          -L altera_common_sv_packages -work controller_inst_system_status_bfm                                                
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"                          -L altera_common_sv_packages -work controller_inst_disp_en_brightness_bfm                                           
+  vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"                          -L altera_common_sv_packages -work controller_inst_command_rx_bfm                                                   
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv"                               -L altera_common_sv_packages -work controller_inst_command_tx_bfm                                                   
   vlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_clock_source.sv"                       -L altera_common_sv_packages -work controller_inst_clk_bfm                                                          
   vlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller.v"                                                                     -work controller_inst                                                                  
@@ -253,14 +255,14 @@ alias com {
 # Elaborate top level design
 alias elab {
   echo "\[exec\] elab"
-  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_001 -L rsp_xbar_demux -L cmd_xbar_mux_001 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L limiter -L id_router_003 -L id_router_001 -L id_router -L addr_router_001 -L addr_router -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2_qsys_0_instruction_master_translator_avalon_universal_master_0_agent -L nios2_qsys_0_jtag_debug_module_translator -L nios2_qsys_0_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L jtag_uart_0 -L boost -L disp_en -L command_rx -L command_tx -L ign -L iram -L sysid_c001 -L dram -L nios2_qsys_0 -L controller_inst_boost_bfm -L controller_inst_disp_en_bfm -L controller_inst_command_rx_bfm -L controller_inst_ign_bfm -L controller_inst_command_tx_bfm -L controller_inst_clk_bfm -L controller_inst -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_001 -L rsp_xbar_demux -L cmd_xbar_mux_001 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_003 -L id_router_001 -L id_router -L addr_router_001 -L addr_router -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2_qsys_0_instruction_master_translator_avalon_universal_master_0_agent -L nios2_qsys_0_jtag_debug_module_translator -L nios2_qsys_0_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L ign_en -L jtag_uart_0 -L boost -L warning_en -L command_en -L system_status -L disp_en_brightness -L command_rx -L command_tx -L iram -L sysid_c001 -L dram -L nios2_qsys_0 -L controller_inst_ign_en_bfm -L controller_inst_boost_bfm -L controller_inst_warning_en_bfm -L controller_inst_command_en_bfm -L controller_inst_system_status_bfm -L controller_inst_disp_en_brightness_bfm -L controller_inst_command_rx_bfm -L controller_inst_command_tx_bfm -L controller_inst_clk_bfm -L controller_inst -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------
 # Elaborate the top level design with novopt option
 alias elab_debug {
   echo "\[exec\] elab_debug"
-  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_001 -L rsp_xbar_demux -L cmd_xbar_mux_001 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L limiter -L id_router_003 -L id_router_001 -L id_router -L addr_router_001 -L addr_router -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2_qsys_0_instruction_master_translator_avalon_universal_master_0_agent -L nios2_qsys_0_jtag_debug_module_translator -L nios2_qsys_0_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L jtag_uart_0 -L boost -L disp_en -L command_rx -L command_tx -L ign -L iram -L sysid_c001 -L dram -L nios2_qsys_0 -L controller_inst_boost_bfm -L controller_inst_disp_en_bfm -L controller_inst_command_rx_bfm -L controller_inst_ign_bfm -L controller_inst_command_tx_bfm -L controller_inst_clk_bfm -L controller_inst -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_001 -L rsp_xbar_demux -L cmd_xbar_mux_001 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_003 -L id_router_001 -L id_router -L addr_router_001 -L addr_router -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2_qsys_0_instruction_master_translator_avalon_universal_master_0_agent -L nios2_qsys_0_jtag_debug_module_translator -L nios2_qsys_0_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L ign_en -L jtag_uart_0 -L boost -L warning_en -L command_en -L system_status -L disp_en_brightness -L command_rx -L command_tx -L iram -L sysid_c001 -L dram -L nios2_qsys_0 -L controller_inst_ign_en_bfm -L controller_inst_boost_bfm -L controller_inst_warning_en_bfm -L controller_inst_command_en_bfm -L controller_inst_system_status_bfm -L controller_inst_disp_en_brightness_bfm -L controller_inst_command_rx_bfm -L controller_inst_command_tx_bfm -L controller_inst_clk_bfm -L controller_inst -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------

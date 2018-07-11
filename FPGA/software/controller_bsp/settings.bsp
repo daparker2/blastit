@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jul 10, 2018 9:13:32 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1531282412113</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 11, 2018 12:30:23 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1531294223675</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\github\blastit\FPGA\software\controller_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\github\blastit\FPGA\controller.sopcinfo</SopcDesignFile>
@@ -864,139 +864,103 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>iram</slaveDescriptor>
-                <addressRange>0x00000000 - 0x000007FF</addressRange>
-                <addressSpan>2048</addressSpan>
+                <addressRange>0x00000000 - 0x00001FFF</addressRange>
+                <addressSpan>8192</addressSpan>
                 <attributes>memory, non-volatile</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dram</slaveDescriptor>
-                <addressRange>0x00001000 - 0x000017FF</addressRange>
-                <addressSpan>2048</addressSpan>
+                <addressRange>0x00002000 - 0x00002FFF</addressRange>
+                <addressSpan>4096</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>warning_en</slaveDescriptor>
+                <addressRange>0x00004000 - 0x0000401F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>system_status</slaveDescriptor>
+                <addressRange>0x00004020 - 0x0000403F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>ign_en</slaveDescriptor>
+                <addressRange>0x00004040 - 0x0000404F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>intake_temp</slaveDescriptor>
-                <addressRange>0x00002000 - 0x0000200F</addressRange>
+                <addressRange>0x00004050 - 0x0000405F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>coolant_temp</slaveDescriptor>
-                <addressRange>0x00002010 - 0x0000201F</addressRange>
+                <addressRange>0x00004060 - 0x0000406F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>oil_temp</slaveDescriptor>
-                <addressRange>0x00002020 - 0x0000202F</addressRange>
+                <addressRange>0x00004070 - 0x0000407F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>afr</slaveDescriptor>
-                <addressRange>0x00002030 - 0x0000203F</addressRange>
+                <addressRange>0x00004080 - 0x0000408F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>boost</slaveDescriptor>
-                <addressRange>0x00002040 - 0x0000204F</addressRange>
+                <addressRange>0x00004090 - 0x0000409F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>wrn</slaveDescriptor>
-                <addressRange>0x00002050 - 0x0000205F</addressRange>
+                <slaveDescriptor>command_en</slaveDescriptor>
+                <addressRange>0x000040A0 - 0x000040AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>afr_wrn</slaveDescriptor>
-                <addressRange>0x00002060 - 0x0000206F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>boost_wrn</slaveDescriptor>
-                <addressRange>0x00002070 - 0x0000207F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_rx_en</slaveDescriptor>
-                <addressRange>0x00002080 - 0x0000208F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_tx_en</slaveDescriptor>
-                <addressRange>0x00002090 - 0x0000209F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>err</slaveDescriptor>
-                <addressRange>0x000020A0 - 0x000020AF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>conn</slaveDescriptor>
-                <addressRange>0x000020B0 - 0x000020BF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>daylight</slaveDescriptor>
-                <addressRange>0x000020C0 - 0x000020CF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>disp_brightness</slaveDescriptor>
-                <addressRange>0x000020D0 - 0x000020DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>disp_en</slaveDescriptor>
-                <addressRange>0x000020E0 - 0x000020EF</addressRange>
+                <slaveDescriptor>disp_en_brightness</slaveDescriptor>
+                <addressRange>0x000040B0 - 0x000040BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>command_status</slaveDescriptor>
-                <addressRange>0x000020F0 - 0x000020FF</addressRange>
+                <addressRange>0x000040C0 - 0x000040CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>command_rx</slaveDescriptor>
-                <addressRange>0x00002100 - 0x0000210F</addressRange>
+                <addressRange>0x000040D0 - 0x000040DF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>command_tx</slaveDescriptor>
-                <addressRange>0x00002110 - 0x0000211F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>ign</slaveDescriptor>
-                <addressRange>0x00002120 - 0x0000212F</addressRange>
+                <addressRange>0x000040E0 - 0x000040EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x00002138 - 0x0000213F</addressRange>
+                <addressRange>0x000040F8 - 0x000040FF</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_c001</slaveDescriptor>
-                <addressRange>0x00002140 - 0x00002147</addressRange>
+                <addressRange>0x00004100 - 0x00004107</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

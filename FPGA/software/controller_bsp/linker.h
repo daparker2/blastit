@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Tue Jul 10 20:57:21 PDT 2018
+ * Generated: Wed Jul 11 00:30:24 PDT 2018
  */
 
 /*
@@ -65,10 +65,10 @@
  *
  */
 
-#define DRAM_REGION_BASE 0x1000
-#define DRAM_REGION_SPAN 2048
+#define DRAM_REGION_BASE 0x2000
+#define DRAM_REGION_SPAN 4096
 #define IRAM_REGION_BASE 0x20
-#define IRAM_REGION_SPAN 2016
+#define IRAM_REGION_SPAN 8160
 #define RESET_REGION_BASE 0x0
 #define RESET_REGION_SPAN 32
 

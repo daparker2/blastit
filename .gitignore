@@ -274,6 +274,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.force_rebuild_all
 
 # auto generated Qsys stuff
 controller.csv

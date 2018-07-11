@@ -117,8 +117,8 @@ ELF_PATCH_FLAG  += --cpu_name $(CPU_NAME)
 ALT_CFLAGS += -mno-hw-div
 
 # Hardware Multiplier present. 
-# setting HARDWARE_MULTIPLY is true
-ALT_CFLAGS += -mhw-mul
+# setting HARDWARE_MULTIPLY is false
+ALT_CFLAGS += -mno-hw-mul
 
 # Hardware Mulx present. 
 # setting HARDWARE_MULX is false
@@ -147,14 +147,14 @@ SOPC_SYSID_FLAG += --id=49153
 ELF_PATCH_FLAG  += --id 49153
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x2140
-SOPC_SYSID_FLAG += --sidp=0x2140
-ELF_PATCH_FLAG  += --sidp 0x2140
+# setting SOPC_SYSID_BASE_ADDRESS is 0x4100
+SOPC_SYSID_FLAG += --sidp=0x4100
+ELF_PATCH_FLAG  += --sidp 0x4100
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1531282209
-SOPC_SYSID_FLAG += --timestamp=1531282209
-ELF_PATCH_FLAG  += --timestamp 1531282209
+# setting SOPC_TIMESTAMP is 1531293970
+SOPC_SYSID_FLAG += --timestamp=1531293970
+ELF_PATCH_FLAG  += --timestamp 1531293970
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 

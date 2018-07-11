@@ -54,22 +54,6 @@
    type="SYSTEM_VERILOG"
    library="cmd_xbar_demux" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/altera_merlin_traffic_limiter.sv"
-   type="SYSTEM_VERILOG"
-   library="limiter" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/altera_merlin_reorder_memory.sv"
-   type="SYSTEM_VERILOG"
-   library="limiter" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/altera_avalon_sc_fifo.v"
-   type="SYSTEM_VERILOG"
-   library="limiter" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/altera_avalon_st_pipeline_base.v"
-   type="SYSTEM_VERILOG"
-   library="limiter" />
- <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_003.sv"
    type="SYSTEM_VERILOG"
    library="id_router_003" />
@@ -134,6 +118,10 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_ign_en.v"
+   type="VERILOG"
+   library="ign_en" />
+ <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_jtag_uart_0.v"
    type="VERILOG"
    library="jtag_uart_0" />
@@ -142,9 +130,21 @@
    type="VERILOG"
    library="boost" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_disp_en.v"
+   path="controller/testbench/controller_tb/simulation/submodules/controller_warning_en.v"
    type="VERILOG"
-   library="disp_en" />
+   library="warning_en" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_command_en.v"
+   type="VERILOG"
+   library="command_en" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_system_status.v"
+   type="VERILOG"
+   library="system_status" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_disp_en_brightness.v"
+   type="VERILOG"
+   library="disp_en_brightness" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_command_rx.v"
    type="VERILOG"
@@ -153,10 +153,6 @@
    path="controller/testbench/controller_tb/simulation/submodules/controller_command_tx.v"
    type="VERILOG"
    library="command_tx" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_ign.v"
-   type="VERILOG"
-   library="ign" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_iram.hex"
    type="HEX"
@@ -178,52 +174,12 @@
    type="VERILOG"
    library="dram" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0.ocp"
-   type="OTHER"
-   library="nios2_qsys_0" />
- <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0.sdc"
    type="SDC"
    library="nios2_qsys_0" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0.vo"
+   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0.v"
    type="VERILOG"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.hex"
-   type="HEX"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_bht_ram.mif"
-   type="MIF"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.hex"
-   type="HEX"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_dc_tag_ram.mif"
-   type="MIF"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.dat"
-   type="DAT"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.hex"
-   type="HEX"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_ic_tag_ram.mif"
-   type="MIF"
    library="nios2_qsys_0" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v"
@@ -235,10 +191,6 @@
    library="nios2_qsys_0" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_wrapper.v"
-   type="VERILOG"
-   library="nios2_qsys_0" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_nios2_qsys_0_mult_cell.v"
    type="VERILOG"
    library="nios2_qsys_0" />
  <file
@@ -290,21 +242,33 @@
    type="VERILOG"
    library="nios2_qsys_0" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"
+   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv"
+   type="SYSTEM_VERILOG"
+   library="controller_inst_ign_en_bfm" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv"
    type="SYSTEM_VERILOG"
    library="controller_inst_boost_bfm" />
  <file
+   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv"
+   type="SYSTEM_VERILOG"
+   library="controller_inst_warning_en_bfm" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"
+   type="SYSTEM_VERILOG"
+   library="controller_inst_command_en_bfm" />
+ <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_disp_en_bfm" />
+   library="controller_inst_system_status_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_command_rx_bfm" />
+   library="controller_inst_disp_en_brightness_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_ign_bfm" />
+   library="controller_inst_command_rx_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm.sv"
    type="SYSTEM_VERILOG"

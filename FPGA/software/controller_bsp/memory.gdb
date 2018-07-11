@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'controller'
 # SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
 #
-# Generated: Tue Jul 10 20:57:21 PDT 2018
+# Generated: Wed Jul 11 00:30:24 PDT 2018
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,7 +47,7 @@
 # by allowing GDB to cache memory contents on the host.
 
 # iram
-memory 0x0 0x800 cache
+memory 0x0 0x2000 cache
 
 # dram
-memory 0x1000 0x1800 cache
+memory 0x2000 0x3000 cache

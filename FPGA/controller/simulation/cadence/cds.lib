@@ -17,7 +17,6 @@ DEFINE cmd_xbar_mux_001                                                         
 DEFINE cmd_xbar_mux                                                                      ./libraries/cmd_xbar_mux/                                                                     
 DEFINE cmd_xbar_demux_001                                                                ./libraries/cmd_xbar_demux_001/                                                               
 DEFINE cmd_xbar_demux                                                                    ./libraries/cmd_xbar_demux/                                                                   
-DEFINE limiter                                                                           ./libraries/limiter/                                                                          
 DEFINE id_router_003                                                                     ./libraries/id_router_003/                                                                    
 DEFINE id_router_001                                                                     ./libraries/id_router_001/                                                                    
 DEFINE id_router                                                                         ./libraries/id_router/                                                                        
@@ -31,12 +30,15 @@ DEFINE nios2_qsys_0_instruction_master_translator                               
 DEFINE rst_controller                                                                    ./libraries/rst_controller/                                                                   
 DEFINE irq_mapper                                                                        ./libraries/irq_mapper/                                                                       
 DEFINE mm_interconnect_0                                                                 ./libraries/mm_interconnect_0/                                                                
+DEFINE ign_en                                                                            ./libraries/ign_en/                                                                           
 DEFINE jtag_uart_0                                                                       ./libraries/jtag_uart_0/                                                                      
 DEFINE boost                                                                             ./libraries/boost/                                                                            
-DEFINE disp_en                                                                           ./libraries/disp_en/                                                                          
+DEFINE warning_en                                                                        ./libraries/warning_en/                                                                       
+DEFINE command_en                                                                        ./libraries/command_en/                                                                       
+DEFINE system_status                                                                     ./libraries/system_status/                                                                    
+DEFINE disp_en_brightness                                                                ./libraries/disp_en_brightness/                                                               
 DEFINE command_rx                                                                        ./libraries/command_rx/                                                                       
 DEFINE command_tx                                                                        ./libraries/command_tx/                                                                       
-DEFINE ign                                                                               ./libraries/ign/                                                                              
 DEFINE iram                                                                              ./libraries/iram/                                                                             
 DEFINE sysid_c001                                                                        ./libraries/sysid_c001/                                                                       
 DEFINE dram                                                                              ./libraries/dram/                                                                             
