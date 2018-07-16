@@ -21,7 +21,7 @@ module pwm
 		if (reset)
 			begin
 				out <= in;
-				counter = 0;
+				counter <= 0;
 			end
 		else
 			begin

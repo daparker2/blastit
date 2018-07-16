@@ -225,23 +225,6 @@ GenerateClassCluster=0
 DocumentUniqueId=RHSXYGGH
 
 [Document12]
-DocumentPath=Hole2.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=SNXUOFAG
-
-[Document13]
 DocumentPath=Hole3.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -258,7 +241,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=HKUBOUUA
 
-[Document14]
+[Document13]
 DocumentPath=Hole4.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -275,7 +258,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AFNCLVEJ
 
-[Document15]
+[Document14]
 DocumentPath=LED_Readout_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -292,7 +275,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TGSLUBGB
 
-[Document16]
+[Document15]
 DocumentPath=Boost_Bar_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -309,7 +292,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=FJTUUVBP
 
-[Document17]
+[Document16]
 DocumentPath=AFR_Bar_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -1323,7 +1306,7 @@ ComponentLibIdentifierKind1=Library Name And Type
 ComponentLibraryIdentifier1=Miscellaneous Devices.IntLib
 ComponentDesignItemID1=Res1
 ComponentSymbolReference1=Res1
-ComponentUpdate1=0
+ComponentUpdate1=1
 ComponentIsDeviceSheet1=0
 ComponentLibIdentifierKind2=Library Name And Type
 ComponentLibraryIdentifier2=schematics.SchLib
@@ -1355,19 +1338,13 @@ ComponentDesignItemID6=TDSR1050
 ComponentSymbolReference6=TDSR1050
 ComponentUpdate6=0
 ComponentIsDeviceSheet6=0
-ComponentLibIdentifierKind7=Library Name And Type
-ComponentLibraryIdentifier7=schematics.SchLib
-ComponentDesignItemID7=TDSR1350
-ComponentSymbolReference7=TDSR1350
-ComponentUpdate7=0
-ComponentIsDeviceSheet7=0
 FullReplace=0
 UpdateDesignatorLock=1
 UpdatePartIDLock=1
 PreserveParameterLocations=1
 PreserveParameterVisibility=1
-DoGraphics=1
-DoParameters=1
+DoGraphics=0
+DoParameters=0
 DoModels=1
 AddParameters=0
 RemoveParameters=0
@@ -1409,7 +1386,7 @@ ModelType1=PCBLIB
 ModelName1=DIODE_0603
 ModelUpdate1=1
 ModelType2=PCBLIB
-ModelName2=HEADER_4POS
+ModelName2=HEADER_4POS_UART
 ModelUpdate2=1
 ModelType3=PCBLIB
 ModelName3=HOLE_3MM
@@ -1423,22 +1400,19 @@ ModelUpdate5=1
 ModelType6=PCBLIB
 ModelName6=TDSR1050
 ModelUpdate6=1
-ModelType7=PCBLIB
-ModelName7=TDSR1350
-ModelUpdate7=1
 ModelTypeGroup1=SI
 ModelTypeUpdate1=1
-ModelType8=SI
-ModelName8=Res
-ModelUpdate8=1
+ModelType7=SI
+ModelName7=Res
+ModelUpdate7=1
 ModelTypeGroup2=SIM
 ModelTypeUpdate2=1
+ModelType8=SIM
+ModelName8=LED0
+ModelUpdate8=1
 ModelType9=SIM
-ModelName9=LED0
+ModelName9=RESISTOR
 ModelUpdate9=1
-ModelType10=SIM
-ModelName10=RESISTOR
-ModelUpdate10=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
