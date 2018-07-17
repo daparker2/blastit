@@ -7,7 +7,7 @@ module uart
 				 SB_TICK = 16,	 // # ticks for stop bits
 									 // 16/24/32 for 1/1.5/2 bits
 				 DVSR = 163,	 // baud rate divisor
-									 // DVSR = 50M(16 * baud rate)
+									 // DVSR = 50M/(16 * baud rate)
 				 DVSR_BIT = 8,	 // 8 bits of DVSR
 				 FIFO_W = 2     // # addr bits of FIFO
 									 // # words on FIFO=2^FIFO_W

@@ -95,8 +95,8 @@ module led_bar
 			out_en_next = 0;
 			if (val_en)
 				begin
-					in_en_next[i_next] = 1'b1 & b_en & en;
-					out_en_next[o_next] = 1'b1 & b_en & en;
+					in_en_next = (1'b1 & b_en & en) << i_next;
+					out_en_next = (1'b1 & b_en & en) << o_next;
 				end
 		end
 			
