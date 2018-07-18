@@ -1,10 +1,10 @@
 /*
  * linker.h - Linker script mapping information
  *
- * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'controller'
+ * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Wed Jul 11 00:30:24 PDT 2018
+ * Generated: Tue Jul 17 20:50:20 PDT 2018
  */
 
 /*
@@ -65,10 +65,10 @@
  *
  */
 
-#define DRAM_REGION_BASE 0x2000
-#define DRAM_REGION_SPAN 4096
-#define IRAM_REGION_BASE 0x20
-#define IRAM_REGION_SPAN 8160
+#define INTERRUPT_STACK_REGION_BASE 0x3c00
+#define INTERRUPT_STACK_REGION_SPAN 1024
+#define ONCHIP_MEMORY_REGION_BASE 0x20
+#define ONCHIP_MEMORY_REGION_SPAN 15328
 #define RESET_REGION_BASE 0x0
 #define RESET_REGION_SPAN 32
 
@@ -78,11 +78,11 @@
  *
  */
 
-#define ALT_EXCEPTIONS_DEVICE IRAM
-#define ALT_RESET_DEVICE IRAM
-#define ALT_RODATA_DEVICE DRAM
-#define ALT_RWDATA_DEVICE DRAM
-#define ALT_TEXT_DEVICE IRAM
+#define ALT_EXCEPTIONS_DEVICE ONCHIP_MEMORY
+#define ALT_RESET_DEVICE ONCHIP_MEMORY
+#define ALT_RODATA_DEVICE ONCHIP_MEMORY
+#define ALT_RWDATA_DEVICE ONCHIP_MEMORY
+#define ALT_TEXT_DEVICE ONCHIP_MEMORY
 
 
 /*
@@ -98,7 +98,14 @@
  *
  */
 
-#define ALT_LOAD_COPY_RODATA
 #define ALT_LOAD_COPY_RWDATA
+
+
+/*
+ * Use a separate interrupt stack
+ *
+ */
+
+#define ALT_INTERRUPT_STACK
 
 #endif /* __LINKER_H_ */

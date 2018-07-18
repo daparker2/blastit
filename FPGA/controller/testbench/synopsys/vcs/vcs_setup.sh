@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.11.00:26:07
+# ACDS 13.1 162 win32 2018.07.17.20:32:56
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -53,17 +53,16 @@ fi
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
 if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_ociram_default_contents.mif ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_a.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_a.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_a.mif ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_b.dat ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_b.hex ./
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_rf_ram_b.mif ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_memory.hex ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.dat ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.hex ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.mif ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_a.dat ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_a.hex ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_a.mif ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_b.dat ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_b.hex ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_rf_ram_b.mif ./
 fi
 
 vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS \
@@ -77,14 +76,12 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_merlin_arbitrator.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_mux_001.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_mux.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux_001.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux_001.sv \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux_002.sv \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux_002.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_003.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_001.sv \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router_002.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_id_router.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_addr_router_001.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0_addr_router.sv \
@@ -98,32 +95,18 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_ign_en.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_memory.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_jtag_debug_module_sysclk.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_jtag_debug_module_tck.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_jtag_debug_module_wrapper.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_oci_test_bench.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_test_bench.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_boost.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_warning_en.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_en.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_system_status.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_disp_en_brightness.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_rx.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_command_tx.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_iram.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_dram.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_tck.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_jtag_debug_module_wrapper.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_oci_test_bench.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2_qsys_0_test_bench.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_reset_source.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_clock_source.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller.v \
   $QSYS_SIMDIR/controller_tb/simulation/controller_tb.v \

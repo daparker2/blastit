@@ -108,8 +108,8 @@ ALT_CPPFLAGS += -D__hal__
 BSP_TYPE := hal
 
 # CPU Name 
-# setting CPU_NAME is nios2_qsys_0
-CPU_NAME = nios2_qsys_0
+# setting CPU_NAME is nios2e
+CPU_NAME = nios2e
 ELF_PATCH_FLAG  += --cpu_name $(CPU_NAME)
 
 # Hardware Divider present. 
@@ -147,14 +147,14 @@ SOPC_SYSID_FLAG += --id=49153
 ELF_PATCH_FLAG  += --id 49153
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x4100
-SOPC_SYSID_FLAG += --sidp=0x4100
-ELF_PATCH_FLAG  += --sidp 0x4100
+# setting SOPC_SYSID_BASE_ADDRESS is 0x9030
+SOPC_SYSID_FLAG += --sidp=0x9030
+ELF_PATCH_FLAG  += --sidp 0x9030
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1531293970
-SOPC_SYSID_FLAG += --timestamp=1531293970
-ELF_PATCH_FLAG  += --timestamp 1531293970
+# setting SOPC_TIMESTAMP is 1531884779
+SOPC_SYSID_FLAG += --timestamp=1531884779
+ELF_PATCH_FLAG  += --timestamp 1531884779
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 

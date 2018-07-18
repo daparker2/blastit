@@ -79,13 +79,22 @@
  */
 
 #include "sys/alt_stdio.h"
+#include "system.h"
+#include "altera_avalon_pio_regs.h"
 
 int main()
 { 
-  alt_putstr("Hello from Nios II!\n");
+	int en = 0;
+	//alt_putstr("Hello from Nios II!\n");
 
-  /* Event loop never exits. */
-  while (1);
+	/* Event loop never exits. */
+	while (1)
+	{
+		//alt_putstr("Hello from Nios II!\n");
+		en = ~en;
+		IOWR_ALTERA_AVALON_PIO_SET_BITS(WARNING_EN_BASE, en & 0x1);
+		while (100);
+	}
 
-  return 0;
+	return 0;
 }

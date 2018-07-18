@@ -1,10 +1,10 @@
 /*
  * alt_sys_init.c - HAL initialization source
  *
- * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'controller'
+ * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Tue Jul 10 21:12:45 PDT 2018
+ * Generated: Tue Jul 17 20:40:33 PDT 2018
  */
 
 /*
@@ -66,7 +66,7 @@
  * Allocate the device storage
  */
 
-ALTERA_NIOS2_QSYS_IRQ_INSTANCE ( NIOS2_QSYS_0, nios2_qsys_0);
+ALTERA_NIOS2_QSYS_IRQ_INSTANCE ( NIOS2E, nios2e);
 ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_C001, sysid_c001);
 
@@ -80,7 +80,7 @@ ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_C001, sysid_c001);
 
 void alt_irq_init ( const void* base )
 {
-    ALTERA_NIOS2_QSYS_IRQ_INIT ( NIOS2_QSYS_0, nios2_qsys_0);
+    ALTERA_NIOS2_QSYS_IRQ_INIT ( NIOS2E, nios2e);
     alt_irq_cpu_enable_interrupts();
 }
 

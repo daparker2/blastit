@@ -1,9 +1,9 @@
 # memory.gdb - GDB memory region definitions
 #
-# Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'controller'
+# Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
 # SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
 #
-# Generated: Wed Jul 11 00:30:24 PDT 2018
+# Generated: Tue Jul 17 20:40:33 PDT 2018
 
 # DO NOT MODIFY THIS FILE
 #
@@ -46,8 +46,5 @@
 # The cache attribute is specified which improves GDB performance
 # by allowing GDB to cache memory contents on the host.
 
-# iram
-memory 0x0 0x2000 cache
-
-# dram
-memory 0x2000 0x3000 cache
+# onchip_memory
+memory 0x0 0x4000 cache

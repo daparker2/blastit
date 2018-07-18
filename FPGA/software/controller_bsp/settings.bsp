@@ -2,13 +2,13 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jul 11, 2018 12:30:23 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1531294223675</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 17, 2018 9:07:14 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1531886834415</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\github\blastit\FPGA\software\controller_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\github\blastit\FPGA\controller.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
-        <Cpu>nios2_qsys_0</Cpu>
+        <Cpu>nios2e</Cpu>
         <SchemaVersion>1.9</SchemaVersion>
         <Setting>
                 <SettingName>hal.sys_clk_timer</SettingName>
@@ -50,7 +50,7 @@
                 <SettingName>hal.enable_instruction_related_exceptions_api</SettingName>
                 <Identifier>ALT_INCLUDE_INSTRUCTION_RELATED_EXCEPTION_API</Identifier>
                 <Type>BooleanDefineOnly</Type>
-                <Value>false</Value>
+                <Value>true</Value>
                 <DefaultValue>false</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Enables API for registering handlers to service instruction-related exceptions. Enabling this setting increases the size of the exception entry code.</Description>
@@ -86,7 +86,7 @@
                 <SettingName>hal.linker.enable_alt_load_copy_rodata</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Causes the alt_load() facility to copy the .rodata section. If true, this setting defines the macro ALT_LOAD_COPY_RODATA in linker.h.</Description>
@@ -146,7 +146,7 @@
                 <SettingName>hal.linker.exception_stack_memory_region_name</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>dram</Value>
+                <Value>onchip_memory</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'exception_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'exception_stack' memory region.</Description>
@@ -158,7 +158,7 @@
                 <SettingName>hal.linker.enable_interrupt_stack</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Enables use of a separate interrupt stack. If true, defines the macro ALT_INTERRUPT_STACK in linker.h, adds a memory region called interrupt_stack to linker.x, and provides the symbols __alt_interrupt_stack_pointer and __alt_interrupt_stack_limit in linker.x.</Description>
@@ -182,7 +182,7 @@
                 <SettingName>hal.linker.interrupt_stack_memory_region_name</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>dram</Value>
+                <Value>onchip_memory</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'interrupt_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'interrupt_stack' memory region.</Description>
@@ -863,129 +863,51 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <MemoryMap>
-                <slaveDescriptor>iram</slaveDescriptor>
-                <addressRange>0x00000000 - 0x00001FFF</addressRange>
-                <addressSpan>8192</addressSpan>
-                <attributes>memory, non-volatile</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dram</slaveDescriptor>
-                <addressRange>0x00002000 - 0x00002FFF</addressRange>
-                <addressSpan>4096</addressSpan>
+                <slaveDescriptor>onchip_memory</slaveDescriptor>
+                <addressRange>0x00000000 - 0x00003FFF</addressRange>
+                <addressSpan>16384</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>warning_en</slaveDescriptor>
-                <addressRange>0x00004000 - 0x0000401F</addressRange>
+                <addressRange>0x00009000 - 0x0000901F</addressRange>
                 <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>system_status</slaveDescriptor>
-                <addressRange>0x00004020 - 0x0000403F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>ign_en</slaveDescriptor>
-                <addressRange>0x00004040 - 0x0000404F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>intake_temp</slaveDescriptor>
-                <addressRange>0x00004050 - 0x0000405F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>coolant_temp</slaveDescriptor>
-                <addressRange>0x00004060 - 0x0000406F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>oil_temp</slaveDescriptor>
-                <addressRange>0x00004070 - 0x0000407F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>afr</slaveDescriptor>
-                <addressRange>0x00004080 - 0x0000408F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>boost</slaveDescriptor>
-                <addressRange>0x00004090 - 0x0000409F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_en</slaveDescriptor>
-                <addressRange>0x000040A0 - 0x000040AF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>disp_en_brightness</slaveDescriptor>
-                <addressRange>0x000040B0 - 0x000040BF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_status</slaveDescriptor>
-                <addressRange>0x000040C0 - 0x000040CF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_rx</slaveDescriptor>
-                <addressRange>0x000040D0 - 0x000040DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>command_tx</slaveDescriptor>
-                <addressRange>0x000040E0 - 0x000040EF</addressRange>
-                <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x000040F8 - 0x000040FF</addressRange>
+                <addressRange>0x00009028 - 0x0000902F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_c001</slaveDescriptor>
-                <addressRange>0x00004100 - 0x00004107</addressRange>
+                <addressRange>0x00009030 - 0x00009037</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>
-                <regionName>iram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rodata</sectionName>
-                <regionName>dram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rwdata</sectionName>
-                <regionName>dram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.bss</sectionName>
-                <regionName>dram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.heap</sectionName>
-                <regionName>dram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.stack</sectionName>
-                <regionName>dram</regionName>
+                <regionName>onchip_memory</regionName>
         </LinkerSection>
 </sch:Settings>
