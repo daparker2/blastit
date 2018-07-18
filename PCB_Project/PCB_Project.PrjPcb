@@ -38,6 +38,23 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
+DocumentPath=RevB.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=CSAGVXAD
+
+[Document2]
 DocumentPath=RevA.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -54,7 +71,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=MVNVIPDF
 
-[Document2]
+[Document3]
 DocumentPath=schematics.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -71,7 +88,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CCDMFCYL
 
-[Document3]
+[Document4]
 DocumentPath=footprints.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -88,7 +105,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=RSYAVRIH
 
-[Document4]
+[Document5]
 DocumentPath=RevA.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -105,7 +122,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document5]
+[Document6]
 DocumentPath=4pcb.RUL
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -122,7 +139,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document6]
+[Document7]
 DocumentPath=Core.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -139,8 +156,8 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QIBFKIJU
 
-[Document7]
-DocumentPath=Uart_and_Daylight_Sensor.SchDoc
+[Document8]
+DocumentPath=Uart.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -156,7 +173,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=FCXNPBCA
 
-[Document8]
+[Document9]
 DocumentPath=LED_Readout_and_Warning_Lights.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -173,7 +190,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=UEQJMKQP
 
-[Document9]
+[Document10]
 DocumentPath=Boost_Bar.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -190,7 +207,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QITEKSDQ
 
-[Document10]
+[Document11]
 DocumentPath=AFR_bar.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -207,7 +224,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TGANEEGV
 
-[Document11]
+[Document12]
 DocumentPath=Hole1.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -224,7 +241,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=RHSXYGGH
 
-[Document12]
+[Document13]
 DocumentPath=Hole3.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -241,7 +258,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=HKUBOUUA
 
-[Document13]
+[Document14]
 DocumentPath=Hole4.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -258,7 +275,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AFNCLVEJ
 
-[Document14]
+[Document15]
 DocumentPath=LED_Readout_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -275,7 +292,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TGSLUBGB
 
-[Document15]
+[Document16]
 DocumentPath=Boost_Bar_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -292,7 +309,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=FJTUUVBP
 
-[Document16]
+[Document17]
 DocumentPath=AFR_Bar_Termination_Resistors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -309,8 +326,46 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=RNVCVOVK
 
+[Document18]
+DocumentPath=Debug.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=IGNVHUEE
+
+[Document19]
+DocumentPath=Daylight_Sensor_Network.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=FLKBDSCI
+
 [GeneratedDocument1]
 DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevA.html
+DItemRevisionGUID=
+
+[GeneratedDocument2]
+DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevB.html
 DItemRevisionGUID=
 
 [Configuration1]
