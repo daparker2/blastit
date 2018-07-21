@@ -1,13 +1,15 @@
 module sseg
 (
 	input wire[3:0] num,
-	input wire dp, sign,
+	input wire en, dp, sign,
 	output reg[7:0] hex
 );
 
 	always @*
 	begin
-		if (sign)
+		if (en)
+			hex[7:0] <= 8'b11111111;
+		else if (sign)
 			hex[7:0] <= 8'b10111111;
 		else
 			case (num)

@@ -1,11 +1,12 @@
+// N bit precision signed binary to BCD converter with decimal point
 module bin2bcd
 #(
-	parameter BCD_N=4, // Number of BCD modules
-	          BIN_N=14 // Bit precision of decimal number
+	parameter BCD_N=4,  // Number of BCD modules
+	          BIN_N=14  // Bit precision of decimal number
 )
 (
 	input wire clk, reset,
-	input wire start,
+	input wire start, sign,      // Sign is 1 for negative, 0 for positive
 	input wire [BIN_N-1:0] bin,
 	output reg ready, done_tick,
 	output wire [(BCD_N*4)-1:0] bcd
@@ -64,7 +65,10 @@ always @*
 							for (i = 0; i <= BCD_N-1; i = i + 1)
 								bcd_next[i] = 0;
 							n_next = (BCD_N * 3) + 1; // index
-							p2s_next = bin;   // shift register
+							if (sign)
+								p2s_next = ~bin + 1;
+							else
+								p2s_next = bin;   // shift register
 							state_next = op;
 						end
 				end

@@ -2,16 +2,18 @@
 
 module bin2bcd_testbench;
 
-	localparam N = 4;
+	localparam BCD_N = 4,
+	           BIN_N = 14;
 	localparam T = 20;
 	
 	integer i;
 	reg clk, reset, start;
-	reg [12:0] bin;
+	reg [BIN_N:0] bin;
 	wire ready, done_tick;
-	wire [3:0] bcd3, bcd2, bcd1, bcd0;
+	wire [(4*BCD_N)-1:0] bcd;
 	
-	bin2bcd uut(clk, reset, start, bin, ready, done_tick, { bcd3, bcd2, bcd1, bcd0 });
+	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BIN_N)) uut(.clk(clk), .reset(reset), .start(start), .sign(bin[BIN_N]),
+                                               .bin(bin[BIN_N-1:0]), .ready(ready), .done_tick(done_tick), .bcd(bcd));
 	
 	// set up the clock
 	always
@@ -30,22 +32,28 @@ module bin2bcd_testbench;
 		reset = 1'b0;
 	end
 	
+	task bin2bcd_test;
+		input reg [BIN_N:0] data;
+		begin
+			bin = data;
+			start = 1'b1;
+			#(T);
+			start = 1'b0;
+			while (!ready)
+				#(T);
+				
+			$display("data=%d bcd=%h", data, bcd);
+		end
+	endtask
+	
 	initial
 	begin
 		start = 1'b0;
 		@(negedge reset);
 		@(negedge clk);
 		
-		for (i = 0; i <= 1; i = i + 1)
-			begin
-				start = 1'b1;
-				bin = i;
-				@(negedge clk);
-				#(T);
-				start = 1'b0;
-				@(negedge done_tick);
-				#1000;
-			end
+		for (i = 0; i <= 16383; i = i + 1000)
+			bin2bcd_test(i);
 		
 		$stop;
 	end
