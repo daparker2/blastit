@@ -1,31 +1,57 @@
 module mod_m_counter
 #(
-	parameter N=4, // number of bits in counter
-	          M=10 // mod-M
+	parameter M_BITS=8 // number of bits in counter and clock output
 )
 (
 	input wire clk, reset,
+	input wire [M_BITS-1:0] m,  // mod-M
 	output wire max_tick,
-	output wire [N-1:0] q
+	output wire [M_BITS-1:0] q
 );
 
 // signal declaration
-reg [N-1:0] r_reg;
-wire [N-1:0] r_next;
+reg [M_BITS-1:0] r_reg, r_next;
+reg [M_BITS-1:0] m_reg, m_next;
+reg max_tick_reg, max_tick_next;
 
 // body
 // register
 always @(posedge clk, posedge reset)
 	if (reset)
-		r_reg <= 0;
+		begin
+			r_reg <= 0;
+			m_reg <= 0;
+			max_tick_reg <= 0;
+		end
 	else
-		r_reg <= r_next;
+		begin
+			r_reg <= r_next;
+			m_reg <= m_next;
+			max_tick_reg <= max_tick_next;
+		end
+		
+always @*
+	begin
+		m_next = m;
+		if (m_next != m_reg)
+			r_next = 0;
+		
+		r_next = r_reg;
+		if (r_next == (m_next - 1))
+			begin
+				max_tick_next = 1'b1;
+				r_next = 0;
+			end
+		else
+			begin
+				r_next = r_next + 1;
+				max_tick_next = 0;
+			end
+		
+	end
 
-// next-state logic
-assign r_next = (r_reg == (M - 1)) ? 1'b0 : r_reg + 1'b1;
-
-// output logic
+// output logic 
 assign q = r_reg;
-assign max_tick = (r_reg==(M-1)) ? 1'b1 : 1'b0;
+assign max_tick = max_tick_reg;
 
 endmodule

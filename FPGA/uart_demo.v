@@ -12,14 +12,18 @@ reg [7:0] tx_data_reg, tx_data_next;
 reg tx_en_reg, tx_en_next;
 reg reset_reg, reset_next;
 wire [7:0] rx_data;
-wire tx_full, rx_empty;
 wire rx_done_tick, tx_done_tick;
+wire tx_full, rx_empty;
+
+// Should be set up for 8 data bits, even parity, 1 stop bit, 115200 baud
 
 // body
 // instantinate uart
-uart #(.DBIT(8), .PARITY(1), .SB_TICK(16), .DVSR(163), .DVSR_BIT(8), .FIFO_W(2)) 
+uart #(.FIFO_R(2), .FIFO_W(2), .DVSR_BIT(8), .DBIT(8)) 
 	  uart_unit(
-		  .clk(clk), .reset(reset_reg), .rd_uart(~rx_empty), .wr_uart(tx_en_reg), 
+		  .clk(clk), .reset(reset_reg), 
+		  .dbit(8), .pbit(1), .sb_tick(32), .os_tick(32), .dvsr(13),
+		  .rd_uart(~rx_empty), .wr_uart(tx_en_reg), 
 		  .rx(rx), .w_data(tx_data_reg), .tx_full(tx_full), .rx_empty(rx_empty),
 		  .tx(tx), .r_data(rx_data), .tx_done_tick(tx_done_tick), .rx_done_tick(rx_done_tick)
 	  );
@@ -35,7 +39,7 @@ always @(posedge clk)
 		reset_reg <= reset_next;
 	end
 	  
-always @*
+always  @(posedge clk)
 	begin
 		tx_data_next = tx_data_reg;
 		tx_en_next = 1'b0;

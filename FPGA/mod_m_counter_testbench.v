@@ -2,13 +2,15 @@
 
 module mod_m_counter_testbench;
 
-localparam T = 20;
+localparam T = 20,
+           M_BITS = 8;
 
 reg clk, reset;
+reg [M_BITS-1:0] m;
 wire max_tick;
-wire [3:0] q;
+wire [M_BITS-1:0] q;
 
-mod_m_counter uut(clk, reset, max_tick, q);
+mod_m_counter #(.M_BITS(M_BITS)) uut(.clk(clk), .reset(reset), .m(m), .max_tick(max_tick), .q(q));
 
 // set up the clock
 always
@@ -31,6 +33,14 @@ initial
 initial
 	begin
 		@(negedge reset);
+		@(negedge clk);
+		
+		m = 16;
+		#2000;
+		@(negedge clk);
+		
+		m = 163;
+		#2000;
 		@(negedge clk);
 		
 		#2000;		

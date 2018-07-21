@@ -59,7 +59,5 @@ module blastit_demo_uart
 	//assign tx = UART_RX;
 	
 	assign UART_TX = tx;
-	assign LED[3] = tx;
-	assign LED[2] = UART_RX;
 	
 endmodule
