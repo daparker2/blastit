@@ -91,7 +91,7 @@ module sseg_array_testbench;
 		
 		begin
 			j = 0;
-			for (i = 0; i < 15; i = i + 1)
+			for (i = 0; i <= 15; i = i + 1)
 				begin
 					if (j == SSEG_BITS-1)
 						j = 0;
