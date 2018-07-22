@@ -25,7 +25,7 @@ module sseg_array
 	wire [7:0] cur_sseg;
 	wire [2**SSEG_BITS-1:0] cur_oe;
 	
-	pwm #(.N(PWM_BITS), .M(2**SSEG_BITS-1)) pwm1(.clk(clk), .reset(reset), .in(cur_oe), .w(brightness), .out(oe)); 
+	pwm #(.N(PWM_BITS), .M(SSEG_N)) pwm1(.clk(clk), .reset(reset), .in(cur_oe), .w(brightness), .out(oe)); 
 	pwm #(.N(PWM_BITS), .M(8)) pwm2(.clk(clk), .reset(reset), .in(cur_sseg), .w(brightness), .out(sseg));
 	sseg encoder(.num(val), .en(en), .sign(sign), .dp(dp), .hex(val_enc));
 		
