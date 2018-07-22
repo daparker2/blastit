@@ -35,17 +35,19 @@ always @*
 		m_next = m;
 		if (m_next != m_reg)
 			r_next = 0;
-		
-		r_next = r_reg;
-		if (r_next == (m_next - 1))
-			begin
-				max_tick_next = 1'b1;
-				r_next = 0;
-			end
 		else
 			begin
-				r_next = r_next + 1;
-				max_tick_next = 0;
+				r_next = r_reg;
+				if (r_next == (m_next - 1))
+					begin
+						max_tick_next = 1'b1;
+						r_next = 0;
+					end
+				else
+					begin
+						r_next = r_next + 1;
+						max_tick_next = 0;
+					end
 			end
 		
 	end
