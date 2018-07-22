@@ -33,6 +33,7 @@ always @(posedge clk, posedge reset)
 always @*
 	begin
 		m_next = m;
+		max_tick_next = max_tick_reg;
 		if (m_next != m_reg)
 			r_next = 0;
 		else

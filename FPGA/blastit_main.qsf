@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone III"
 set_global_assignment -name DEVICE EP3C16Q240C8
-set_global_assignment -name TOP_LEVEL_ENTITY tick_counter
+set_global_assignment -name TOP_LEVEL_ENTITY timer_counter
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:49:35  JULY 01, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
@@ -120,7 +120,7 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tick_counter_testbench -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH timer_counter_testbench -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME blinker_counter_testbench -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id blinker_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME blinker_counter_testbench -section_id blinker_counter_testbench
@@ -241,6 +241,11 @@ set_global_assignment -name EDA_TEST_BENCH_NAME led_matrix_testbench -section_id
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id led_matrix_testbench
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME led_matrix_testbench -section_id led_matrix_testbench
 set_global_assignment -name VERILOG_FILE tick_counter.v
+set_global_assignment -name VERILOG_FILE tick_counter_testbench.v
+set_global_assignment -name EDA_TEST_BENCH_NAME tick_counter_testbench -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id tick_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tick_counter_testbench -section_id tick_counter_testbench
+set_global_assignment -name VERILOG_FILE timer_counter.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -297,7 +302,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
-set_global_assignment -name VERILOG_FILE tick_counter_testbench.v
+set_global_assignment -name VERILOG_FILE timer_counter_testbench.v
 set_global_assignment -name EDA_TEST_BENCH_FILE blinker_counter_testbench.v -section_id blinker_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE led_bar_testbench.v -section_id led_bar_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE mod_m_counter_testbench.v -section_id mod_m_counter_testbench
@@ -306,8 +311,9 @@ set_global_assignment -name EDA_TEST_BENCH_FILE uart_testbench.v -section_id uar
 set_global_assignment -name EDA_TEST_BENCH_FILE bin2bcd_testbench.v -section_id bin2bcd_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE sseg_array_testbench.v -section_id sseg_array_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE led_matrix_testbench.v -section_id led_matrix_testbench
-set_global_assignment -name EDA_TEST_BENCH_NAME tick_counter_testbench -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id tick_counter_testbench
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tick_counter_testbench -section_id tick_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE tick_counter_testbench.v -section_id tick_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_NAME timer_counter_testbench -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id timer_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME timer_counter_testbench -section_id timer_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_FILE timer_counter_testbench.v -section_id timer_counter_testbench
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
