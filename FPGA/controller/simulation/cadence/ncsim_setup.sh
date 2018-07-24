@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.17.20:32:21
+# ACDS 13.1 162 win32 2018.07.23.21:22:09
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -75,10 +75,27 @@ mkdir -p ./libraries/nios2e_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
-mkdir -p ./libraries/onchip_memory/
+mkdir -p ./libraries/leds_boost_sel_addr/
+mkdir -p ./libraries/sseg_wr_val/
+mkdir -p ./libraries/sseg_wr_control/
+mkdir -p ./libraries/sseg_reset_control/
+mkdir -p ./libraries/sseg_sel_addr/
+mkdir -p ./libraries/bcd1_status/
+mkdir -p ./libraries/bcd1_bcd/
+mkdir -p ./libraries/bcd1_bin/
+mkdir -p ./libraries/uart1_tx_counter/
+mkdir -p ./libraries/uart1_r_data/
+mkdir -p ./libraries/uart1_baud_control/
+mkdir -p ./libraries/uart1_wr_control/
+mkdir -p ./libraries/uart1_reset_control/
+mkdir -p ./libraries/uart1_w_data/
+mkdir -p ./libraries/tc1_status/
+mkdir -p ./libraries/tc_reset/
+mkdir -p ./libraries/tc1_m/
+mkdir -p ./libraries/daylight/
+mkdir -p ./libraries/onchip_ram/
 mkdir -p ./libraries/nios2e/
 mkdir -p ./libraries/jtag_uart_0/
-mkdir -p ./libraries/warning_en/
 mkdir -p ./libraries/sysid_c001/
 mkdir -p ./libraries/altera_ver/
 mkdir -p ./libraries/lpm_ver/
@@ -90,7 +107,7 @@ mkdir -p ./libraries/cycloneiii_ver/
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
 if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/submodules/controller_onchip_memory.hex ./
+  cp -f $QSYS_SIMDIR/submodules/controller_onchip_ram.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.dat ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.mif ./
@@ -141,7 +158,25 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog     "$QSYS_SIMDIR/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                              -cdslib ./cds_libs/rst_controller.cds.lib                                                             
   ncvlog -sv "$QSYS_SIMDIR/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                  -cdslib ./cds_libs/irq_mapper.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                           -cdslib ./cds_libs/mm_interconnect_0.cds.lib                                                          
-  ncvlog     "$QSYS_SIMDIR/submodules/controller_onchip_memory.v"                         -work onchip_memory                                                               -cdslib ./cds_libs/onchip_memory.cds.lib                                                              
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                         -cdslib ./cds_libs/leds_boost_sel_addr.cds.lib                                                        
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                 -cdslib ./cds_libs/sseg_wr_val.cds.lib                                                                
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                             -cdslib ./cds_libs/sseg_wr_control.cds.lib                                                            
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_sseg_reset_control.v"                    -work sseg_reset_control                                                          -cdslib ./cds_libs/sseg_reset_control.cds.lib                                                         
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_sseg_sel_addr.v"                         -work sseg_sel_addr                                                               -cdslib ./cds_libs/sseg_sel_addr.cds.lib                                                              
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_status.v"                           -work bcd1_status                                                                 -cdslib ./cds_libs/bcd1_status.cds.lib                                                                
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bcd.v"                              -work bcd1_bcd                                                                    -cdslib ./cds_libs/bcd1_bcd.cds.lib                                                                   
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bin.v"                              -work bcd1_bin                                                                    -cdslib ./cds_libs/bcd1_bin.cds.lib                                                                   
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_tx_counter.v"                      -work uart1_tx_counter                                                            -cdslib ./cds_libs/uart1_tx_counter.cds.lib                                                           
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_r_data.v"                          -work uart1_r_data                                                                -cdslib ./cds_libs/uart1_r_data.cds.lib                                                               
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_baud_control.v"                    -work uart1_baud_control                                                          -cdslib ./cds_libs/uart1_baud_control.cds.lib                                                         
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_wr_control.v"                      -work uart1_wr_control                                                            -cdslib ./cds_libs/uart1_wr_control.cds.lib                                                           
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_reset_control.v"                   -work uart1_reset_control                                                         -cdslib ./cds_libs/uart1_reset_control.cds.lib                                                        
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_w_data.v"                          -work uart1_w_data                                                                -cdslib ./cds_libs/uart1_w_data.cds.lib                                                               
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_tc1_status.v"                            -work tc1_status                                                                  -cdslib ./cds_libs/tc1_status.cds.lib                                                                 
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_tc_reset.v"                              -work tc_reset                                                                    -cdslib ./cds_libs/tc_reset.cds.lib                                                                   
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_tc1_m.v"                                 -work tc1_m                                                                       -cdslib ./cds_libs/tc1_m.cds.lib                                                                      
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_daylight.v"                              -work daylight                                                                    -cdslib ./cds_libs/daylight.cds.lib                                                                   
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_onchip_ram.v"                            -work onchip_ram                                                                  -cdslib ./cds_libs/onchip_ram.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/submodules/controller_nios2e.v"                                -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
   ncvlog     "$QSYS_SIMDIR/submodules/controller_nios2e_jtag_debug_module_sysclk.v"       -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
   ncvlog     "$QSYS_SIMDIR/submodules/controller_nios2e_jtag_debug_module_tck.v"          -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
@@ -149,7 +184,6 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog     "$QSYS_SIMDIR/submodules/controller_nios2e_oci_test_bench.v"                 -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
   ncvlog     "$QSYS_SIMDIR/submodules/controller_nios2e_test_bench.v"                     -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
   ncvlog     "$QSYS_SIMDIR/submodules/controller_jtag_uart_0.v"                           -work jtag_uart_0                                                                 -cdslib ./cds_libs/jtag_uart_0.cds.lib                                                                
-  ncvlog     "$QSYS_SIMDIR/submodules/controller_warning_en.v"                            -work warning_en                                                                  -cdslib ./cds_libs/warning_en.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/submodules/controller_sysid_c001.vo"                           -work sysid_c001                                                                  -cdslib ./cds_libs/sysid_c001.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/controller.v"                                                                                                                                                                                                                                          
 fi

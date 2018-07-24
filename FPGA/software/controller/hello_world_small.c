@@ -84,17 +84,23 @@
 
 int main()
 { 
-	int en = 0;
-	//alt_putstr("Hello from Nios II!\n");
+  alt_putstr("Hello from Nios II!\n");
 
-	/* Event loop never exits. */
-	while (1)
-	{
-		//alt_putstr("Hello from Nios II!\n");
-		en = ~en;
-		IOWR_ALTERA_AVALON_PIO_SET_BITS(WARNING_EN_BASE, en & 0x1);
-		while (100);
-	}
+  /* Event loop never exits. */
+  while (1)
+  {
+	  unsigned int i;
 
-	return 0;
+	  for (i = 0; i < 25000000; ++i)
+	  {
+		  IOWR_ALTERA_AVALON_PIO_DATA(STATUS_LED_EN_BASE, 0xf);
+	  }
+
+	  for (i = 0; i < 25000000; ++i)
+	  {
+		  IOWR_ALTERA_AVALON_PIO_DATA(STATUS_LED_EN_BASE, 0x0);
+	  }
+  }
+
+  return 0;
 }

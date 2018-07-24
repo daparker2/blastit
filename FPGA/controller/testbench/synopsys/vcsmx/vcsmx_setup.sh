@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.17.20:32:56
+# ACDS 13.1 162 win32 2018.07.23.21:29:28
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -76,12 +76,44 @@ mkdir -p ./libraries/nios2e_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
-mkdir -p ./libraries/onchip_memory/
+mkdir -p ./libraries/leds_boost_sel_addr/
+mkdir -p ./libraries/sseg_wr_val/
+mkdir -p ./libraries/sseg_wr_control/
+mkdir -p ./libraries/sseg_reset_control/
+mkdir -p ./libraries/sseg_sel_addr/
+mkdir -p ./libraries/bcd1_status/
+mkdir -p ./libraries/bcd1_bcd/
+mkdir -p ./libraries/bcd1_bin/
+mkdir -p ./libraries/uart1_tx_counter/
+mkdir -p ./libraries/uart1_r_data/
+mkdir -p ./libraries/uart1_baud_control/
+mkdir -p ./libraries/uart1_wr_control/
+mkdir -p ./libraries/uart1_reset_control/
+mkdir -p ./libraries/uart1_w_data/
+mkdir -p ./libraries/tc1_status/
+mkdir -p ./libraries/tc_reset/
+mkdir -p ./libraries/tc1_m/
+mkdir -p ./libraries/daylight/
+mkdir -p ./libraries/onchip_ram/
 mkdir -p ./libraries/nios2e/
 mkdir -p ./libraries/jtag_uart_0/
-mkdir -p ./libraries/warning_en/
 mkdir -p ./libraries/sysid_c001/
-mkdir -p ./libraries/controller_inst_warning_en_bfm/
+mkdir -p ./libraries/controller_inst_leds_afr_sel_addr_bfm/
+mkdir -p ./libraries/controller_inst_sseg_wr_val_bfm/
+mkdir -p ./libraries/controller_inst_sseg_reset_control_bfm/
+mkdir -p ./libraries/controller_inst_bcd1_status_bfm/
+mkdir -p ./libraries/controller_inst_bcd1_bcd_bfm/
+mkdir -p ./libraries/controller_inst_bcd1_bin_bfm/
+mkdir -p ./libraries/controller_inst_uart1_tx_counter_bfm/
+mkdir -p ./libraries/controller_inst_uart1_r_data_bfm/
+mkdir -p ./libraries/controller_inst_uart1_baud_control_bfm/
+mkdir -p ./libraries/controller_inst_uart1_wr_control_bfm/
+mkdir -p ./libraries/controller_inst_uart1_reset_control_bfm/
+mkdir -p ./libraries/controller_inst_uart1_w_data_bfm/
+mkdir -p ./libraries/controller_inst_tc1_status_bfm/
+mkdir -p ./libraries/controller_inst_tc_reset_bfm/
+mkdir -p ./libraries/controller_inst_tc1_m_bfm/
+mkdir -p ./libraries/controller_inst_daylight_bfm/
 mkdir -p ./libraries/controller_inst_reset_bfm/
 mkdir -p ./libraries/controller_inst_clock_50_bfm/
 mkdir -p ./libraries/controller_inst/
@@ -95,7 +127,7 @@ mkdir -p ./libraries/cycloneiii_ver/
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
 if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_memory.hex ./
+  cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_ram.hex ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.dat ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.hex ./
   cp -f $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_ociram_default_contents.mif ./
@@ -147,7 +179,25 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                             
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                          
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_memory.v"                         -work onchip_memory                                                              
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                        
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                            
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_reset_control.v"                    -work sseg_reset_control                                                         
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_sel_addr.v"                         -work sseg_sel_addr                                                              
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_status.v"                           -work bcd1_status                                                                
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_bcd.v"                              -work bcd1_bcd                                                                   
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_bin.v"                              -work bcd1_bin                                                                   
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_tx_counter.v"                      -work uart1_tx_counter                                                           
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_r_data.v"                          -work uart1_r_data                                                               
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_baud_control.v"                    -work uart1_baud_control                                                         
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_wr_control.v"                      -work uart1_wr_control                                                           
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_reset_control.v"                   -work uart1_reset_control                                                        
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_w_data.v"                          -work uart1_w_data                                                               
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_tc1_status.v"                            -work tc1_status                                                                 
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_tc_reset.v"                              -work tc_reset                                                                   
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_tc1_m.v"                                 -work tc1_m                                                                      
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_daylight.v"                              -work daylight                                                                   
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_onchip_ram.v"                            -work onchip_ram                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e.v"                                -work nios2e                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_jtag_debug_module_sysclk.v"       -work nios2e                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_jtag_debug_module_tck.v"          -work nios2e                                                                     
@@ -155,9 +205,23 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_oci_test_bench.v"                 -work nios2e                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_test_bench.v"                     -work nios2e                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v"                           -work jtag_uart_0                                                                
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_warning_en.v"                            -work warning_en                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo"                           -work sysid_c001                                                                 
-  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv"                              -work controller_inst_warning_en_bfm                                             
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv"                         -work controller_inst_leds_afr_sel_addr_bfm                                      
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0015.sv"                         -work controller_inst_sseg_wr_val_bfm                                            
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0014.sv"                         -work controller_inst_sseg_reset_control_bfm                                     
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0013.sv"                         -work controller_inst_bcd1_status_bfm                                            
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0012.sv"                         -work controller_inst_bcd1_bcd_bfm                                               
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0011.sv"                         -work controller_inst_bcd1_bin_bfm                                               
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0010.sv"                         -work controller_inst_uart1_tx_counter_bfm                                       
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0009.sv"                         -work controller_inst_uart1_r_data_bfm                                           
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv"                         -work controller_inst_uart1_baud_control_bfm                                     
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv"                         -work controller_inst_uart1_wr_control_bfm                                       
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv"                         -work controller_inst_uart1_reset_control_bfm                                    
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv"                         -work controller_inst_uart1_w_data_bfm                                           
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv"                         -work controller_inst_tc1_status_bfm                                             
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"                         -work controller_inst_tc_reset_bfm                                               
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"                         -work controller_inst_tc1_m_bfm                                                  
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv"                              -work controller_inst_daylight_bfm                                               
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_reset_source.sv"                      -work controller_inst_reset_bfm                                                  
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_clock_source.sv"                      -work controller_inst_clock_50_bfm                                               
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller.v"                                       -work controller_inst                                                            

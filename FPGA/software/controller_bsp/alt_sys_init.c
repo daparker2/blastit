@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Tue Jul 17 20:40:33 PDT 2018
+ * Generated: Mon Jul 23 21:57:04 PDT 2018
  */
 
 /*

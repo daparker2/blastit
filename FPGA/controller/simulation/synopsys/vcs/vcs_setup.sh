@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.17.20:32:21
+# ACDS 13.1 162 win32 2018.07.23.21:22:09
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -53,7 +53,7 @@ fi
 # ----------------------------------------
 # copy RAM/ROM files to simulation directory
 if [ $SKIP_FILE_COPY -eq 0 ]; then
-  cp -f $QSYS_SIMDIR/submodules/controller_onchip_memory.hex ./
+  cp -f $QSYS_SIMDIR/submodules/controller_onchip_ram.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.dat ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.hex ./
   cp -f $QSYS_SIMDIR/submodules/controller_nios2e_ociram_default_contents.mif ./
@@ -94,7 +94,25 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v \
-  $QSYS_SIMDIR/submodules/controller_onchip_memory.v \
+  $QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_wr_val.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_wr_control.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_reset_control.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_sel_addr.v \
+  $QSYS_SIMDIR/submodules/controller_bcd1_status.v \
+  $QSYS_SIMDIR/submodules/controller_bcd1_bcd.v \
+  $QSYS_SIMDIR/submodules/controller_bcd1_bin.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_tx_counter.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_r_data.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_baud_control.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_wr_control.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_reset_control.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_w_data.v \
+  $QSYS_SIMDIR/submodules/controller_tc1_status.v \
+  $QSYS_SIMDIR/submodules/controller_tc_reset.v \
+  $QSYS_SIMDIR/submodules/controller_tc1_m.v \
+  $QSYS_SIMDIR/submodules/controller_daylight.v \
+  $QSYS_SIMDIR/submodules/controller_onchip_ram.v \
   $QSYS_SIMDIR/submodules/controller_nios2e.v \
   $QSYS_SIMDIR/submodules/controller_nios2e_jtag_debug_module_sysclk.v \
   $QSYS_SIMDIR/submodules/controller_nios2e_jtag_debug_module_tck.v \
@@ -102,7 +120,6 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/controller_nios2e_oci_test_bench.v \
   $QSYS_SIMDIR/submodules/controller_nios2e_test_bench.v \
   $QSYS_SIMDIR/submodules/controller_jtag_uart_0.v \
-  $QSYS_SIMDIR/submodules/controller_warning_en.v \
   $QSYS_SIMDIR/submodules/controller_sysid_c001.vo \
   $QSYS_SIMDIR/controller.v \
   -top $TOP_LEVEL_NAME

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Tue Jul 17 20:50:20 PDT 2018
+ * Generated: Mon Jul 23 21:57:04 PDT 2018
  */
 
 /*
@@ -65,10 +65,8 @@
  *
  */
 
-#define INTERRUPT_STACK_REGION_BASE 0x3c00
-#define INTERRUPT_STACK_REGION_SPAN 1024
-#define ONCHIP_MEMORY_REGION_BASE 0x20
-#define ONCHIP_MEMORY_REGION_SPAN 15328
+#define ONCHIP_RAM_REGION_BASE 0x20
+#define ONCHIP_RAM_REGION_SPAN 49120
 #define RESET_REGION_BASE 0x0
 #define RESET_REGION_SPAN 32
 
@@ -78,11 +76,11 @@
  *
  */
 
-#define ALT_EXCEPTIONS_DEVICE ONCHIP_MEMORY
-#define ALT_RESET_DEVICE ONCHIP_MEMORY
-#define ALT_RODATA_DEVICE ONCHIP_MEMORY
-#define ALT_RWDATA_DEVICE ONCHIP_MEMORY
-#define ALT_TEXT_DEVICE ONCHIP_MEMORY
+#define ALT_EXCEPTIONS_DEVICE ONCHIP_RAM
+#define ALT_RESET_DEVICE ONCHIP_RAM
+#define ALT_RODATA_DEVICE ONCHIP_RAM
+#define ALT_RWDATA_DEVICE ONCHIP_RAM
+#define ALT_TEXT_DEVICE ONCHIP_RAM
 
 
 /*
@@ -99,13 +97,5 @@
  */
 
 #define ALT_LOAD_COPY_RWDATA
-
-
-/*
- * Use a separate interrupt stack
- *
- */
-
-#define ALT_INTERRUPT_STACK
 
 #endif /* __LINKER_H_ */

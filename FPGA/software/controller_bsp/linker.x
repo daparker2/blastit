@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Tue Jul 17 20:50:20 PDT 2018
+ * Generated: Mon Jul 23 21:57:04 PDT 2018
  */
 
 /*
@@ -51,12 +51,11 @@
 MEMORY
 {
     reset : ORIGIN = 0x0, LENGTH = 32
-    onchip_memory : ORIGIN = 0x20, LENGTH = 15328
-    interrupt_stack : ORIGIN = 0x3c00, LENGTH = 1024
+    onchip_ram : ORIGIN = 0x20, LENGTH = 49120
 }
 
 /* Define symbols for each memory base-address */
-__alt_mem_onchip_memory = 0x0;
+__alt_mem_onchip_ram = 0x0;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
                "elf32-littlenios2",
@@ -112,7 +111,7 @@ SECTIONS
         KEEP (*(.exceptions.exit));
         KEEP (*(.exceptions));
         PROVIDE (__ram_exceptions_end = ABSOLUTE(.));
-    } > onchip_memory
+    } > onchip_ram
 
     PROVIDE (__flash_exceptions_start = LOADADDR(.exceptions));
 
@@ -208,7 +207,7 @@ SECTIONS
         PROVIDE (__DTOR_END__ = ABSOLUTE(.));
         KEEP (*(.jcr))
         . = ALIGN(4);
-    } > onchip_memory = 0x3a880100 /* NOP instruction (always in big-endian byte ordering) */
+    } > onchip_ram = 0x3a880100 /* NOP instruction (always in big-endian byte ordering) */
 
     .rodata :
     {
@@ -218,7 +217,7 @@ SECTIONS
         *(.rodata1)
         . = ALIGN(4);
         PROVIDE (__ram_rodata_end = ABSOLUTE(.));
-    } > onchip_memory
+    } > onchip_ram
 
     PROVIDE (__flash_rodata_start = LOADADDR(.rodata));
 
@@ -252,7 +251,7 @@ SECTIONS
         _edata = ABSOLUTE(.);
         PROVIDE (edata = ABSOLUTE(.));
         PROVIDE (__ram_rwdata_end = ABSOLUTE(.));
-    } > onchip_memory
+    } > onchip_ram
 
     PROVIDE (__flash_rwdata_start = LOADADDR(.rwdata));
 
@@ -283,7 +282,7 @@ SECTIONS
 
         . = ALIGN(4);
         __bss_end = ABSOLUTE(.);
-    } > onchip_memory
+    } > onchip_ram
 
     /*
      *
@@ -308,18 +307,18 @@ SECTIONS
      *
      */
 
-    .onchip_memory LOADADDR (.bss) + SIZEOF (.bss) : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
+    .onchip_ram LOADADDR (.bss) + SIZEOF (.bss) : AT ( LOADADDR (.bss) + SIZEOF (.bss) )
     {
-        PROVIDE (_alt_partition_onchip_memory_start = ABSOLUTE(.));
-        *(.onchip_memory .onchip_memory. onchip_memory.*)
+        PROVIDE (_alt_partition_onchip_ram_start = ABSOLUTE(.));
+        *(.onchip_ram .onchip_ram. onchip_ram.*)
         . = ALIGN(4);
-        PROVIDE (_alt_partition_onchip_memory_end = ABSOLUTE(.));
+        PROVIDE (_alt_partition_onchip_ram_end = ABSOLUTE(.));
         _end = ABSOLUTE(.);
         end = ABSOLUTE(.);
         __alt_stack_base = ABSOLUTE(.);
-    } > onchip_memory
+    } > onchip_ram
 
-    PROVIDE (_alt_partition_onchip_memory_load_addr = LOADADDR(.onchip_memory));
+    PROVIDE (_alt_partition_onchip_ram_load_addr = LOADADDR(.onchip_ram));
 
     /*
      * Stabs debugging sections.
@@ -368,7 +367,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x3c00;
+__alt_data_end = 0xc000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -378,16 +377,10 @@ PROVIDE( __alt_stack_pointer = __alt_data_end );
 PROVIDE( __alt_stack_limit   = __alt_stack_base );
 
 /*
- * These symbols define the location of the separate interrupt stack.
- */
-PROVIDE( __alt_interrupt_stack_pointer = 0x4000 );
-PROVIDE( __alt_interrupt_stack_limit   = 0x3c00 );
-
-/*
  * This symbol controls where the start of the heap is.  If the stack is
  * contiguous with the heap then the stack will contract as memory is
  * allocated to the heap.
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x3c00 );
+PROVIDE( __alt_heap_limit    = 0xc000 );

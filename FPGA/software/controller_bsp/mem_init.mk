@@ -161,9 +161,9 @@ RESET_ADDRESS ?= 0x00000000
 # Pre-Initialized Memory Descriptions
 #-------------------------------------
 
-# Memory: onchip_memory
-MEM_0 := controller_onchip_memory
-$(MEM_0)_NAME := onchip_memory
+# Memory: onchip_ram
+MEM_0 := controller_onchip_ram
+$(MEM_0)_NAME := onchip_ram
 $(MEM_0)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_0).hex
 MEM_INIT_INSTALL_FILES += $(MEM_INIT_INSTALL_DIR)/$(MEM_0).hex
@@ -172,14 +172,14 @@ HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_0).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_0).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_0).sym
 $(MEM_0)_START := 0x00000000
-$(MEM_0)_END := 0x00003fff
-$(MEM_0)_HIERARCHICAL_PATH := onchip_memory
+$(MEM_0)_END := 0x0000bfff
+$(MEM_0)_HIERARCHICAL_PATH := onchip_ram
 $(MEM_0)_WIDTH := 32
 $(MEM_0)_ENDIANNESS := --little-endian-mem
 $(MEM_0)_CREATE_LANES := 0
 
-.PHONY: onchip_memory
-onchip_memory: check_elf_exists $(MEM_INIT_DIR)/$(MEM_0).hex $(HDL_SIM_DIR)/$(MEM_0).dat $(HDL_SIM_DIR)/$(MEM_0).sym
+.PHONY: onchip_ram
+onchip_ram: check_elf_exists $(MEM_INIT_DIR)/$(MEM_0).hex $(HDL_SIM_DIR)/$(MEM_0).dat $(HDL_SIM_DIR)/$(MEM_0).sym
 
 
 #END OF BSP SPECIFIC

@@ -142,6 +142,10 @@ BSP_CFLAGS_DEBUG = -g
 # BSP_CFLAGS_OPTIMIZATION in Makefile. 
 BSP_CFLAGS_OPTIMIZATION = '-Os'
 
+# Custom flags passed to the compiler when compiling C, C++, and .S files. This 
+# setting defines the value of BSP_CFLAGS_USER_FLAGS in Makefile. 
+BSP_CFLAGS_USER_FLAGS = -std=c99
+
 # C/C++ compiler warning level. "-Wall" is commonly used.This setting defines 
 # the value of BSP_CFLAGS_WARNINGS in Makefile. 
 BSP_CFLAGS_WARNINGS = -Wall

@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jul 17, 2018 9:07:14 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1531886834415</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 23, 2018 10:23:11 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1532409791902</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\github\blastit\FPGA\software\controller_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\github\blastit\FPGA\controller.sopcinfo</SopcDesignFile>
@@ -146,7 +146,7 @@
                 <SettingName>hal.linker.exception_stack_memory_region_name</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>onchip_memory</Value>
+                <Value>onchip_ram</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'exception_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'exception_stack' memory region.</Description>
@@ -158,7 +158,7 @@
                 <SettingName>hal.linker.enable_interrupt_stack</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Enables use of a separate interrupt stack. If true, defines the macro ALT_INTERRUPT_STACK in linker.h, adds a memory region called interrupt_stack to linker.x, and provides the symbols __alt_interrupt_stack_pointer and __alt_interrupt_stack_limit in linker.x.</Description>
@@ -182,7 +182,7 @@
                 <SettingName>hal.linker.interrupt_stack_memory_region_name</SettingName>
                 <Identifier>NONE</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>onchip_memory</Value>
+                <Value>onchip_ram</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Name of the existing memory region that will be divided up to create the 'interrupt_stack' memory region. The selected region name will be adjusted automatically when the BSP is generated to create the 'interrupt_stack' memory region.</Description>
@@ -530,7 +530,7 @@
                 <SettingName>hal.make.bsp_cflags_user_flags</SettingName>
                 <Identifier>BSP_CFLAGS_USER_FLAGS</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>none</Value>
+                <Value>-std=c99</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>makefile_variable</DestinationFile>
                 <Description>Custom flags passed to the compiler when compiling C, C++, and .S files. This setting defines the value of BSP_CFLAGS_USER_FLAGS in Makefile.</Description>
@@ -863,51 +863,321 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <MemoryMap>
-                <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x00000000 - 0x00003FFF</addressRange>
-                <addressSpan>16384</addressSpan>
+                <slaveDescriptor>onchip_ram</slaveDescriptor>
+                <addressRange>0x00000000 - 0x0000BFFF</addressRange>
+                <addressSpan>49152</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>warning_en</slaveDescriptor>
-                <addressRange>0x00009000 - 0x0000901F</addressRange>
+                <slaveDescriptor>leds_afr_control</slaveDescriptor>
+                <addressRange>0x00015000 - 0x0001501F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>leds_boost_control</slaveDescriptor>
+                <addressRange>0x00015020 - 0x0001503F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_reset_control</slaveDescriptor>
+                <addressRange>0x00015040 - 0x0001505F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_reset_control</slaveDescriptor>
+                <addressRange>0x00015060 - 0x0001507F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>status_led_en</slaveDescriptor>
+                <addressRange>0x00015080 - 0x0001509F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>warn_pwm_control</slaveDescriptor>
+                <addressRange>0x000150A0 - 0x000150BF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>bcd1_control</slaveDescriptor>
+                <addressRange>0x000150C0 - 0x000150DF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_wr_control</slaveDescriptor>
+                <addressRange>0x000150E0 - 0x000150FF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_reset_control</slaveDescriptor>
+                <addressRange>0x00015100 - 0x0001511F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc_reset</slaveDescriptor>
+                <addressRange>0x00015120 - 0x0001513F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_counter_status</slaveDescriptor>
+                <addressRange>0x00015140 - 0x0001514F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_afr_counter</slaveDescriptor>
+                <addressRange>0x00015150 - 0x0001515F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_boost_counter</slaveDescriptor>
+                <addressRange>0x00015160 - 0x0001516F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_afr_sel_addr</slaveDescriptor>
+                <addressRange>0x00015170 - 0x0001517F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_boost_sel_addr</slaveDescriptor>
+                <addressRange>0x00015180 - 0x0001518F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_afr_brightness</slaveDescriptor>
+                <addressRange>0x00015190 - 0x0001519F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>leds_boost_brightness</slaveDescriptor>
+                <addressRange>0x000151A0 - 0x000151AF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_counter_of</slaveDescriptor>
+                <addressRange>0x000151B0 - 0x000151BF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_counter</slaveDescriptor>
+                <addressRange>0x000151C0 - 0x000151CF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_wr_val</slaveDescriptor>
+                <addressRange>0x000151D0 - 0x000151DF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_wr_control</slaveDescriptor>
+                <addressRange>0x000151E0 - 0x000151EF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_sel_addr</slaveDescriptor>
+                <addressRange>0x000151F0 - 0x000151FF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_brightness_coolant</slaveDescriptor>
+                <addressRange>0x00015200 - 0x0001520F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_brightness_oil</slaveDescriptor>
+                <addressRange>0x00015210 - 0x0001521F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_brightness_afr</slaveDescriptor>
+                <addressRange>0x00015220 - 0x0001522F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>sseg_brightness_boost</slaveDescriptor>
+                <addressRange>0x00015230 - 0x0001523F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>warn_pwm_brightness</slaveDescriptor>
+                <addressRange>0x00015240 - 0x0001524F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>bcd1_status</slaveDescriptor>
+                <addressRange>0x00015250 - 0x0001525F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>bcd1_counter</slaveDescriptor>
+                <addressRange>0x00015260 - 0x0001526F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>bcd1_bcd</slaveDescriptor>
+                <addressRange>0x00015270 - 0x0001527F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>bcd1_bin</slaveDescriptor>
+                <addressRange>0x00015280 - 0x0001528F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_rx_counter</slaveDescriptor>
+                <addressRange>0x00015290 - 0x0001529F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_status_control</slaveDescriptor>
+                <addressRange>0x000152A0 - 0x000152AF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_tx_counter</slaveDescriptor>
+                <addressRange>0x000152B0 - 0x000152BF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_r_data</slaveDescriptor>
+                <addressRange>0x000152C0 - 0x000152CF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_baud_control</slaveDescriptor>
+                <addressRange>0x000152D0 - 0x000152DF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>uart1_w_data</slaveDescriptor>
+                <addressRange>0x000152E0 - 0x000152EF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc4_status</slaveDescriptor>
+                <addressRange>0x000152F0 - 0x000152FF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc3_status</slaveDescriptor>
+                <addressRange>0x00015300 - 0x0001530F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc2_status</slaveDescriptor>
+                <addressRange>0x00015310 - 0x0001531F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc1_status</slaveDescriptor>
+                <addressRange>0x00015320 - 0x0001532F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc4_m</slaveDescriptor>
+                <addressRange>0x00015330 - 0x0001533F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc3_m</slaveDescriptor>
+                <addressRange>0x00015340 - 0x0001534F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc2_m</slaveDescriptor>
+                <addressRange>0x00015350 - 0x0001535F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>tc1_m</slaveDescriptor>
+                <addressRange>0x00015360 - 0x0001536F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>daylight</slaveDescriptor>
+                <addressRange>0x00015370 - 0x0001537F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x00009028 - 0x0000902F</addressRange>
+                <addressRange>0x00015380 - 0x00015387</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_c001</slaveDescriptor>
-                <addressRange>0x00009030 - 0x00009037</addressRange>
+                <addressRange>0x00015388 - 0x0001538F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rodata</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rwdata</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.bss</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.heap</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.stack</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_ram</regionName>
         </LinkerSection>
 </sch:Settings>

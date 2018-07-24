@@ -8,30 +8,20 @@ module pwm
 	input wire clk, reset,
 	input wire [M-1:0] in,
 	input wire [N-1:0] w,
-	output reg [M-1:0] out
+	output wire [M-1:0] out
 );
-	
-	reg [N-1:0] cw;
-	reg [N-1:0] counter;
+
+	reg [N-1:0] counter_reg, counter_next;
 
 	always @(posedge clk, posedge reset)
-	begin
-		cw = w;
-	
 		if (reset)
-			begin
-				out <= in;
-				counter <= 0;
-			end
+			counter_reg <= 0;
 		else
-			begin
-				if (counter > cw || cw == 0)
-					out <= 0;
-				else
-					out <= in;
-				
-				counter = counter + 1'b1;
-			end
-	end
+			counter_reg <= counter_next;
+			
+	always @*
+		counter_next = counter_reg + 1;
+		
+	assign out = (counter_reg > w || w == 0) ? 0 : in;
 
 endmodule

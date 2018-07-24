@@ -105,13 +105,85 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
-   path="controller/simulation/submodules/controller_onchip_memory.hex"
-   type="HEX"
-   library="onchip_memory" />
- <file
-   path="controller/simulation/submodules/controller_onchip_memory.v"
+   path="controller/simulation/submodules/controller_leds_boost_sel_addr.v"
    type="VERILOG"
-   library="onchip_memory" />
+   library="leds_boost_sel_addr" />
+ <file
+   path="controller/simulation/submodules/controller_sseg_wr_val.v"
+   type="VERILOG"
+   library="sseg_wr_val" />
+ <file
+   path="controller/simulation/submodules/controller_sseg_wr_control.v"
+   type="VERILOG"
+   library="sseg_wr_control" />
+ <file
+   path="controller/simulation/submodules/controller_sseg_reset_control.v"
+   type="VERILOG"
+   library="sseg_reset_control" />
+ <file
+   path="controller/simulation/submodules/controller_sseg_sel_addr.v"
+   type="VERILOG"
+   library="sseg_sel_addr" />
+ <file
+   path="controller/simulation/submodules/controller_bcd1_status.v"
+   type="VERILOG"
+   library="bcd1_status" />
+ <file
+   path="controller/simulation/submodules/controller_bcd1_bcd.v"
+   type="VERILOG"
+   library="bcd1_bcd" />
+ <file
+   path="controller/simulation/submodules/controller_bcd1_bin.v"
+   type="VERILOG"
+   library="bcd1_bin" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_tx_counter.v"
+   type="VERILOG"
+   library="uart1_tx_counter" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_r_data.v"
+   type="VERILOG"
+   library="uart1_r_data" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_baud_control.v"
+   type="VERILOG"
+   library="uart1_baud_control" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_wr_control.v"
+   type="VERILOG"
+   library="uart1_wr_control" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_reset_control.v"
+   type="VERILOG"
+   library="uart1_reset_control" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_w_data.v"
+   type="VERILOG"
+   library="uart1_w_data" />
+ <file
+   path="controller/simulation/submodules/controller_tc1_status.v"
+   type="VERILOG"
+   library="tc1_status" />
+ <file
+   path="controller/simulation/submodules/controller_tc_reset.v"
+   type="VERILOG"
+   library="tc_reset" />
+ <file
+   path="controller/simulation/submodules/controller_tc1_m.v"
+   type="VERILOG"
+   library="tc1_m" />
+ <file
+   path="controller/simulation/submodules/controller_daylight.v"
+   type="VERILOG"
+   library="daylight" />
+ <file
+   path="controller/simulation/submodules/controller_onchip_ram.hex"
+   type="HEX"
+   library="onchip_ram" />
+ <file
+   path="controller/simulation/submodules/controller_onchip_ram.v"
+   type="VERILOG"
+   library="onchip_ram" />
  <file
    path="controller/simulation/submodules/controller_nios2e.sdc"
    type="SDC"
@@ -185,10 +257,6 @@
    type="VERILOG"
    library="jtag_uart_0" />
  <file
-   path="controller/simulation/submodules/controller_warning_en.v"
-   type="VERILOG"
-   library="warning_en" />
- <file
    path="controller/simulation/submodules/controller_sysid_c001.vo"
    type="VERILOG"
    library="sysid_c001" />
@@ -196,6 +264,6 @@
  <topLevel name="controller" />
  <deviceFamily name="cycloneiii" />
  <modelMap
-   controllerPath="controller.onchip_memory"
-   modelPath="controller.onchip_memory" />
+   controllerPath="controller.onchip_ram"
+   modelPath="controller.onchip_ram" />
 </simPackage>

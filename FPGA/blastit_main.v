@@ -60,7 +60,7 @@ module blastit_main
 
 	// Timer params
 	localparam TC_M_BITS=32, 
-	           TC_N_BITS=16;
+	           TC_N_BITS=24;
 	
 	// UART parameters
 	localparam UART_FIFO_R = 8,
@@ -87,8 +87,8 @@ module blastit_main
 	// LED matrix params
 	localparam LEDS_N=5,
 				  LEDS_M=5,
-				  LEDS_N_BITS = 2,
-				  LEDS_M_BITS = 2,
+				  LEDS_N_BITS = 3,
+				  LEDS_M_BITS = 3,
 				  LEDS_PWM_BITS = 8,
 				  LEDS_COUNTER_BITS = 8;
 	
@@ -99,13 +99,14 @@ module blastit_main
 	wire clk; // Goes to MCU
 				  
 	// Timer counter inputs
-	wire tc1_reset;               // Goes to MCU
-	wire [TC_M_BITS-1:0] tc1_m;   // Goes to MCU
+	wire tc1_reset, tc2_reset, tc3_reset, tc4_reset;
+	wire [TC_M_BITS-1:0] tc1_m, tc2_m, tc3_m, tc4_m; // Goes to MCU
+	wire [3:0] tc_reset; // Goes to MCU
 	
 	// Timer counter outputs
-	wire [TC_N_BITS-1:0] tc1_counter;
-	wire tc1_of;
-	wire [TC_N_BITS:0] tc_status; // Goes to MCU
+	wire [TC_N_BITS-1:0] tc1_counter, tc2_counter, tc3_counter, tc4_counter;
+	wire tc1_of, tc2_of, tc3_of, tc4_of;
+	wire [TC_N_BITS:0] tc1_status, tc2_status, tc3_status, tc4_status; // Goes to MCU
 	
 	// UART inputs
 	wire uart1_reset, uart1_rx_tc_reset, uart1_tx_tc_reset;
@@ -181,9 +182,9 @@ module blastit_main
 	wire leds_boost_done_tick, leds_afr_done_tick;
 	wire [9:0] leds_m;
 	wire [9:0] leds_n;
-	wire [LEDS_COUNTER_BITS-1:0] leds_boost_counter, leds_afr_counter;
+	wire [LEDS_COUNTER_BITS-1:0] leds_boost_counter, leds_afr_counter; // Goes to MCU
 	wire leds_boost_counter_of, leds_afr_counter_of;
-	wire [LEDS_COUNTER_BITS:0] leds_boost_counter_status, leds_afr_counter_status; // Goes to MCU
+	wire [1:0] leds_counter_status; // Goes to MCU
 	
 	//
 	// Entity blocks
@@ -191,7 +192,10 @@ module blastit_main
 	
 	// Timer counter
 	timer_counter #(.N_BITS(TC_N_BITS), .M_BITS(TC_M_BITS)) 
-	              tc1(.clk(clk), .reset(tc1_reset), .m(tc1_m), .counter(tc1_counter), .of(tc1_of));
+	              tc1(.clk(clk), .reset(tc1_reset), .m(tc1_m), .counter(tc1_counter), .of(tc1_of)),
+	              tc2(.clk(clk), .reset(tc2_reset), .m(tc2_m), .counter(tc2_counter), .of(tc2_of)),
+	              tc3(.clk(clk), .reset(tc3_reset), .m(tc3_m), .counter(tc3_counter), .of(tc3_of)),
+	              tc4(.clk(clk), .reset(tc4_reset), .m(tc4_m), .counter(tc4_counter), .of(tc4_of));
 	
 	// UART
 	uart #(.FIFO_R(UART_FIFO_R), .FIFO_W(UART_FIFO_W), .DVSR_BIT(UART_DVSR_BIT), .DBIT(UART_DBIT)) 
@@ -233,8 +237,20 @@ module blastit_main
 																																								        .sel(leds_afr_sel), .en(leds_afr_en), .n_en(leds_afr_n_en), .m_en(leds_afr_m_en), .done_tick(leds_afr_done_tick));
 	tick_counter #(.N(LEDS_COUNTER_BITS)) leds_boost_tc(.clk(clk), .reset(leds_boost_counter_reset), .tick(leds_boost_done_tick), .counter(leds_boost_counter), .of(leds_boost_counter_of)),
 												     leds_afr_tc(.clk(clk), .reset(leds_afr_counter_reset), .tick(leds_afr_done_tick), .counter(leds_afr_counter), .of(leds_afr_counter_of));
-																																											 
-
+	
+	// Microcontroller
+	controller mcu1(.clock_50_clk(clk), .reset_reset_n(1), .daylight_export(DAYLIGHT), .tc1_m_export(tc1_m),
+						 .tc2_m_export(tc2_m), .tc3_m_export(tc3_m), .tc4_m_export(tc4_m), .tc_reset_export(tc_reset),
+						 .tc1_status_export(tc1_status), .tc2_status_export(tc2_status), .tc3_status_export(tc3_status), .tc4_status_export(tc4_status),
+						 .uart1_w_data_export(uart1_w_data), .uart1_reset_control_export(uart1_reset_control), .uart1_wr_control_export(uart1_wr_control), .uart1_baud_control_export(uart1_baud_control),
+						 .uart1_r_data_export(uart1_r_data), .uart1_rx_counter_export(uart1_rx_counter), .uart1_tx_counter_export(uart1_tx_counter), .uart1_status_control_export(uart1_status_control),
+						 .bcd1_bin_export(bcd1_bin), .bcd1_control_export(bcd1_control), .bcd1_bcd_export(bcd1_bcd), .bcd1_counter_export(bcd1_counter),	
+						 .bcd1_status_export(bcd1_status), .warn_pwm_brightness_export(warn_pwm_brightness), .status_led_en_export(status_led_en), .warn_pwm_control_export(warn_pwm_control),
+						 .sseg_brightness_boost_export(sseg_brightness_boost), .sseg_brightness_afr_export(sseg_brightness_afr), .sseg_brightness_oil_export(sseg_brightness_oil), .sseg_brightness_coolant_export(sseg_brightness_coolant), 
+						 .sseg_sel_addr_export(sseg_sel_addr), .sseg_reset_control_export(sseg_reset_control), .sseg_wr_control_export(sseg_wr_control), .sseg_wr_val_export(sseg_wr_val),
+						 .sseg_counter_export(sseg_counter), .sseg_counter_of_export(sseg_counter_of), .leds_boost_brightness_export(leds_boost_brightness), .leds_afr_brightness_export(leds_afr_brightness),
+						 .leds_boost_sel_addr_export(leds_boost_sel_addr), .leds_reset_control_export(leds_reset_control), .leds_afr_control_export(leds_afr_control), .leds_boost_counter_export(leds_boost_counter),
+						 .leds_boost_control_export(leds_boost_control), .leds_afr_counter_export(leds_afr_counter), .leds_counter_status_export(leds_counter_status));
 	
 	//
 	// I/O block assignments
@@ -242,14 +258,16 @@ module blastit_main
 	
 	assign clk = CLOCK_50;
 	assign sseg_oe = { sseg_oe_coolant, sseg_oe_oil, sseg_oe_afr, sseg_oe_boost };
-	assign leds_m  = { leds_afr_n_en, leds_boost_n_en };
-	assign leds_n = { leds_afr_m_en, leds_boost_m_en };
 	
 	// Timer counter block
-	assign tc_status = { tc1_of, tc1_counter};
+	assign tc_reset = { tc4_reset, tc3_reset, tc2_reset, tc1_reset };
+	assign tc1_status = { tc1_of, tc1_counter};
+	assign tc2_status = { tc2_of, tc2_counter};
+	assign tc3_status = { tc3_of, tc3_counter};
+	assign tc4_status = { tc4_of, tc4_counter};
 	
 	// UART block
-	assign uart1_reset_control = { uart1_reset, uart1_rx_tc_reset, uart1_rx_tc_reset };
+	assign uart1_reset_control = { uart1_reset, uart1_rx_tc_reset, uart1_tx_tc_reset };
 	assign uart1_wr_control = { uart1_rd_uart, uart1_wr_uart };
 	assign uart1_baud_control = { uart1_dbit, uart1_pbit, uart1_sb_tick, uart1_os_tick, uart1_dvsr };
 	assign uart1_status_control = {uart1_tx_full, uart1_rx_empty, uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof, uart1_rx_counter_of, uart1_tx_counter_of };
@@ -270,8 +288,9 @@ module blastit_main
 	assign leds_reset_control = { leds_boost_reset, leds_afr_reset, leds_boost_counter_reset, leds_afr_counter_reset };
 	assign leds_boost_control = { leds_boost_sel, leds_boost_en };
 	assign leds_afr_control = { leds_afr_sel, leds_afr_en };
-	assign leds_boost_counter_status = { leds_boost_counter_of, leds_boost_counter };
-	assign leds_afr_counter_status = { leds_afr_counter_of, leds_afr_counter };
+	assign leds_counter_status = { leds_afr_counter_of, leds_boost_counter_of };
+	assign leds_m  = { leds_afr_n_en, leds_boost_n_en };
+	assign leds_n = { leds_afr_m_en, leds_boost_m_en };
 	
 	//
 	// Output assignments
@@ -282,8 +301,8 @@ module blastit_main
 	                (sseg_oe <= (1 << 7)) ? sseg_afr :
 						 (sseg_oe <= (1 << 11)) ? sseg_oil :
 						 (sseg_oe <= (1 << 15)) ? sseg_coolant :
-						 8'b0;
-	assign C = sseg_oe;
+						 8'bz;
+	assign C = (sseg_oe <= (1 << 15)) ? sseg_oe : 15'bz;
 	assign D = leds_m;
 	assign G = leds_n;
 									
