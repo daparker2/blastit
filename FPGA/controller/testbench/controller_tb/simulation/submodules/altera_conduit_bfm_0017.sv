@@ -27,13 +27,13 @@
 // output ports when user call the API.  
 // This BFM's HDL is been generated through terp file in Qsys/SOPC Builder.
 // Generation parameters:
-// output_name:                                       altera_conduit_bfm_0008
-// role:width:direction:                              export:22:input
+// output_name:                                       altera_conduit_bfm_0017
+// role:width:direction:                              export:16:input
 // 0
 //-----------------------------------------------------------------------------
 `timescale 1 ns / 1 ns
 
-module altera_conduit_bfm_0008
+module altera_conduit_bfm_0017
 (
    sig_export
 );
@@ -42,15 +42,15 @@ module altera_conduit_bfm_0008
    // =head1 PINS 
    // =head2 User defined interface
    //--------------------------------------------------------------------------
-   input [21 : 0] sig_export;
+   input [15 : 0] sig_export;
 
    // synthesis translate_off
    import verbosity_pkg::*;
    
-   typedef logic [21 : 0] ROLE_export_t;
+   typedef logic [15 : 0] ROLE_export_t;
 
-   logic [21 : 0] export_in;
-   logic [21 : 0] export_local;
+   logic [15 : 0] export_in;
+   logic [15 : 0] export_local;
 
    //--------------------------------------------------------------------------
    // =head1 Public Methods API

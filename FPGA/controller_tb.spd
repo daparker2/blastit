@@ -110,6 +110,10 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_uart1_dvsr.v"
+   type="VERILOG"
+   library="uart1_dvsr" />
+ <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_leds_boost_sel_addr.v"
    type="VERILOG"
    library="leds_boost_sel_addr" />
@@ -265,6 +269,10 @@
    path="controller/testbench/controller_tb/simulation/submodules/controller_sysid_c001.vo"
    type="VERILOG"
    library="sysid_c001" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0017.sv"
+   type="SYSTEM_VERILOG"
+   library="controller_inst_uart1_dvsr_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv"
    type="SYSTEM_VERILOG"

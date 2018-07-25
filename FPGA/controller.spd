@@ -105,6 +105,10 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/simulation/submodules/controller_uart1_dvsr.v"
+   type="VERILOG"
+   library="uart1_dvsr" />
+ <file
    path="controller/simulation/submodules/controller_leds_boost_sel_addr.v"
    type="VERILOG"
    library="leds_boost_sel_addr" />

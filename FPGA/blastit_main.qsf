@@ -219,13 +219,13 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
-set_global_assignment -name VERILOG_FILE controller/synthesis/controller.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_warning_en.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_wr_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_w_data.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_tx_counter.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_reset_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_r_data.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_dvsr.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_baud_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc1_status.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc1_m.v
@@ -302,6 +302,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE controller/synthesis/submodules/a
 set_global_assignment -name SYSTEMVERILOG_FILE controller/synthesis/submodules/altera_merlin_master_agent.sv
 set_global_assignment -name SYSTEMVERILOG_FILE controller/synthesis/submodules/altera_merlin_burst_uncompressor.sv
 set_global_assignment -name SYSTEMVERILOG_FILE controller/synthesis/submodules/altera_merlin_arbitrator.sv
+set_global_assignment -name VERILOG_FILE controller/synthesis/controller.v
 set_global_assignment -name VERILOG_FILE uart_tx.v
 set_global_assignment -name VERILOG_FILE uart_testbench.v
 set_global_assignment -name VERILOG_FILE uart_rx.v

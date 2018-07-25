@@ -2,7 +2,7 @@ set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_N
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "controller" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../controller.sopcinfo"]
-set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1532406577"
+set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1532492830"
 set_global_assignment -library "controller" -name MISC_FILE [file join $::quartus(qip_path) "../../controller.cmp"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.regmap"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.debuginfo"]
@@ -33,6 +33,7 @@ set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join 
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_agent.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_slave_translator.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_translator.sv"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_dvsr.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_leds_boost_sel_addr.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_wr_val.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_wr_control.v"]
@@ -123,6 +124,9 @@ set_global_assignment -entity "altera_merlin_slave_translator" -library "control
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_NAME "altera_merlin_master_translator"
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_leds_boost_sel_addr" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_leds_boost_sel_addr" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_leds_boost_sel_addr" -library "controller" -name IP_TOOL_ENV "Qsys"

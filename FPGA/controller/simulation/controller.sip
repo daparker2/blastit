@@ -28,6 +28,7 @@ set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::qu
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/altera_merlin_master_agent.sv"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/altera_merlin_slave_translator.sv"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/altera_merlin_master_translator.sv"]
+set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_dvsr.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_leds_boost_sel_addr.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_sseg_wr_val.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_sseg_wr_control.v"]

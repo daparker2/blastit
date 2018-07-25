@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.23.21:29:28
+# ACDS 13.1 162 win32 2018.07.24.21:27:05
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -76,6 +76,7 @@ mkdir -p ./libraries/nios2e_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
+mkdir -p ./libraries/uart1_dvsr/
 mkdir -p ./libraries/leds_boost_sel_addr/
 mkdir -p ./libraries/sseg_wr_val/
 mkdir -p ./libraries/sseg_wr_control/
@@ -98,6 +99,7 @@ mkdir -p ./libraries/onchip_ram/
 mkdir -p ./libraries/nios2e/
 mkdir -p ./libraries/jtag_uart_0/
 mkdir -p ./libraries/sysid_c001/
+mkdir -p ./libraries/controller_inst_uart1_dvsr_bfm/
 mkdir -p ./libraries/controller_inst_leds_afr_sel_addr_bfm/
 mkdir -p ./libraries/controller_inst_sseg_wr_val_bfm/
 mkdir -p ./libraries/controller_inst_sseg_reset_control_bfm/
@@ -179,6 +181,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                              -cdslib ./cds_libs/rst_controller.cds.lib                                                             
   ncvlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                  -cdslib ./cds_libs/irq_mapper.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                           -cdslib ./cds_libs/mm_interconnect_0.cds.lib                                                          
+  ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                  -cdslib ./cds_libs/uart1_dvsr.cds.lib                                                                 
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                         -cdslib ./cds_libs/leds_boost_sel_addr.cds.lib                                                        
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                 -cdslib ./cds_libs/sseg_wr_val.cds.lib                                                                
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                             -cdslib ./cds_libs/sseg_wr_control.cds.lib                                                            
@@ -206,6 +209,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_test_bench.v"                     -work nios2e                                                                      -cdslib ./cds_libs/nios2e.cds.lib                                                                     
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v"                           -work jtag_uart_0                                                                 -cdslib ./cds_libs/jtag_uart_0.cds.lib                                                                
   ncvlog     "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo"                           -work sysid_c001                                                                  -cdslib ./cds_libs/sysid_c001.cds.lib                                                                 
+  ncvlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0017.sv"                         -work controller_inst_uart1_dvsr_bfm                                              -cdslib ./cds_libs/controller_inst_uart1_dvsr_bfm.cds.lib                                             
   ncvlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv"                         -work controller_inst_leds_afr_sel_addr_bfm                                       -cdslib ./cds_libs/controller_inst_leds_afr_sel_addr_bfm.cds.lib                                      
   ncvlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0015.sv"                         -work controller_inst_sseg_wr_val_bfm                                             -cdslib ./cds_libs/controller_inst_sseg_wr_val_bfm.cds.lib                                            
   ncvlog -sv "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0014.sv"                         -work controller_inst_sseg_reset_control_bfm                                      -cdslib ./cds_libs/controller_inst_sseg_reset_control_bfm.cds.lib                                     

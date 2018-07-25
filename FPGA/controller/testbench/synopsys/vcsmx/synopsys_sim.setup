@@ -22,6 +22,7 @@ nios2e_instruction_master_translator:                                        ./l
 rst_controller:                                                              ./libraries/rst_controller/                                                             
 irq_mapper:                                                                  ./libraries/irq_mapper/                                                                 
 mm_interconnect_0:                                                           ./libraries/mm_interconnect_0/                                                          
+uart1_dvsr:                                                                  ./libraries/uart1_dvsr/                                                                 
 leds_boost_sel_addr:                                                         ./libraries/leds_boost_sel_addr/                                                        
 sseg_wr_val:                                                                 ./libraries/sseg_wr_val/                                                                
 sseg_wr_control:                                                             ./libraries/sseg_wr_control/                                                            
@@ -44,6 +45,7 @@ onchip_ram:                                                                  ./l
 nios2e:                                                                      ./libraries/nios2e/                                                                     
 jtag_uart_0:                                                                 ./libraries/jtag_uart_0/                                                                
 sysid_c001:                                                                  ./libraries/sysid_c001/                                                                 
+controller_inst_uart1_dvsr_bfm:                                              ./libraries/controller_inst_uart1_dvsr_bfm/                                             
 controller_inst_leds_afr_sel_addr_bfm:                                       ./libraries/controller_inst_leds_afr_sel_addr_bfm/                                      
 controller_inst_sseg_wr_val_bfm:                                             ./libraries/controller_inst_sseg_wr_val_bfm/                                            
 controller_inst_sseg_reset_control_bfm:                                      ./libraries/controller_inst_sseg_reset_control_bfm/                                     

@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.23.21:22:09
+# ACDS 13.1 162 win32 2018.07.24.21:19:20
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -94,6 +94,7 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_dvsr.v \
   $QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v \
   $QSYS_SIMDIR/submodules/controller_sseg_wr_val.v \
   $QSYS_SIMDIR/submodules/controller_sseg_wr_control.v \

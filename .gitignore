@@ -270,6 +270,8 @@ tmp/
 *.bak
 *.swp
 *~.nib
+*.elf
+*.gitignore
 local.properties
 .settings/
 .loadpath

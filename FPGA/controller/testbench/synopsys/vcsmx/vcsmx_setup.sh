@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.23.21:29:28
+# ACDS 13.1 162 win32 2018.07.24.21:27:05
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -76,6 +76,7 @@ mkdir -p ./libraries/nios2e_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
+mkdir -p ./libraries/uart1_dvsr/
 mkdir -p ./libraries/leds_boost_sel_addr/
 mkdir -p ./libraries/sseg_wr_val/
 mkdir -p ./libraries/sseg_wr_control/
@@ -98,6 +99,7 @@ mkdir -p ./libraries/onchip_ram/
 mkdir -p ./libraries/nios2e/
 mkdir -p ./libraries/jtag_uart_0/
 mkdir -p ./libraries/sysid_c001/
+mkdir -p ./libraries/controller_inst_uart1_dvsr_bfm/
 mkdir -p ./libraries/controller_inst_leds_afr_sel_addr_bfm/
 mkdir -p ./libraries/controller_inst_sseg_wr_val_bfm/
 mkdir -p ./libraries/controller_inst_sseg_reset_control_bfm/
@@ -179,6 +181,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                             
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                          
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                        
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                            
@@ -206,6 +209,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_test_bench.v"                     -work nios2e                                                                     
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v"                           -work jtag_uart_0                                                                
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo"                           -work sysid_c001                                                                 
+  vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0017.sv"                         -work controller_inst_uart1_dvsr_bfm                                             
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv"                         -work controller_inst_leds_afr_sel_addr_bfm                                      
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0015.sv"                         -work controller_inst_sseg_wr_val_bfm                                            
   vlogan +v2k -sverilog "$QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0014.sv"                         -work controller_inst_sseg_reset_control_bfm                                     

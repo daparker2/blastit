@@ -142,7 +142,8 @@ ACDS_VERSION := 13.1
 ELF := controller.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := hello_world_small.c
+C_SRCS += controller_system.c
+C_SRCS += controller.c
 CXX_SRCS :=
 ASM_SRCS :=
 

@@ -45,7 +45,7 @@ int ALT_WAIT (int *status)
 {
   *status = 0;
 
-  ALT_ERRNO = ECHILD;
+  ALT_ERRNO = 1;
 
   return -1;
 }

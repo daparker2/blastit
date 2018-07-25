@@ -1,5 +1,5 @@
 /* 
- * "Small Hello World" example. 
+ * Controller entry point.
  * 
  * This example prints 'Hello from Nios II' to the STDOUT stream. It runs on
  * the Nios II 'standard', 'full_featured', 'fast', and 'low_cost' example 
@@ -79,28 +79,21 @@
  */
 
 #include "sys/alt_stdio.h"
-#include "system.h"
-#include "altera_avalon_pio_regs.h"
+#include "controller_system.h"
 
 int main()
-{ 
-  alt_putstr("Hello from Nios II!\n");
+{
+	bcd_init();
+	sseg_init();
+	tc_init();
+	uart1_init(8, 1, 8, 8, 651); // Should give us 9600 baud
+	warn_init();
 
-  /* Event loop never exits. */
-  while (1)
-  {
-	  unsigned int i;
+	alt_putstr("Entering event loop\n");
+	for (;;)
+	{
 
-	  for (i = 0; i < 25000000; ++i)
-	  {
-		  IOWR_ALTERA_AVALON_PIO_DATA(STATUS_LED_EN_BASE, 0xf);
-	  }
+	}
 
-	  for (i = 0; i < 25000000; ++i)
-	  {
-		  IOWR_ALTERA_AVALON_PIO_DATA(STATUS_LED_EN_BASE, 0x0);
-	  }
-  }
-
-  return 0;
+	return 0;
 }

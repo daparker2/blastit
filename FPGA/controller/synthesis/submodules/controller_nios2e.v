@@ -4157,7 +4157,7 @@ module controller_nios2e (
     2'b11;
 
   assign F_pc_no_crst_nxt = (F_pc_sel_nxt == 2'b00)? 8 :
-    (F_pc_sel_nxt == 2'b01)? 21000 :
+    (F_pc_sel_nxt == 2'b01)? 16904 :
     (F_pc_sel_nxt == 2'b10)? E_arith_result[16 : 2] :
     F_pc_plus_one;
 

@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.23.21:22:09
+# ACDS 13.1 162 win32 2018.07.24.21:19:20
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -75,6 +75,7 @@ mkdir -p ./libraries/nios2e_instruction_master_translator/
 mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
+mkdir -p ./libraries/uart1_dvsr/
 mkdir -p ./libraries/leds_boost_sel_addr/
 mkdir -p ./libraries/sseg_wr_val/
 mkdir -p ./libraries/sseg_wr_control/
@@ -158,6 +159,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                             
   vlogan +v2k -sverilog "$QSYS_SIMDIR/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                          
+  vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                        
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                            

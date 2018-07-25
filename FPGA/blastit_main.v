@@ -65,7 +65,7 @@ module blastit_main
 	// UART parameters
 	localparam UART_FIFO_R = 8,
 	           UART_FIFO_W = 3,
-				  UART_DVSR_BIT = 8,
+				  UART_DVSR_BIT = 16,
 				  UART_DBIT = 8,
 				  UART_RX_TICK_BITS = UART_FIFO_R,
 				  UART_TX_TICK_BITS = UART_FIFO_W;
@@ -115,11 +115,11 @@ module blastit_main
 	wire [1:0] uart1_pbit;
 	wire [7:0] uart1_sb_tick;
 	wire [7:0] uart1_os_tick;
-	wire [7:0] uart1_dvsr;
+	wire [15:0] uart1_dvsr;
 	wire [7:0] uart1_w_data;        // Goes to MCU
 	wire [2:0] uart1_reset_control; // Goes to MCU
 	wire [1:0] uart1_wr_control;    // Goes to MCU
-	wire [29:0] uart1_baud_control; // Goes to MCU
+	wire [21:0] uart1_baud_control; // Goes to MCU
 	
 	// UART outputs
 	wire uart1_tx_full, uart1_rx_empty;
@@ -242,7 +242,7 @@ module blastit_main
 	controller mcu1(.clock_50_clk(clk), .reset_reset_n(1), .daylight_export(DAYLIGHT), .tc1_m_export(tc1_m),
 						 .tc2_m_export(tc2_m), .tc3_m_export(tc3_m), .tc4_m_export(tc4_m), .tc_reset_export(tc_reset),
 						 .tc1_status_export(tc1_status), .tc2_status_export(tc2_status), .tc3_status_export(tc3_status), .tc4_status_export(tc4_status),
-						 .uart1_w_data_export(uart1_w_data), .uart1_reset_control_export(uart1_reset_control), .uart1_wr_control_export(uart1_wr_control), .uart1_baud_control_export(uart1_baud_control),
+						 .uart1_w_data_export(uart1_w_data), .uart1_reset_control_export(uart1_reset_control), .uart1_wr_control_export(uart1_wr_control), .uart1_baud_control_export(uart1_baud_control), .uart1_dvsr_export(uart1_dvsr),
 						 .uart1_r_data_export(uart1_r_data), .uart1_rx_counter_export(uart1_rx_counter), .uart1_tx_counter_export(uart1_tx_counter), .uart1_status_control_export(uart1_status_control),
 						 .bcd1_bin_export(bcd1_bin), .bcd1_control_export(bcd1_control), .bcd1_bcd_export(bcd1_bcd), .bcd1_counter_export(bcd1_counter),	
 						 .bcd1_status_export(bcd1_status), .warn_pwm_brightness_export(warn_pwm_brightness), .status_led_en_export(status_led_en), .warn_pwm_control_export(warn_pwm_control),
@@ -269,7 +269,7 @@ module blastit_main
 	// UART block
 	assign uart1_reset_control = { uart1_reset, uart1_rx_tc_reset, uart1_tx_tc_reset };
 	assign uart1_wr_control = { uart1_rd_uart, uart1_wr_uart };
-	assign uart1_baud_control = { uart1_dbit, uart1_pbit, uart1_sb_tick, uart1_os_tick, uart1_dvsr };
+	assign uart1_baud_control = { uart1_dbit, uart1_pbit, uart1_sb_tick, uart1_os_tick };
 	assign uart1_status_control = {uart1_tx_full, uart1_rx_empty, uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof, uart1_rx_counter_of, uart1_tx_counter_of };
 	
 	// BCD converter block
