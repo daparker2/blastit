@@ -15,8 +15,8 @@ typedef unsigned short word_t;
 typedef unsigned int dword_t;
 
 // Defines the clock period
-#define CLOCK_PERIOD_NS ((dword_t)20);
-#define CLOCK_MILLIS_TO_TICKS(X) ((X * 1000000) / CLOCK_PERIOD_NS)
+#define CLOCK_PERIOD_NS ((dword_t)20) // 20ns per 50ms clock
+#define CLOCK_MILLIS_TO_TICKS(X) (((dword_t)X * 1000000U) / CLOCK_PERIOD_NS)
 
 // Delays for one clock period
 void nop(void);
