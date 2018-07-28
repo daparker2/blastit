@@ -7,6 +7,7 @@
 
 #include "sys/alt_stdio.h"
 #include "controller_system.h"
+#include "controller.h"
 #include "obd2.h"
 #include "display.h"
 #include <stdbool.h>
@@ -19,17 +20,12 @@
 #define TC_TICK_COUNTER Tc1
 #define TC_FRAME_COUNTER Tc2
 
-void wait_tick(dword_t ticks); // Wait for ticks
-bool is_frame();               // Determine if we have entered a frame interval
-
 /*
  * UART support
  */
 
-#define UART_TX_BUFSZ (1 << 8)
-#define UART_RX_BUFSZ (1 << 8)
-
-static char uart_tx_buf[UART_TX_BUFSZ], uart_rx_buf[UART_RX_BUFSZ];
+char uart_tx_buf[UART_TX_BUFSZ], uart_rx_buf[UART_RX_BUFSZ];
+dword_t uart_tx_bufsz, uart_rx_bufsz;
 char* rx_ptr;
 
 // Reset the UART buffers
@@ -42,8 +38,8 @@ int main()
 	tc_init();
 	warn_init();
 
-	// Configure UART for 9600 baud
-	uart1_init(8, 1, 8, 8, 651);
+	// Should give us 115200 baud
+	uart1_init(8, 0, 32, 32, 13);
 
 	// Configure the timer counters TC1 and TC2 for tick and frame, respectively
 	tc_set_max(TC_TICK_COUNTER, CLOCK_MILLIS_TO_TICKS(1)); // 1 ms per tick
@@ -51,8 +47,8 @@ int main()
 
 	// Initialize the OBD2 state machine and display
 	uart_bufclr();
-	obd2_init(uart_rx_buf, UART_RX_BUFSZ, uart_tx_buf, UART_TX_BUFSZ);
-	memset(&display_params, 0, sizeof(display_params));
+	obd2_init();
+	display_init();
 
 	alt_putstr("Entering event loop\n");
 	for (;;)
@@ -78,13 +74,14 @@ int main()
 			int ch = uart1_rx();
 			if (ch > 0)
 			{
-				if (rx_ptr >= uart_rx_buf + UART_RX_BUFSZ)
+				if (!(rx_ptr < uart_rx_buf + UART_RX_BUFSZ - 1))
 				{
 					// The response was too big so we aren't able to parse it.
 					uart_bufclr();
 				}
 
 				*rx_ptr++ = ch;
+				++uart_rx_bufsz;
 			}
 			else
 			{
@@ -100,12 +97,12 @@ void wait_tick(dword_t ticks)
 {
 	if (ticks > 0)
 	{
-		dword_t end = tc_get_ticks(TC_TICK_COUNTER) + ticks;
+		tc_reset(TC_TICK_COUNTER);
 		do
 		{
 			nop();
 		}
-		while (tc_get_ticks(TC_TICK_COUNTER) < end);
+		while (tc_get_ticks(TC_TICK_COUNTER) < ticks);
 	}
 }
 
@@ -128,5 +125,6 @@ void uart_bufclr(void)
 {
 	memset(uart_rx_buf, 0, UART_RX_BUFSZ);
 	memset(uart_tx_buf, 0, UART_TX_BUFSZ);
+	uart_rx_bufsz = 0;
 	rx_ptr = uart_rx_buf;
 }

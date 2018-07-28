@@ -1,6 +1,14 @@
+/*
+ * controller_system.c
+ *
+ * Definitions fro system routines for the soft MCU. Mostly contains C
+ * implementations of testbench functionality.
+ *
+ */
+
+#include "altera_avalon_pio_regs.h"
 #include "controller_system.h"
 #include "system.h"
-#include "altera_avalon_pio_regs.h"
 
 #define REGW(X, Y) IOWR_ALTERA_AVALON_PIO_DATA(X, Y)
 #define REGR(X) IORD_ALTERA_AVALON_PIO_DATA(X)

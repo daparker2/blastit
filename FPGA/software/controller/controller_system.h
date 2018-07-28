@@ -202,7 +202,7 @@ void tc_shutdown(void);
 #define UART1_STATUS_RX_EMPTY      (1 << 6)
 #define UART1_STATUS_TX_FULL       (1 << 7)
 
-// Sets the baud rate; data bit, parity bit, clock ticks for stop bit, clock ticks for overscan ratio, and baud divisor 50M/(16 * baud rate)
+// Sets the baud rate; data bit, parity bit, clock ticks for stop bit, clock ticks for overscan ratio, and baud divisor int(50M/(os_tick * baud rate))
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr);
 
 // Shuts down the UART, holding it in reset

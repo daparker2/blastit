@@ -277,6 +277,7 @@ local.properties
 .loadpath
 .recommenders
 .force_rebuild_all
+*.objdump
 
 # auto generated Qsys stuff
 controller.csv
