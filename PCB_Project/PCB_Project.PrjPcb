@@ -361,10 +361,6 @@ GenerateClassCluster=0
 DocumentUniqueId=FLKBDSCI
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevA.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
 DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevB.html
 DItemRevisionGUID=
 
