@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Mon Jul 23 21:57:04 PDT 2018
+ * Generated: Fri Aug 03 00:52:08 PDT 2018
  */
 
 /*
@@ -51,7 +51,7 @@
 MEMORY
 {
     reset : ORIGIN = 0x0, LENGTH = 32
-    onchip_ram : ORIGIN = 0x20, LENGTH = 49120
+    onchip_ram : ORIGIN = 0x20, LENGTH = 39968
 }
 
 /* Define symbols for each memory base-address */
@@ -367,7 +367,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0xc000;
+__alt_data_end = 0x9c40;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -383,4 +383,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0xc000 );
+PROVIDE( __alt_heap_limit    = 0x9c40 );

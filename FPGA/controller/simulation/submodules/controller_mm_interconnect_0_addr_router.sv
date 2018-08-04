@@ -47,12 +47,12 @@ module controller_mm_interconnect_0_addr_router_default_decode
      parameter DEFAULT_CHANNEL = 1,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 18 
+               DEFAULT_DESTID = 13 
    )
   (output [85 - 80 : 0] default_destination_id,
-   output [51-1 : 0] default_wr_channel,
-   output [51-1 : 0] default_rd_channel,
-   output [51-1 : 0] default_src_channel
+   output [43-1 : 0] default_wr_channel,
+   output [43-1 : 0] default_rd_channel,
+   output [43-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
@@ -63,7 +63,7 @@ module controller_mm_interconnect_0_addr_router_default_decode
       assign default_src_channel = '0;
     end
     else begin
-      assign default_src_channel = 51'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 43'b1 << DEFAULT_CHANNEL;
     end
   end
   endgenerate
@@ -74,8 +74,8 @@ module controller_mm_interconnect_0_addr_router_default_decode
       assign default_rd_channel = '0;
     end
     else begin
-      assign default_wr_channel = 51'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 51'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 43'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 43'b1 << DEFAULT_RD_CHANNEL;
     end
   end
   endgenerate
@@ -105,7 +105,7 @@ module controller_mm_interconnect_0_addr_router
     // -------------------
     output                          src_valid,
     output reg [99-1    : 0] src_data,
-    output reg [51-1 : 0] src_channel,
+    output reg [43-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -121,7 +121,7 @@ module controller_mm_interconnect_0_addr_router
     localparam PKT_PROTECTION_H = 89;
     localparam PKT_PROTECTION_L = 87;
     localparam ST_DATA_W = 99;
-    localparam ST_CHANNEL_W = 51;
+    localparam ST_CHANNEL_W = 43;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 55;
@@ -167,7 +167,7 @@ module controller_mm_interconnect_0_addr_router
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [51-1 : 0] default_src_channel;
+    wire [43-1 : 0] default_src_channel;
 
 
 
@@ -193,14 +193,14 @@ module controller_mm_interconnect_0_addr_router
 
     // ( 0x0 .. 0x10000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 17'h0   ) begin
-            src_channel = 51'b10;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 18;
+            src_channel = 43'b10;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
     end
 
     // ( 0x10800 .. 0x11000 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 17'h10800   ) begin
-            src_channel = 51'b01;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 17;
+            src_channel = 43'b01;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 12;
     end
 
 end

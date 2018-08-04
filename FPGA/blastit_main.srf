@@ -1,1 +1,13 @@
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2e.v(1605): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2e.v(1607): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2e.v(1763): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2e.v(2587): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2_qsys_0.v(1605): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2_qsys_0.v(1607): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2_qsys_0.v(1763): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL or VHDL warning at controller_nios2_qsys_0.v(2587): conditional expression evaluates to a constant" {  } {  } 0 10037 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Verilog HDL Case Statement warning at fifo.v(63): incomplete case statement has no default case item" {  } {  } 0 10270 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Inferred RAM node \"sseg_array:ssegarr\|sseg_arr_reg_rtl_0\" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design." {  } {  } 0 276020 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Inferred RAM node \"sseg_array:ssegarr\|sseg_arr_reg_rtl_1\" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design." {  } {  } 0 276020 "" 0 0 "Quartus II" 0 -1 0 ""}
+{ "" "" "" "Inferred RAM node \"uart:uart1\|fifo:fifo_rx_unit\|array_reg_rtl_0\" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design." {  } {  } 0 276020 "" 0 0 "Quartus II" 0 -1 0 ""}
 { "" "" "" "*" {  } {  } 0 10230 "" 0 0 "Quartus II" 0 -1 0 ""}

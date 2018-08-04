@@ -29,10 +29,12 @@ module controller_daylight (
                               writedata,
 
                              // outputs:
+                              irq,
                               readdata
                            )
 ;
 
+  output           irq;
   output  [ 31: 0] readdata;
   input   [  1: 0] address;
   input            chipselect;
@@ -49,11 +51,14 @@ module controller_daylight (
   reg              edge_capture;
   wire             edge_capture_wr_strobe;
   wire             edge_detect;
+  wire             irq;
+  reg              irq_mask;
   wire             read_mux_out;
   reg     [ 31: 0] readdata;
   assign clk_en = 1;
   //s1, which is an e_avalon_slave
   assign read_mux_out = ({1 {(address == 0)}} & data_in) |
+    ({1 {(address == 2)}} & irq_mask) |
     ({1 {(address == 3)}} & edge_capture);
 
   always @(posedge clk or negedge reset_n)
@@ -66,6 +71,16 @@ module controller_daylight (
 
 
   assign data_in = in_port;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          irq_mask <= 0;
+      else if (chipselect && ~write_n && (address == 2))
+          irq_mask <= writedata;
+    end
+
+
+  assign irq = |(edge_capture & irq_mask);
   assign edge_capture_wr_strobe = chipselect && ~write_n && (address == 3);
   always @(posedge clk or negedge reset_n)
     begin

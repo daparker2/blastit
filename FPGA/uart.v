@@ -27,7 +27,7 @@ reg [3:0] dbit_reg;
 reg [1:0] pbit_reg;
 reg [7:0] sb_tick_reg;
 reg [7:0] os_tick_reg;
-reg [7:0] dvsr_reg;
+reg [DVSR_BIT-1:0] dvsr_reg;
 wire [DBIT-1:0] tx_fifo_out, rx_data_out;
 reg e_rxof_reg, e_rxof_next;
 reg e_txof_reg, e_txof_next;
@@ -60,10 +60,10 @@ always @*
 	begin
 		e_rxof_next = e_rxof_reg;
 		e_txof_next = e_txof_reg;
-		if (!e_rxof_reg && rx_full && rd_uart)
+		if (!e_rxof_reg && rx_full && ~rd_uart)
 			e_rxof_next = 1'b1;
 		if (!e_txof_reg && tx_full && wr_uart)
-			e_rxof_next = 1'b1;
+			e_txof_next = 1'b1;
 	end
 	
 // body

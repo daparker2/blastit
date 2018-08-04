@@ -10,7 +10,7 @@ module blastit_main
 	//
 	// Daylight operation indicator
 	//
-	input wire DAYLIGHT, // Goes to MCU
+	input wire DAYLIGHT,
 	
 	//
 	// UART RX
@@ -20,22 +20,22 @@ module blastit_main
 	//
 	// Seven segment selector output
 	//
-	inout wire[7:0] C_SSEG,
+	output wire[7:0] C_SSEG,
 	
 	//
 	// Seven segment selector address input
 	//
-	inout wire[15:0] C,
+	output wire[15:0] C,
 	
 	//
 	// Diode array address output
 	//
-	inout wire[9:0] D,
+	output wire[7:0] D,
 	
 	//
 	// Diode array address input
 	//
-	inout wire[9:0] G,
+	output wire[9:0] G,
 	
 	//
 	// UART TX
@@ -58,13 +58,16 @@ module blastit_main
 
 	localparam T = 20; // Clock period
 
+	localparam LED_DISPLAY_PERIOD = 24'd7621,
+	           LED_PERIOD_BITS = 24;
+				  
 	// Timer params
 	localparam TC_M_BITS=32, 
 	           TC_N_BITS=24;
 	
 	// UART parameters
 	localparam UART_FIFO_R = 8,
-	           UART_FIFO_W = 3,
+	           UART_FIFO_W = 2,
 				  UART_DVSR_BIT = 16,
 				  UART_DBIT = 8,
 				  UART_RX_TICK_BITS = UART_FIFO_R,
@@ -79,29 +82,36 @@ module blastit_main
 	localparam WARN_PWM_BITS = 8;
 	
 	// SSEG array params			  
-	localparam SSEG_BITS=2,
-				  SSEG_N=4,
+	localparam SSEG_BITS=5,
+				  SSEG_N=16,
 				  SSEG_PWM_BITS=8,
 				  SSEG_TICK_BITS=8;
 				  
 	// LED matrix params
-	localparam LEDS_N=5,
-				  LEDS_M=5,
-				  LEDS_N_BITS = 3,
-				  LEDS_M_BITS = 3,
+	localparam LEDS_N=10,
+				  LEDS_M=8,
+				  LEDS_N_BITS = 4,
+				  LEDS_M_BITS = 4,
 				  LEDS_PWM_BITS = 8,
 				  LEDS_COUNTER_BITS = 8;
+	
+	// Reset controller counter resolution
+	localparam RC1_TIMER_BITS = 24;
 	
 	//
 	// I/Os
 	//
 	
+	genvar status_led_i, c_i, c_cseg_i, g_i, d_i;
 	wire clk; // Goes to MCU
+	// Goes to status LEDs
+	wire led_tick;
 				  
 	// Timer counter inputs
 	wire tc1_reset, tc2_reset, tc3_reset, tc4_reset;
+	wire [3:0] tc_reset_control;
 	wire [TC_M_BITS-1:0] tc1_m, tc2_m, tc3_m, tc4_m; // Goes to MCU
-	wire [3:0] tc_reset; // Goes to MCU
+	wire [3:0] tc_en; // Goes to MCU
 	
 	// Timer counter outputs
 	wire [TC_N_BITS-1:0] tc1_counter, tc2_counter, tc3_counter, tc4_counter;
@@ -123,16 +133,17 @@ module blastit_main
 	
 	// UART outputs
 	wire uart1_tx_full, uart1_rx_empty;
-	wire [7:0] uart1_r_data;             // Goes tO MCU
+	wire [7:0] uart1_r_data;                       // Goes tO MCU
 	wire uart1_tx_done_tick, uart1_rx_done_tick;
 	wire uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof;
 	wire [UART_RX_TICK_BITS-1:0] uart1_rx_counter; // Goes to MCU
 	wire [UART_TX_TICK_BITS-1:0] uart1_tx_counter; // Goes to MCU
 	wire uart1_rx_counter_of, uart1_tx_counter_of;
-	wire [7:0] uart1_status_control;    // Goes to MCU
+	wire [7:0] uart1_status_control;               // Goes to MCU
 	
 	// BCD converter inputs
-	wire bcd1_reset, bcd1_tc_reset, bcd1_start;
+	wire bcd1_reset, bcd1_tc_reset;
+	wire bcd1_start;
 	wire [BCD_BIN_N:0] bcd1_bin; // Goes to MCU
 	wire [2:0] bcd1_control;     // Goes to MCU
 	
@@ -141,54 +152,62 @@ module blastit_main
 	wire [(4*BCD_N)-1:0]  bcd1_bcd;        // Goes to MCU
 	wire [BCD_TICK_BITS-1:0] bcd1_counter; // Goes to MCU
 	wire bcd1_counter_of;
-	wire [1:0] bcd1_status; // Goes to MCU
+	wire [1:0] bcd1_status;                // Goes to MCU
 	
 	// Warning & status PWM inputs
-	wire warn_pwm_reset, warn_pwm_en;
+	wire warn_pwm_reset;
+	wire warn_pwm_en;
 	wire [WARN_PWM_BITS-1:0] warn_pwm_brightness; // Goes to MCU
-	wire [3:0] status_led_en;    // Goes to MCU
-	wire [1:0] warn_pwm_control; // Goes tO MCU
+	wire [3:0] status_led_en;                     // Goes to MCU
+	wire [1:0] warn_pwm_control;                  // Goes tO MCU
+	reg [3:0] led_i_reg, led_i_next;
 	
 	// SSEG array inputs
-	wire sseg_reset_boost, sseg_reset_afr, sseg_reset_oil, sseg_reset_coolant, sseg_tc_reset;
-	wire sseg_wr_boost, sseg_wr_afr, sseg_wr_oil, sseg_wr_coolant;
-	wire [SSEG_PWM_BITS-1:0] sseg_brightness_boost, sseg_brightness_afr, sseg_brightness_oil, sseg_brightness_coolant; // Goes to MCU
-	wire [SSEG_BITS-1:0] sseg_sel_addr; // Goes to MCu
+	wire sseg_reset, sseg_tc_reset;
+	wire [SSEG_PWM_BITS-1:0] sseg_brightness; // Goes to MCU
+	wire sseg_wr;
+	wire [SSEG_BITS-1:0] sseg_sel;
 	wire sseg_en, sseg_sign, sseg_dp;
 	wire [3:0] sseg_val;
-	wire [4:0] sseg_reset_control; // Goes to MCU
-	wire [3:0] sseg_wr_control;    // Goes to MCU
-	wire [6:0] sseg_wr_val;        // Goes to MCU
+	wire [1:0] sseg_reset_control;            // Goes to MCU
+	wire [8 + SSEG_BITS - 1:0] sseg_wr_val;   // Goes to MCU
 	
 	// SSEG array outputs
-	wire [7:0] sseg_boost, sseg_afr, sseg_oil, sseg_coolant;
-	wire [SSEG_N - 1:0] sseg_oe_boost, sseg_oe_afr, sseg_oe_oil, sseg_oe_coolant;
-	wire sseg_done_tick_boost, sseg_done_tick_afr, sseg_done_tick_oil, sseg_done_tick_coolant;
-	wire [15:0] sseg_oe;
+	wire [7:0] sseg;
+	wire sseg_done_tick;
+	wire [SSEG_N - 1:0] sseg_oe;
 	wire [SSEG_TICK_BITS-1:0] sseg_counter; // Goes to MCU
 	wire sseg_counter_of;                   // Goes tO MCU
 	
 	// LED matrix inputs
-	wire leds_boost_reset, leds_afr_reset, leds_boost_counter_reset, leds_afr_counter_reset;
-	wire [LEDS_COUNTER_BITS-1:0] leds_boost_brightness, leds_afr_brightness;       // Goes to MCU
-	wire [LEDS_N_BITS + LEDS_M_BITS - 1:0] leds_boost_sel_addr, leds_afr_sel_addr; // Goes to MCU
-	wire leds_boost_sel, leds_afr_sel, leds_boost_en, leds_afr_en;
-	wire [3:0] leds_reset_control;                   // Goes to MCU
-	wire [1:0] leds_boost_control, leds_afr_control; // Goes to MCU
+	wire leds_reset, leds_counter_reset;
+	wire [LEDS_COUNTER_BITS-1:0] leds_brightness;            // Goes to MCU
+	wire [LEDS_N_BITS + LEDS_M_BITS - 1:0] leds_sel_addr;
+	wire leds_sel, leds_en;
+	wire [1:0] leds_reset_control;                           // Goes to MCU
+	wire [2 + LEDS_N_BITS + LEDS_M_BITS - 1:0] leds_wr_val;  // Goes to MCU
 	
 	// LED matrix outputs
-	wire [LEDS_N-1:0] leds_boost_n_en, leds_afr_n_en;
-	wire [LEDS_M-1:0] leds_boost_m_en, leds_afr_m_en;
-	wire leds_boost_done_tick, leds_afr_done_tick;
-	wire [9:0] leds_m;
-	wire [9:0] leds_n;
-	wire [LEDS_COUNTER_BITS-1:0] leds_boost_counter, leds_afr_counter; // Goes to MCU
-	wire leds_boost_counter_of, leds_afr_counter_of;
-	wire [1:0] leds_counter_status; // Goes to MCU
+	wire [LEDS_N-1:0] leds_n_en;
+	wire [LEDS_M-1:0] leds_m_en;
+	wire leds_done_tick;
+	wire [LEDS_COUNTER_BITS-1:0] leds_counter; // Goes to MCU
+	wire leds_counter_of;                      // Goes to MCU	
+	
+	// Timed reset controller inputs
+	wire [RC1_TIMER_BITS-1:0] rc1_m;
+	wire rc1_start;
+	wire [RC1_TIMER_BITS:0] rc1_control; // Goes to MCU
+	
+	// Timed reset controller outputs
+	wire rc1_reset, rc1_ready;           // Goes to MCU`
 	
 	//
 	// Entity blocks
 	//
+	
+	// LED multiplexing
+	mod_m_counter #(.M_BITS(LED_PERIOD_BITS)) tick_counter(.clk(clk), .reset(rc1_reset), .m(LED_DISPLAY_PERIOD), .max_tick(led_tick), .q());
 	
 	// Timer counter
 	timer_counter #(.N_BITS(TC_N_BITS), .M_BITS(TC_M_BITS)) 
@@ -208,102 +227,154 @@ module blastit_main
 	tick_counter #(.N(UART_TX_TICK_BITS)) uart1_tx_tc(.clk(clk), .reset(uart1_tx_tc_reset), .tick(uart1_tx_done_tick), .counter(uart1_tx_counter), .of(uart1_tx_counter_of));
 	
 	// BCD converter
-	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BCD_BIN_N)) bcd1(.clk(clk), .reset(bcd1_reset), .start(bcd1_start), .sign(bcd1_bin[BCD_BIN_N-1]),
-                                                    .bin(bcd1_bin[BCD_BIN_N-2:0]), .ready(bcd1_ready), .done_tick(bcd1_done_tick), .bcd(bcd1_bcd));
+	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BCD_BIN_N)) bcd1(.clk(clk), .reset(bcd1_reset), .start(bcd1_start), .sign(bcd1_bin[BCD_BIN_N]),
+                                                    .bin(bcd1_bin[BCD_BIN_N-1:0]), .ready(bcd1_ready), .done_tick(bcd1_done_tick), .bcd(bcd1_bcd));
 	tick_counter #(.N(BCD_TICK_BITS)) bcd1_tc(.clk(clk), .reset(bcd1_tc_reset), .tick(bcd1_done_tick), .counter(bcd1_counter), .of(bcd1_counter_of));
 
 	// Warning brightness PWM
 	pwm #(.N(WARN_PWM_BITS), .M(1)) warn_pwm(.clk(clk), .reset(warn_pwm_reset), .in(warn_pwm_en), .w(warn_pwm_brightness), .out(WARN));
 	
-	// SSEG array
-	sseg_array #(.SSEG_BITS(SSEG_BITS), .SSEG_N(SSEG_N), .PWM_BITS(SSEG_PWM_BITS)) sseg_boost_array(.clk(clk), .reset(sseg_reset_boost), .wr(sseg_wr_boost), .brightness(sseg_brightness_boost),
-																																	.sel(sseg_sel_addr), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
-																																	.val(sseg_val), .sseg(sseg_boost), .oe(sseg_oe_boost), .done_tick(sseg_done_tick_boost)),
-																											 sseg_afr_array(.clk(clk), .reset(sseg_reset_afr), .wr(sseg_wr_afr), .brightness(sseg_brightness_afr),
-																																 .sel(sseg_sel_addr), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
-																																 .val(sseg_val), .sseg(sseg_afr), .oe(sseg_oe_afr), .done_tick(sseg_done_tick_afr)),
-																											 sseg_oil_array(.clk(clk), .reset(sseg_reset_oil), .wr(sseg_wr_oil), .brightness(sseg_brightness_oil),
-																																 .sel(sseg_sel_addr), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
-																											         		 .val(sseg_val), .sseg(sseg_oil), .oe(sseg_oe_oil), .done_tick(sseg_done_tick_oil)),
-																											 sseg_coolant_array(.clk(clk), .reset(sseg_reset_coolant), .wr(sseg_wr_coolant), .brightness(sseg_brightness_coolant),
-																																	  .sel(sseg_sel_addr), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
-																											         			  .val(sseg_val), .sseg(sseg_coolant), .oe(sseg_oe_coolant), .done_tick(sseg_done_tick_coolant));
-	tick_counter #(.N(BCD_TICK_BITS)) sseg_tc(.clk(clk), .reset(sseg_tc_reset), .tick(sseg_done_tick_boost | sseg_done_tick_afr | sseg_done_tick_oil | sseg_done_tick_coolant), .counter(sseg_counter), .of(sseg_counter_of));																
+	// SSEG array	
+	sseg_array #(.SSEG_BITS(SSEG_BITS), .SSEG_N(SSEG_N), .PWM_BITS(SSEG_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
+			ssegarr(.clk(clk), .reset(sseg_reset), .wr(sseg_wr), .brightness(sseg_brightness),
+					  .sel(sseg_sel), .led_period(LED_DISPLAY_PERIOD), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
+					  .val(sseg_val), .o_sseg(sseg), .oe(sseg_oe), .done_tick(sseg_done_tick));
+	tick_counter #(.N(SSEG_TICK_BITS)) sseg_tc(.clk(clk), .reset(sseg_tc_reset), .tick(sseg_done_tick), .counter(sseg_counter), .of(sseg_counter_of));																
 	
 	// LED matrix
-	led_matrix #(.LEDS_N(LEDS_N), .LEDS_M(LEDS_M), .N_BITS(LEDS_N_BITS), .M_BITS(LEDS_M_BITS), .PWM_BITS(LEDS_PWM_BITS)) led_boost(.clk(clk), .reset(leds_boost_reset), .brightness(leds_boost_brightness), .sel_addr(leds_boost_sel_addr),
-																																											 .sel(leds_boost_sel), .en(leds_boost_en), .n_en(leds_boost_n_en), .m_en(leds_boost_m_en), .done_tick(leds_boost_done_tick)),
-																																								led_afr(.clk(clk), .reset(leds_afr_reset), .brightness(leds_afr_brightness), .sel_addr(leds_afr_sel_addr),
-																																								        .sel(leds_afr_sel), .en(leds_afr_en), .n_en(leds_afr_n_en), .m_en(leds_afr_m_en), .done_tick(leds_afr_done_tick));
-	tick_counter #(.N(LEDS_COUNTER_BITS)) leds_boost_tc(.clk(clk), .reset(leds_boost_counter_reset), .tick(leds_boost_done_tick), .counter(leds_boost_counter), .of(leds_boost_counter_of)),
-												     leds_afr_tc(.clk(clk), .reset(leds_afr_counter_reset), .tick(leds_afr_done_tick), .counter(leds_afr_counter), .of(leds_afr_counter_of));
+	led_matrix #(.LEDS_N(LEDS_N), .LEDS_M(LEDS_M), .N_BITS(LEDS_N_BITS), .M_BITS(LEDS_M_BITS), .PWM_BITS(LEDS_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
+		leds(.clk(clk), .reset(leds_reset), .brightness(leds_brightness), .sel_addr(leds_sel_addr),
+			  .sel(leds_sel), .led_period(LED_DISPLAY_PERIOD), .en(leds_en), .n_en(leds_n_en), .m_en(leds_m_en), .done_tick(leds_done_tick));
+	tick_counter #(.N(LEDS_COUNTER_BITS)) 
+		leds_tc(.clk(clk), .reset(leds_counter_reset), .tick(leds_done_tick), .counter(leds_counter), .of(leds_counter_of));
+	
+	// Timed reset controller
+	reset_controller #(.M_BITS(RC1_TIMER_BITS)) rc1(.clk(clk), .reset(1'b0), .start(rc1_start), .m(rc1_m), .en(rc1_reset), .ready(rc1_ready));
 	
 	// Microcontroller
-	controller mcu1(.clock_50_clk(clk), .reset_reset_n(1), .daylight_export(DAYLIGHT), .tc1_m_export(tc1_m),
-						 .tc2_m_export(tc2_m), .tc3_m_export(tc3_m), .tc4_m_export(tc4_m), .tc_reset_export(tc_reset),
-						 .tc1_status_export(tc1_status), .tc2_status_export(tc2_status), .tc3_status_export(tc3_status), .tc4_status_export(tc4_status),
-						 .uart1_w_data_export(uart1_w_data), .uart1_reset_control_export(uart1_reset_control), .uart1_wr_control_export(uart1_wr_control), .uart1_baud_control_export(uart1_baud_control), .uart1_dvsr_export(uart1_dvsr),
-						 .uart1_r_data_export(uart1_r_data), .uart1_rx_counter_export(uart1_rx_counter), .uart1_tx_counter_export(uart1_tx_counter), .uart1_status_control_export(uart1_status_control),
-						 .bcd1_bin_export(bcd1_bin), .bcd1_control_export(bcd1_control), .bcd1_bcd_export(bcd1_bcd), .bcd1_counter_export(bcd1_counter),	
-						 .bcd1_status_export(bcd1_status), .warn_pwm_brightness_export(warn_pwm_brightness), .status_led_en_export(status_led_en), .warn_pwm_control_export(warn_pwm_control),
-						 .sseg_brightness_boost_export(sseg_brightness_boost), .sseg_brightness_afr_export(sseg_brightness_afr), .sseg_brightness_oil_export(sseg_brightness_oil), .sseg_brightness_coolant_export(sseg_brightness_coolant), 
-						 .sseg_sel_addr_export(sseg_sel_addr), .sseg_reset_control_export(sseg_reset_control), .sseg_wr_control_export(sseg_wr_control), .sseg_wr_val_export(sseg_wr_val),
-						 .sseg_counter_export(sseg_counter), .sseg_counter_of_export(sseg_counter_of), .leds_boost_brightness_export(leds_boost_brightness), .leds_afr_brightness_export(leds_afr_brightness),
-						 .leds_boost_sel_addr_export(leds_boost_sel_addr), .leds_reset_control_export(leds_reset_control), .leds_afr_control_export(leds_afr_control), .leds_boost_counter_export(leds_boost_counter),
-						 .leds_boost_control_export(leds_boost_control), .leds_afr_counter_export(leds_afr_counter), .leds_counter_status_export(leds_counter_status));
+	controller mcu1(.clock_50_clk(clk), 
+	                .reset_reset_n(~rc1_reset), 
+						 .daylight_export(DAYLIGHT), 
+						 .tc1_m_export(tc1_m),
+						 .tc2_m_export(tc2_m), 
+						 .tc3_m_export(tc3_m), 
+						 .tc4_m_export(tc4_m), 
+						 .tc_reset_control_export(tc_reset_control),
+						 .tc1_status_export(tc1_status), 
+						 .tc2_status_export(tc2_status),
+						 .tc3_status_export(tc3_status), 
+						 .tc4_status_export(tc4_status),
+						 .uart1_w_data_export(uart1_w_data), 
+						 .uart1_reset_control_export(uart1_reset_control), 
+						 .uart1_wr_control_export(uart1_wr_control), 
+						 .uart1_baud_control_export(uart1_baud_control), 
+						 .uart1_dvsr_export(uart1_dvsr),
+						 .uart1_r_data_export(uart1_r_data),
+						 .uart1_rx_counter_export(uart1_rx_counter),
+						 .uart1_tx_counter_export(uart1_tx_counter),
+						 .uart1_status_control_export(uart1_status_control),
+						 .bcd1_bin_export(bcd1_bin), 
+						 .bcd1_control_export(bcd1_control),
+						 .bcd1_bcd_export(bcd1_bcd), 
+						 .bcd1_counter_export(bcd1_counter),	
+						 .bcd1_status_export(bcd1_status),
+						 .warn_pwm_brightness_export(warn_pwm_brightness),
+						 .status_led_en_export(status_led_en), 
+						 .warn_pwm_control_export(warn_pwm_control),
+						 .sseg_brightness_export(sseg_brightness),
+						 .sseg_reset_control_export(sseg_reset_control),
+						 .sseg_wr_val_export(sseg_wr_val),
+						 .sseg_counter_export(sseg_counter),
+						 .sseg_counter_of_export(sseg_counter_of),
+						 .leds_brightness_export(leds_brightness),
+						 .leds_wr_val_export(leds_wr_val),
+						 .leds_counter_export(leds_counter),
+						 .leds_reset_control_export(leds_reset_control),
+						 .leds_counter_of_export(leds_counter_of),
+						 .rc1_control_export(rc1_control),
+						 .rc1_ready_export(rc1_ready)
+					);
+	//
+	// FSM logic
+	//
+	
+	always @(posedge clk)
+		begin
+			led_i_reg <= led_i_next;
+		end
+		
+	always @*
+		begin
+			led_i_next = led_i_reg;
+			if (led_tick)
+				begin
+					led_i_next = led_i_reg + 1'b1;
+					if (led_i_next == 4'd4)
+						led_i_next = 0;
+				end
+		end
 	
 	//
 	// I/O block assignments
 	//
 	
 	assign clk = CLOCK_50;
-	assign sseg_oe = { sseg_oe_coolant, sseg_oe_oil, sseg_oe_afr, sseg_oe_boost };
 	
 	// Timer counter block
-	assign tc_reset = { tc4_reset, tc3_reset, tc2_reset, tc1_reset };
-	assign tc1_status = { tc1_of, tc1_counter};
-	assign tc2_status = { tc2_of, tc2_counter};
-	assign tc3_status = { tc3_of, tc3_counter};
-	assign tc4_status = { tc4_of, tc4_counter};
+	assign tc_reset_control = { ~tc4_reset, ~tc3_reset, ~tc2_reset, ~tc1_reset };
+	assign tc1_status = { tc1_of, tc1_counter };
+	assign tc2_status = { tc2_of, tc2_counter };
+	assign tc3_status = { tc3_of, tc3_counter };
+	assign tc4_status = { tc4_of, tc4_counter };
 	
 	// UART block
-	assign uart1_reset_control = { uart1_reset, uart1_rx_tc_reset, uart1_tx_tc_reset };
+	assign uart1_reset_control = { ~uart1_reset, ~uart1_rx_tc_reset, ~uart1_tx_tc_reset };
 	assign uart1_wr_control = { uart1_rd_uart, uart1_wr_uart };
 	assign uart1_baud_control = { uart1_dbit, uart1_pbit, uart1_sb_tick, uart1_os_tick };
 	assign uart1_status_control = {uart1_tx_full, uart1_rx_empty, uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof, uart1_rx_counter_of, uart1_tx_counter_of };
 	
 	// BCD converter block
-	assign bcd1_control = { bcd1_reset, bcd1_tc_reset, bcd1_start };
+	assign bcd1_control = { ~bcd1_reset, ~bcd1_tc_reset, bcd1_start };
 	assign bcd1_status = { bcd1_ready, bcd1_counter_of };
 	
 	// Warning & status PWM block
-	assign warn_pwm_control = { warn_pwm_reset, warn_pwm_en };
+	assign warn_pwm_control = { ~warn_pwm_reset, warn_pwm_en };
 	
 	// SSEG block
-	assign sseg_reset_control = { sseg_reset_boost, sseg_reset_afr, sseg_reset_oil, sseg_reset_coolant, sseg_tc_reset };
-	assign sseg_wr_control = { sseg_wr_boost, sseg_wr_afr, sseg_wr_oil, sseg_wr_coolant };
-	assign sseg_wr_val = { sseg_en, sseg_sign, sseg_dp, sseg_val };
+	assign sseg_reset_control = { ~sseg_reset, ~sseg_tc_reset };
+	assign sseg_wr_val = { sseg_wr, sseg_sel, sseg_en, sseg_sign, sseg_dp, sseg_val };
 	
 	// LEDS block
-	assign leds_reset_control = { leds_boost_reset, leds_afr_reset, leds_boost_counter_reset, leds_afr_counter_reset };
-	assign leds_boost_control = { leds_boost_sel, leds_boost_en };
-	assign leds_afr_control = { leds_afr_sel, leds_afr_en };
-	assign leds_counter_status = { leds_afr_counter_of, leds_boost_counter_of };
-	assign leds_m  = { leds_afr_n_en, leds_boost_n_en };
-	assign leds_n = { leds_afr_m_en, leds_boost_m_en };
+	assign leds_reset_control = { ~leds_reset, ~leds_counter_reset };
+	assign leds_wr_val = { leds_sel, leds_en, leds_sel_addr };
+	
+	// Reset controller block
+	assign rc1_control = { rc1_start, rc1_m };
 	
 	//
 	// Output assignments
 	//
 	
-	assign LED = ~status_led_en;
-	assign C_SSEG = (sseg_oe <= (1 << 3)) ? sseg_boost :
-	                (sseg_oe <= (1 << 7)) ? sseg_afr :
-						 (sseg_oe <= (1 << 11)) ? sseg_oil :
-						 (sseg_oe <= (1 << 15)) ? sseg_coolant :
-						 8'bz;
-	assign C = (sseg_oe <= (1 << 15)) ? sseg_oe : 15'bz;
-	assign D = leds_m;
-	assign G = leds_n;
+	generate
+		for (status_led_i = 0; status_led_i < 4; status_led_i = status_led_i + 1) begin:gen_status_led
+			assign LED[status_led_i] = status_led_en[status_led_i] == 1'b1 ? 1'b0 : 1'bz;
+		end
+	
+		for (c_i = 0; c_i < SSEG_N; c_i = c_i + 1) begin:gen_c
+			assign C[c_i] = (sseg_oe[c_i] == 1'b1) ? 1'b1 : 1'bz;
+		end
+		
+		for (c_cseg_i = 0; c_cseg_i < 8; c_cseg_i = c_cseg_i + 1) begin:gen_c_cseg
+			assign C_SSEG[c_cseg_i] = (sseg[c_cseg_i] == 1'b1) ? 1'b0 : 1'bz;
+		end
+		
+		for (g_i = 0; g_i < LEDS_N; g_i = g_i + 1) begin:gen_g
+			assign G[g_i] = (leds_n_en[g_i] == 1'b1) ? 1'b0 : 1'bz;
+		end
+		
+		for (d_i = 0; d_i < LEDS_M; d_i = d_i + 1) begin:gen_d
+			assign D[d_i] = (leds_m_en[d_i] == 1'b1) ? 1'b1 : 1'bz;
+		end
+	endgenerate
 									
 endmodule

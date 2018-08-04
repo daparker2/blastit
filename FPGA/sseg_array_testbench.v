@@ -1,24 +1,27 @@
 module sseg_array_testbench;
 
 	localparam T=20,
-	           SSEG_BITS=2,
-				  SSEG_N=2,
-				  PWM_BITS=1;
+	           SSEG_BITS=3,
+				  SSEG_N=4,
+				  PWM_BITS=1,
+				  LED_PERIOD_BITS=4;
 
 	integer i, j;
 	reg clk, reset;
 	reg wr;
 	reg [PWM_BITS-1:0] brightness;
 	reg [SSEG_BITS-1:0] sel;
-	reg en, sign, dp;
+	reg [LED_PERIOD_BITS-1:0] led_period;
+ 	reg en, sign, dp;
 	reg [3:0] val;
 	wire [7:0] sseg;
-	wire [SSEG_BITS-1:0] oe;
+	wire [SSEG_N-1:0] oe;
 	wire done_tick;
 	
-	sseg_array #(.SSEG_BITS(SSEG_BITS), .SSEG_N(SSEG_N), .PWM_BITS(PWM_BITS)) uut(.clk(clk), .reset(reset), .wr(wr), .brightness(brightness),
-	                                                                              .sel(sel), .en(en), .sign(sign), .dp(dp),
-																											.val(val), .sseg(sseg), .oe(oe), .done_tick(done_tick));
+	sseg_array #(.SSEG_BITS(SSEG_BITS), .SSEG_N(SSEG_N), .PWM_BITS(PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
+		uut(.clk(clk), .reset(reset), .wr(wr), .brightness(brightness),
+			 .sel(sel), .en(en), .sign(sign), .dp(dp), .led_period(led_period),
+			 .val(val), .sseg(sseg), .oe(oe), .done_tick(done_tick));
 	
 	// Clock control
 	always
@@ -32,6 +35,7 @@ module sseg_array_testbench;
 	// reset the UUT
 	initial
 		begin
+			led_period = 2;
 			reset = 1'b1;
 			#(T / 2);
 			reset = 1'b0;
@@ -65,24 +69,20 @@ module sseg_array_testbench;
 		input reg en_i, sign_i, dp_i;
 		
 		begin
+			wr = 1;
 			sel = sel_i;
 			val = val_i;
 			en =  en_i;
 			sign = sign_i;
 			dp = dp_i;
-			wr = 1;
 			#(T);
 			wr = 0;		
 			
 			while (!done_tick)
 				#(T);
 			
-			$display("val: sseg=%h oe=%b", sseg, oe);
 			while (!done_tick)
-				begin
-					$display("val: sseg=%h oe=%b", sseg, oe);
-					#(T);
-				end
+				#(T);
 		end
 	endtask	
 	
@@ -93,7 +93,7 @@ module sseg_array_testbench;
 			j = 0;
 			for (i = 0; i <= 15; i = i + 1)
 				begin
-					if (j == SSEG_BITS-1)
+					if (j == SSEG_N-1)
 						j = 0;
 					else
 						j = j + 1;
@@ -102,6 +102,9 @@ module sseg_array_testbench;
 				end
 		end		
 	endtask
+	
+	always @*
+		$display("sseg: %b oe: %b", sseg, oe);
 	
 	initial
 		begin

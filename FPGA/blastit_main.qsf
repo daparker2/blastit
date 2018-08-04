@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone III"
 set_global_assignment -name DEVICE EP3C16Q240C8
-set_global_assignment -name TOP_LEVEL_ENTITY blastit_demo_all_leds
+set_global_assignment -name TOP_LEVEL_ENTITY blastit_main
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:49:35  JULY 01, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
@@ -118,7 +118,7 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH timer_counter_testbench -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH led_matrix_testbench -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME blinker_counter_testbench -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id blinker_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME blinker_counter_testbench -section_id blinker_counter_testbench
@@ -148,6 +148,133 @@ set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME led_matrix_testbench -sec
 set_global_assignment -name EDA_TEST_BENCH_NAME tick_counter_testbench -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id tick_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tick_counter_testbench -section_id tick_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_NAME timer_counter_testbench -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id timer_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME timer_counter_testbench -section_id timer_counter_testbench
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DAYLIGHT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_RX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_TX
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to WARN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[14]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[13]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[12]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[15]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
+set_instance_assignment -name PCI_IO ON -to UART_RX
+set_instance_assignment -name PCI_IO ON -to UART_TX
+set_global_assignment -name EDA_TEST_BENCH_NAME reset_controller_testbench -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id reset_controller_testbench
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME reset_controller_testbench -section_id reset_controller_testbench
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to UART_RX
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to UART_TX
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to WARN
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C_SSEG[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[14]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[13]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to C[15]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to D[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to G[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED[0]
+set_global_assignment -name ENABLE_SIGNALTAP ON
+set_global_assignment -name USE_SIGNALTAP_FILE blastit_main.stp
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to CLOCK_50 -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
 set_global_assignment -name EDA_TEST_BENCH_FILE blinker_counter_testbench.v -section_id blinker_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE led_bar_testbench.v -section_id led_bar_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE mod_m_counter_testbench.v -section_id mod_m_counter_testbench
@@ -157,27 +284,35 @@ set_global_assignment -name EDA_TEST_BENCH_FILE bin2bcd_testbench.v -section_id 
 set_global_assignment -name EDA_TEST_BENCH_FILE sseg_array_testbench.v -section_id sseg_array_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE led_matrix_testbench.v -section_id led_matrix_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE tick_counter_testbench.v -section_id tick_counter_testbench
-set_global_assignment -name EDA_TEST_BENCH_NAME timer_counter_testbench -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME uut -section_id timer_counter_testbench
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME timer_counter_testbench -section_id timer_counter_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE timer_counter_testbench.v -section_id timer_counter_testbench
+set_global_assignment -name EDA_TEST_BENCH_FILE reset_controller_testbench.v -section_id reset_controller_testbench
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=1024" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=1024" -section_id auto_signaltap_0
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_warning_en.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_wr_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_w_data.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_tx_counter.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_status_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_reset_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_r_data.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_dvsr.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_uart1_baud_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc1_status.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc1_m.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc_reset_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_tc_reset.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_system_status.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sysid_c001.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_status_led_en.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sseg_wr_val.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sseg_wr_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sseg_sel_addr.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sseg_reset_control.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_sseg_counter_of.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_rc1_control.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_ram.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_onchip_ram.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_onchip_memory.v
@@ -197,6 +332,7 @@ set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/control
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_nios2_qsys_0_jtag_debug_module_sysclk.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_nios2_qsys_0.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_mm_interconnect_0.v
+set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_leds_wr_val.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_leds_boost_sel_addr.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_jtag_uart_0.v
 set_global_assignment -name VERILOG_FILE controller/synthesis/submodules/controller_iram.v
@@ -280,60 +416,22 @@ set_global_assignment -name VERILOG_FILE tick_counter.v
 set_global_assignment -name VERILOG_FILE tick_counter_testbench.v
 set_global_assignment -name VERILOG_FILE timer_counter.v
 set_global_assignment -name VERILOG_FILE timer_counter_testbench.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DAYLIGHT
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_RX
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_TX
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to WARN
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C_SSEG[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[14]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[13]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[12]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[11]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[10]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to C[15]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to G[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
-set_instance_assignment -name PCI_IO ON -to UART_RX
-set_instance_assignment -name PCI_IO ON -to UART_TX
+set_global_assignment -name VERILOG_FILE reset_controller.v
+set_global_assignment -name VERILOG_FILE reset_controller_testbench.v
+set_global_assignment -name SIGNALTAP_FILE blastit_main.stp
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "uart:uart1|rx" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "uart:uart1|rx_done_tick" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "uart:uart1|tx" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "uart:uart1|tx_done_tick" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "uart:uart1|rx" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "uart:uart1|rx_done_tick" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "uart:uart1|tx" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "uart:uart1|tx_done_tick" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=4" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=4" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=36" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_LOWORD=35312" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_HIWORD=39157" -section_id auto_signaltap_0
+set_global_assignment -name SLD_FILE db/blastit_main_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

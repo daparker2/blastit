@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.24.21:19:20
+# ACDS 13.1 162 win32 2018.08.03.21:04:23
 
 # ----------------------------------------
 # Auto-generated simulation script
@@ -120,24 +120,26 @@ ensure_lib                                                                      
 vmap       irq_mapper                                                                  ./libraries/irq_mapper/                                                                 
 ensure_lib                                                                             ./libraries/mm_interconnect_0/                                                          
 vmap       mm_interconnect_0                                                           ./libraries/mm_interconnect_0/                                                          
+ensure_lib                                                                             ./libraries/rc1_control/                                                                
+vmap       rc1_control                                                                 ./libraries/rc1_control/                                                                
 ensure_lib                                                                             ./libraries/uart1_dvsr/                                                                 
 vmap       uart1_dvsr                                                                  ./libraries/uart1_dvsr/                                                                 
-ensure_lib                                                                             ./libraries/leds_boost_sel_addr/                                                        
-vmap       leds_boost_sel_addr                                                         ./libraries/leds_boost_sel_addr/                                                        
+ensure_lib                                                                             ./libraries/leds_wr_val/                                                                
+vmap       leds_wr_val                                                                 ./libraries/leds_wr_val/                                                                
+ensure_lib                                                                             ./libraries/sseg_counter_of/                                                            
+vmap       sseg_counter_of                                                             ./libraries/sseg_counter_of/                                                            
 ensure_lib                                                                             ./libraries/sseg_wr_val/                                                                
 vmap       sseg_wr_val                                                                 ./libraries/sseg_wr_val/                                                                
-ensure_lib                                                                             ./libraries/sseg_wr_control/                                                            
-vmap       sseg_wr_control                                                             ./libraries/sseg_wr_control/                                                            
-ensure_lib                                                                             ./libraries/sseg_reset_control/                                                         
-vmap       sseg_reset_control                                                          ./libraries/sseg_reset_control/                                                         
-ensure_lib                                                                             ./libraries/sseg_sel_addr/                                                              
-vmap       sseg_sel_addr                                                               ./libraries/sseg_sel_addr/                                                              
+ensure_lib                                                                             ./libraries/status_led_en/                                                              
+vmap       status_led_en                                                               ./libraries/status_led_en/                                                              
 ensure_lib                                                                             ./libraries/bcd1_status/                                                                
 vmap       bcd1_status                                                                 ./libraries/bcd1_status/                                                                
 ensure_lib                                                                             ./libraries/bcd1_bcd/                                                                   
 vmap       bcd1_bcd                                                                    ./libraries/bcd1_bcd/                                                                   
 ensure_lib                                                                             ./libraries/bcd1_bin/                                                                   
 vmap       bcd1_bin                                                                    ./libraries/bcd1_bin/                                                                   
+ensure_lib                                                                             ./libraries/uart1_status_control/                                                       
+vmap       uart1_status_control                                                        ./libraries/uart1_status_control/                                                       
 ensure_lib                                                                             ./libraries/uart1_tx_counter/                                                           
 vmap       uart1_tx_counter                                                            ./libraries/uart1_tx_counter/                                                           
 ensure_lib                                                                             ./libraries/uart1_r_data/                                                               
@@ -152,8 +154,8 @@ ensure_lib                                                                      
 vmap       uart1_w_data                                                                ./libraries/uart1_w_data/                                                               
 ensure_lib                                                                             ./libraries/tc1_status/                                                                 
 vmap       tc1_status                                                                  ./libraries/tc1_status/                                                                 
-ensure_lib                                                                             ./libraries/tc_reset/                                                                   
-vmap       tc_reset                                                                    ./libraries/tc_reset/                                                                   
+ensure_lib                                                                             ./libraries/tc_reset_control/                                                           
+vmap       tc_reset_control                                                            ./libraries/tc_reset_control/                                                           
 ensure_lib                                                                             ./libraries/tc1_m/                                                                      
 vmap       tc1_m                                                                       ./libraries/tc1_m/                                                                      
 ensure_lib                                                                             ./libraries/daylight/                                                                   
@@ -210,15 +212,16 @@ alias com {
   vlog     "$QSYS_SIMDIR/submodules/altera_reset_synchronizer.v"                        -work rst_controller                                                             
   vlog -sv "$QSYS_SIMDIR/submodules/controller_irq_mapper.sv"                           -work irq_mapper                                                                 
   vlog     "$QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v"                     -work mm_interconnect_0                                                          
+  vlog     "$QSYS_SIMDIR/submodules/controller_rc1_control.v"                           -work rc1_control                                                                
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                 
-  vlog     "$QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v"                   -work leds_boost_sel_addr                                                        
+  vlog     "$QSYS_SIMDIR/submodules/controller_leds_wr_val.v"                           -work leds_wr_val                                                                
+  vlog     "$QSYS_SIMDIR/submodules/controller_sseg_counter_of.v"                       -work sseg_counter_of                                                            
   vlog     "$QSYS_SIMDIR/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
-  vlog     "$QSYS_SIMDIR/submodules/controller_sseg_wr_control.v"                       -work sseg_wr_control                                                            
-  vlog     "$QSYS_SIMDIR/submodules/controller_sseg_reset_control.v"                    -work sseg_reset_control                                                         
-  vlog     "$QSYS_SIMDIR/submodules/controller_sseg_sel_addr.v"                         -work sseg_sel_addr                                                              
+  vlog     "$QSYS_SIMDIR/submodules/controller_status_led_en.v"                         -work status_led_en                                                              
   vlog     "$QSYS_SIMDIR/submodules/controller_bcd1_status.v"                           -work bcd1_status                                                                
   vlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bcd.v"                              -work bcd1_bcd                                                                   
   vlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bin.v"                              -work bcd1_bin                                                                   
+  vlog     "$QSYS_SIMDIR/submodules/controller_uart1_status_control.v"                  -work uart1_status_control                                                       
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_tx_counter.v"                      -work uart1_tx_counter                                                           
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_r_data.v"                          -work uart1_r_data                                                               
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_baud_control.v"                    -work uart1_baud_control                                                         
@@ -226,7 +229,7 @@ alias com {
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_reset_control.v"                   -work uart1_reset_control                                                        
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_w_data.v"                          -work uart1_w_data                                                               
   vlog     "$QSYS_SIMDIR/submodules/controller_tc1_status.v"                            -work tc1_status                                                                 
-  vlog     "$QSYS_SIMDIR/submodules/controller_tc_reset.v"                              -work tc_reset                                                                   
+  vlog     "$QSYS_SIMDIR/submodules/controller_tc_reset_control.v"                      -work tc_reset_control                                                           
   vlog     "$QSYS_SIMDIR/submodules/controller_tc1_m.v"                                 -work tc1_m                                                                      
   vlog     "$QSYS_SIMDIR/submodules/controller_daylight.v"                              -work daylight                                                                   
   vlog     "$QSYS_SIMDIR/submodules/controller_onchip_ram.v"                            -work onchip_ram                                                                 
@@ -245,14 +248,14 @@ alias com {
 # Elaborate top level design
 alias elab {
   echo "\[exec\] elab"
-  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_002 -L cmd_xbar_mux_002 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_002 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L uart1_dvsr -L leds_boost_sel_addr -L sseg_wr_val -L sseg_wr_control -L sseg_reset_control -L sseg_sel_addr -L bcd1_status -L bcd1_bcd -L bcd1_bin -L uart1_tx_counter -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_002 -L cmd_xbar_mux_002 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_002 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L rc1_control -L uart1_dvsr -L leds_wr_val -L sseg_counter_of -L sseg_wr_val -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_bin -L uart1_status_control -L uart1_tx_counter -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------
 # Elaborate the top level design with novopt option
 alias elab_debug {
   echo "\[exec\] elab_debug"
-  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_002 -L cmd_xbar_mux_002 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_002 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L uart1_dvsr -L leds_boost_sel_addr -L sseg_wr_val -L sseg_wr_control -L sseg_reset_control -L sseg_sel_addr -L bcd1_status -L bcd1_bcd -L bcd1_bin -L uart1_tx_counter -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_002 -L cmd_xbar_mux_002 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_002 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L rc1_control -L uart1_dvsr -L leds_wr_val -L sseg_counter_of -L sseg_wr_val -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_bin -L uart1_status_control -L uart1_tx_counter -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------

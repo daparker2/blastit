@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.07.24.21:19:20
+# ACDS 13.1 162 win32 2018.08.03.21:04:23
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -94,15 +94,16 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v \
+  $QSYS_SIMDIR/submodules/controller_rc1_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_dvsr.v \
-  $QSYS_SIMDIR/submodules/controller_leds_boost_sel_addr.v \
+  $QSYS_SIMDIR/submodules/controller_leds_wr_val.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_counter_of.v \
   $QSYS_SIMDIR/submodules/controller_sseg_wr_val.v \
-  $QSYS_SIMDIR/submodules/controller_sseg_wr_control.v \
-  $QSYS_SIMDIR/submodules/controller_sseg_reset_control.v \
-  $QSYS_SIMDIR/submodules/controller_sseg_sel_addr.v \
+  $QSYS_SIMDIR/submodules/controller_status_led_en.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_status.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_bcd.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_bin.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_status_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_tx_counter.v \
   $QSYS_SIMDIR/submodules/controller_uart1_r_data.v \
   $QSYS_SIMDIR/submodules/controller_uart1_baud_control.v \
@@ -110,7 +111,7 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/controller_uart1_reset_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_w_data.v \
   $QSYS_SIMDIR/submodules/controller_tc1_status.v \
-  $QSYS_SIMDIR/submodules/controller_tc_reset.v \
+  $QSYS_SIMDIR/submodules/controller_tc_reset_control.v \
   $QSYS_SIMDIR/submodules/controller_tc1_m.v \
   $QSYS_SIMDIR/submodules/controller_daylight.v \
   $QSYS_SIMDIR/submodules/controller_onchip_ram.v \

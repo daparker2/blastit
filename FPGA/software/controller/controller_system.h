@@ -19,10 +19,10 @@ typedef unsigned int dword_t;
 #define CLOCK_MILLIS_TO_TICKS(X) (((dword_t)X * 1000000U) / CLOCK_PERIOD_NS)
 
 // Delays for one clock period
-void nop(void);
-
-// Delays for n clock periods
-void delay(dword_t n);
+static inline void nop(void)
+{
+	__asm__ ("nop");
+}
 
 /*
  * BCD module control
@@ -57,30 +57,32 @@ bool is_daylight(void);
  * LED array control
  */
 
-#define LEDS_MAX 50 // Maximum LED strip LEDs
+#define LEDS_MAX 80 // Maximum LED strip LEDs
 
-#define LEDS_RESET_CONTROL_AFR_COUNTER   (1 << 0)
-#define LEDS_RESET_CONTROL_BOOST_COUNTER (1 << 1)
-#define LEDS_RESET_CONTROL_AFR           (1 << 2)
-#define LEDS_RESET_CONTROL_BOOST         (1 << 3)
+#define LEDS_COUNTER_EN   (1 << 0)
+#define LEDS_EN           (1 << 1)
 
-#define LEDS_CONTROL_EN  (1 << 0)
-#define LEDS_CONTROL_SEL (1 << 1)
+#define LEDS_N_BITS 4
+#define LEDS_M_BITS 4
+#define LEDS_ADDR_W (LEDS_N_BITS + LEDS_M_BITS)
 
-#define LEDS_COUNTER_STATUS_BOOST_OF (1 << 0)
-#define LEDS_COUNTER_STATUS_AFR_OF   (1 << 1)
+#define LEDS_N_MASK ((1 << LEDS_N_BITS) - 1)
+#define LEDS_M_MASK ((1 << LEDS_M_BITS) - 1)
+#define LEDS_ADDR_MASK ((1 << LEDS_ADDR_W) - 1)
 
-typedef enum LedArray_t
-{
-	LedArrayAfr   = 0,
-	LedArrayBoost = 1
-} LedArray;
+#define LEDS_CONTROL_EN_IDX LEDS_ADDR_W
+#define LEDS_CONTROL_SEL_IDX (LEDS_ADDR_W + 1)
+
+#define LEDS_CONTROL_EN  (1 << LEDS_CONTROL_EN_IDX)
+#define LEDS_CONTROL_SEL (1 << LEDS_CONTROL_SEL_IDX)
+
+#define LEDS_BRIGHTNESS_MAX 0xFF
 
 // Control LED brightness
-void leds_set_brightness(LedArray ledArray, byte_t brightness);
+void leds_set_brightness(byte_t brightness);
 
 // Enable or disable an LED
-void leds_enable_led(LedArray ledArray, dword_t addr, bool en);
+void leds_enable_led(dword_t addr, bool en);
 
 // Initialize and reset the LED module
 void leds_init(void);
@@ -92,38 +94,34 @@ void leds_shutdown(void);
  * SSEG array control
  */
 
-#define SSEG_MAX 4
+#define SSEG_MAX 16
 
-#define SSEG_RESET_CONTROL_TC      (1 << 0)
-#define SSEG_RESET_CONTROL_COOLANT (1 << 1)
-#define SSEG_RESET_CONTROL_OIL     (1 << 2)
-#define SSEG_RESET_CONTROL_AFR     (1 << 3)
-#define SSEG_RESET_CONTROL_BOOST   (1 << 4)
+#define SSEG_COUNTER_EN  (1 << 0)
+#define SSEG_EN          (1 << 1)
 
-#define SSEG_WR_CONTROL_COOLANT (1 << 0)
-#define SSEG_WR_CONTROL_OIL     (1 << 1)
-#define SSEG_WR_CONTROL_AFR     (1 << 2)
-#define SSEG_WR_CONTROL_BOOST   (1 << 3)
+#define SSEG_VAL_BITS 4
+#define SSEG_SEL_BITS 5
 
-#define SSEG_OE_BOOST   (1 << 0)
-#define SSEG_OE_AFR     (1 << 1)
-#define SSEG_OE_OIL     (1 << 2)
-#define SSEG_OE_COOLANT (1 << 3)
+#define SSEG_SEL_MASK ((1 << SSEG_SEL_BITS) - 1)
+#define SSEG_VAL_MASK ((1 << SSEG_VAL_BITS) - 1)
 
-typedef enum SsegArray_t
-{
-	SsegArrayAfr     = 0,
-	SsegArrayBoost   = 1,
-	SsegArrayOil     = 2,
-	SsegArrayCoolant = 3
-} SsegArray;
+#define SSEG_WR_IDX     (SSEG_SEL_BITS + SSEG_VAL_BITS + 3)
+#define SSEG_SEL_IDX    (SSEG_VAL_BITS + 3)
+#define SSEG_VAL_EN_IDX (SSEG_VAL_BITS + 2)
+#define SSEG_SIGN_IDX   (SSEG_VAL_BITS + 1)
+#define SSEG_DP_IDX     (SSEG_VAL_BITS)
 
-#define SSEG_EN (1 << 7)
-#define SSEG_SIGN (1 << 6)
-#define SSEG_DP (1 << 5)
+#define SSEG_WR     (1 << SSEG_WR_IDX)
+#define SSEG_SEL    (1 << SSEG_SEL_IDX)
+#define SSEG_VAL_EN (1 << SSEG_VAL_EN_IDX)
+#define SSEG_SIGN   (1 << SSEG_SIGN_IDX)
+#define SSEG_DP     (1 << SSEG_DP_IDX)
+
+
+#define SSEG_BRIGHTNESS_MAX 0xFF
 
 // Control SSEG brightness
-void sseg_set_brightness(SsegArray ssegArray, byte_t brightness);
+void sseg_set_brightness(byte_t brightness);
 
 // Initialize the SSEG module
 void sseg_init(void);
@@ -131,14 +129,18 @@ void sseg_init(void);
 // Shutdown the SSEG module, holding it in reset
 void sseg_shutdown(void);
 
-// Set a BCD value using SSEG_WR_VAL to construct val
-void sseg_set_bcd(SsegArray ssegArray, dword_t addr, byte_t val);
+// Set a BCD value using SsegVal to construct val
+void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val);
 
 /*
  * Status LED control
  */
 
 #define STATUS_LED_IDX(X) (1 << X)
+#define STATUS_LED_0 STATUS_LED_IDX(0)
+#define STATUS_LED_1 STATUS_LED_IDX(1)
+#define STATUS_LED_2 STATUS_LED_IDX(2)
+#define STATUS_LED_3 STATUS_LED_IDX(3)
 
 // Enable or disable one of the status LED by mask
 void status_led_en(dword_t mask);
@@ -147,10 +149,10 @@ void status_led_en(dword_t mask);
  * Timer counter control
  */
 
-#define TC_RESET_TC1 (1 << 0)
-#define TC_RESET_TC2 (1 << 1)
-#define TC_RESET_TC3 (1 << 2)
-#define TC_RESET_TC4 (1 << 3)
+#define TC_EN_TC1 (1 << 0)
+#define TC_EN_TC2 (1 << 1)
+#define TC_EN_TC3 (1 << 2)
+#define TC_EN_TC4 (1 << 3)
 
 #define TC_STATUS_COUNTER (1 << 0)
 #define TC_STATUS_OF      (1 << 25)
@@ -185,10 +187,12 @@ void tc_shutdown(void);
  * UART1 control
  */
 
+#define UART_DVSR_BIT 16
+#define UART_DBIT_BIT 8
 
-#define UART1_RESET_TX_TC (1 << 0)
-#define UART1_RESET_RX_TC (1 << 1)
-#define UART1_RESET       (1 << 2)
+#define UART1_EN_TX_TC (1 << 0)
+#define UART1_EN_RX_TC (1 << 1)
+#define UART1_EN       (1 << 2)
 
 #define UART1_WR_CONTROL_WR (1 << 0)
 #define UART1_WR_CONTROL_RD (1 << 1)
@@ -221,8 +225,10 @@ dword_t uart1_read_status(void);
  * Warning LED control
  */
 
-#define WARN_PWM_CONTROL_EN    (1 << 0)
-#define WARN_PWM_CONTROL_RESET (1 << 1)
+#define WARN_PWM_CONTROL_EN1 (1 << 0)
+#define WARN_PWM_CONTROL_EN2 (1 << 1)
+
+#define WARN_BRIGHTNESS_MAX 0xFF
 
 // Control Warning LED brightness
 void warn_set_brightness(byte_t brightness);
@@ -235,3 +241,14 @@ void warn_init(void);
 
 // Shutdown the warning LED PWM controller, holding it in reset
 void warn_shutdown(void);
+
+/*
+ * Reset control
+ */
+
+#define RC_M_BITS 24
+
+#define RC_CONTROL_START (1 << RC_M_BITS)
+
+// Force the controller into reset, bringing it back up after counts
+void rc_reset(dword_t counts);

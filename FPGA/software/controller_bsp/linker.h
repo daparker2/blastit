@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
  * SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
  *
- * Generated: Mon Jul 23 21:57:04 PDT 2018
+ * Generated: Fri Aug 03 00:52:08 PDT 2018
  */
 
 /*
@@ -66,7 +66,7 @@
  */
 
 #define ONCHIP_RAM_REGION_BASE 0x20
-#define ONCHIP_RAM_REGION_SPAN 49120
+#define ONCHIP_RAM_REGION_SPAN 39968
 #define RESET_REGION_BASE 0x0
 #define RESET_REGION_SPAN 32
 

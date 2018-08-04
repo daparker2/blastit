@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2e' in SOPC Builder design 'controller'
 # SOPC Builder design path: C:/github/blastit/FPGA/controller.sopcinfo
 #
-# Generated: Mon Jul 23 21:57:04 PDT 2018
+# Generated: Fri Aug 03 00:52:08 PDT 2018
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,4 +47,4 @@
 # by allowing GDB to cache memory contents on the host.
 
 # onchip_ram
-memory 0x0 0xc000 cache
+memory 0x0 0x9c40 cache

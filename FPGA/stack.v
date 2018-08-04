@@ -27,13 +27,13 @@ module stack
 	always @(posedge clk, posedge reset)
 		if (reset)
 			begin
-				data_reg <= 0;
+				data_reg <= 1'b0;
 				of_reg <= 1'b0;
 				uf_reg <= 1'b0;
 			end
 		else
 			begin
-				data_reg = data_next;
+				data_reg <= data_next;
 				of_reg <= of_next;
 				uf_reg <= uf_next;
 			end
@@ -41,8 +41,8 @@ module stack
 	always @*
 	begin
 		// successive pointer values
-		data_succ <= data_reg + 1'b1;
-		data_pred <= data_reg - 1'b1;
+		data_succ = data_reg + 1'b1;
+		data_pred = data_reg - 1'b1;
 		
 		// default: keep old values
 		data_next = data_reg;

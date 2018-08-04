@@ -110,29 +110,29 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_rc1_control.v"
+   type="VERILOG"
+   library="rc1_control" />
+ <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_uart1_dvsr.v"
    type="VERILOG"
    library="uart1_dvsr" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_leds_boost_sel_addr.v"
+   path="controller/testbench/controller_tb/simulation/submodules/controller_leds_wr_val.v"
    type="VERILOG"
-   library="leds_boost_sel_addr" />
+   library="leds_wr_val" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_sseg_counter_of.v"
+   type="VERILOG"
+   library="sseg_counter_of" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_sseg_wr_val.v"
    type="VERILOG"
    library="sseg_wr_val" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_sseg_wr_control.v"
+   path="controller/testbench/controller_tb/simulation/submodules/controller_status_led_en.v"
    type="VERILOG"
-   library="sseg_wr_control" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_sseg_reset_control.v"
-   type="VERILOG"
-   library="sseg_reset_control" />
- <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_sseg_sel_addr.v"
-   type="VERILOG"
-   library="sseg_sel_addr" />
+   library="status_led_en" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_bcd1_status.v"
    type="VERILOG"
@@ -145,6 +145,10 @@
    path="controller/testbench/controller_tb/simulation/submodules/controller_bcd1_bin.v"
    type="VERILOG"
    library="bcd1_bin" />
+ <file
+   path="controller/testbench/controller_tb/simulation/submodules/controller_uart1_status_control.v"
+   type="VERILOG"
+   library="uart1_status_control" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_uart1_tx_counter.v"
    type="VERILOG"
@@ -174,9 +178,9 @@
    type="VERILOG"
    library="tc1_status" />
  <file
-   path="controller/testbench/controller_tb/simulation/submodules/controller_tc_reset.v"
+   path="controller/testbench/controller_tb/simulation/submodules/controller_tc_reset_control.v"
    type="VERILOG"
-   library="tc_reset" />
+   library="tc_reset_control" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/controller_tc1_m.v"
    type="VERILOG"
@@ -272,19 +276,19 @@
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0017.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_uart1_dvsr_bfm" />
+   library="controller_inst_rc1_control_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_leds_afr_sel_addr_bfm" />
+   library="controller_inst_uart1_dvsr_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0015.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_sseg_wr_val_bfm" />
+   library="controller_inst_leds_wr_val_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0014.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_sseg_reset_control_bfm" />
+   library="controller_inst_sseg_wr_val_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0013.sv"
    type="SYSTEM_VERILOG"
@@ -328,7 +332,7 @@
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv"
    type="SYSTEM_VERILOG"
-   library="controller_inst_tc_reset_bfm" />
+   library="controller_inst_tc_reset_control_bfm" />
  <file
    path="controller/testbench/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv"
    type="SYSTEM_VERILOG"

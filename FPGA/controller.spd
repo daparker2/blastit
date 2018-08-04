@@ -105,29 +105,29 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/simulation/submodules/controller_rc1_control.v"
+   type="VERILOG"
+   library="rc1_control" />
+ <file
    path="controller/simulation/submodules/controller_uart1_dvsr.v"
    type="VERILOG"
    library="uart1_dvsr" />
  <file
-   path="controller/simulation/submodules/controller_leds_boost_sel_addr.v"
+   path="controller/simulation/submodules/controller_leds_wr_val.v"
    type="VERILOG"
-   library="leds_boost_sel_addr" />
+   library="leds_wr_val" />
+ <file
+   path="controller/simulation/submodules/controller_sseg_counter_of.v"
+   type="VERILOG"
+   library="sseg_counter_of" />
  <file
    path="controller/simulation/submodules/controller_sseg_wr_val.v"
    type="VERILOG"
    library="sseg_wr_val" />
  <file
-   path="controller/simulation/submodules/controller_sseg_wr_control.v"
+   path="controller/simulation/submodules/controller_status_led_en.v"
    type="VERILOG"
-   library="sseg_wr_control" />
- <file
-   path="controller/simulation/submodules/controller_sseg_reset_control.v"
-   type="VERILOG"
-   library="sseg_reset_control" />
- <file
-   path="controller/simulation/submodules/controller_sseg_sel_addr.v"
-   type="VERILOG"
-   library="sseg_sel_addr" />
+   library="status_led_en" />
  <file
    path="controller/simulation/submodules/controller_bcd1_status.v"
    type="VERILOG"
@@ -140,6 +140,10 @@
    path="controller/simulation/submodules/controller_bcd1_bin.v"
    type="VERILOG"
    library="bcd1_bin" />
+ <file
+   path="controller/simulation/submodules/controller_uart1_status_control.v"
+   type="VERILOG"
+   library="uart1_status_control" />
  <file
    path="controller/simulation/submodules/controller_uart1_tx_counter.v"
    type="VERILOG"
@@ -169,9 +173,9 @@
    type="VERILOG"
    library="tc1_status" />
  <file
-   path="controller/simulation/submodules/controller_tc_reset.v"
+   path="controller/simulation/submodules/controller_tc_reset_control.v"
    type="VERILOG"
-   library="tc_reset" />
+   library="tc_reset_control" />
  <file
    path="controller/simulation/submodules/controller_tc1_m.v"
    type="VERILOG"

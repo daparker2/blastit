@@ -83,7 +83,6 @@ always @*
 					w_ptr_next = w_ptr_succ;
 					r_ptr_next = r_ptr_succ;
 				end
-			// 2'b00: no-op
 		endcase
 	end
 		
