@@ -74,7 +74,6 @@ always @*
 				if (s_tick)
 					if (s_reg == ((os_tick - 1) >> 1))
 						begin
-							$display("moving to data phase");
 							state_next = data;
 							e_parity_next = 0;
 							e_frame_next = 0;
@@ -92,7 +91,6 @@ always @*
 							if (n_reg == (dbit - 1))
 								begin
 									n_next = 0;
-									$display("moving to parity/frame phase");
 									if (pbit > 0)
 										state_next = parity;
 									else
@@ -111,7 +109,6 @@ always @*
 						begin
 								if (s_reg == (os_tick - 1))
 									begin
-										$display("moving to frame phase rx_parity=%d rx=%d", rx_parity, rx);
 										e_parity_next = rx_parity != rx;
 										s_next = 0;
 										n_next = 0;
@@ -124,12 +121,13 @@ always @*
 				if (s_tick)
 					if (s_reg == (sb_tick - 1))
 						begin
-							$display("data: %h", b_reg);
 							e_frame_next = ~rx;
 							s_next = 0;
 							n_next = 0;
 							state_next = idle;
 							rx_done_tick = 1'b1;
+							if (b_reg == 0)
+								$display(" BUG: %h", b_reg);
 						end
 					else
 						s_next = s_reg + 1'd1;
@@ -137,7 +135,9 @@ always @*
 	end
 	
 	// output
-	assign dout = b_reg;
+	assign dout = (dbit == 4'd7) ? (b_reg >> 1) :
+	              (dbit == 4'd8) ? b_reg :
+					  0;
 	assign e_parity = e_parity_reg;
 	assign e_frame = e_frame_reg;
 

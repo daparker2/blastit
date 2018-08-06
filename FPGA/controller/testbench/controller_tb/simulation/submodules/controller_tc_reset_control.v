@@ -53,7 +53,7 @@ module controller_tc_reset_control (
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          data_out <= 0;
+          data_out <= 15;
       else if (chipselect && ~write_n && (address == 0))
           data_out <= writedata[3 : 0];
     end

@@ -100,12 +100,21 @@ void wait_tick(dword_t ticks)
 {
 	if (ticks > 0)
 	{
-		tc_reset(TC_TICK_COUNTER);
-		do
+		dword_t start = tc_get_ticks(TC_TICK_COUNTER);
+		dword_t end = start + ticks;
+		if (end < start)
+		{
+			// Overflow wrap
+			while (tc_get_ticks(TC_TICK_COUNTER) < TC_MAX)
+			{
+				nop();
+			}
+		}
+
+		while (tc_get_ticks(TC_TICK_COUNTER) < end)
 		{
 			nop();
 		}
-		while (tc_get_ticks(TC_TICK_COUNTER) < ticks);
 	}
 }
 
@@ -134,6 +143,7 @@ void uart_bufclr(void)
 
 void init()
 {
+	led_set_period(8000);
 	bcd_init();
 	sseg_init();
 	leds_init();
@@ -141,12 +151,12 @@ void init()
 	warn_init();
 
 	// Should give us 115200 baud
-	uart1_init(8, 0, 48, 48, 8);
+	uart1_init(8, 0, 32, 32, 13);
 	uart_bufclr();
 
 	// Configure the timer counters TC1 and TC2 for tick and frame, respectively
-	tc_set_max(TC_TICK_COUNTER, CLOCK_MILLIS_TO_TICKS(1)); // 1 ms per tick
-	tc_set_max(TC_FRAME_COUNTER, CLOCK_MILLIS_TO_TICKS(8)); // 8 ms per tick
+	tc_set_max(TC_TICK_COUNTER, 1000000U / CLOCK_PERIOD_NS); // 1 ms per tick
+	tc_set_max(TC_FRAME_COUNTER, 8000000U / CLOCK_PERIOD_NS); // 8 ms per tick
 
 #ifndef TEST
 	obd2_init();
@@ -173,11 +183,16 @@ void shutdown()
 	rc_reset(ResetTicks);
 }
 
+#ifdef TEST
 void test()
 {
-	dword_t i;
+	dword_t i, j;
 	dword_t status = 0;
+	dword_t new_status;
 	bool daylight = false;
+	const char test[] = "ati\r";
+	char test_rx[(1 << 8)] = {};
+	byte_t bcd_out[BCD_MAX] = {};
 
 	// Dan's test function
 	warn_set_brightness(WARN_BRIGHTNESS_MAX >> 4);
@@ -197,14 +212,61 @@ void test()
 		sseg_set_bcd(i, SSEG_VAL_EN | SSEG_DP, i);
 	}
 
-	uart1_tx('a'); uart1_tx('t'); uart1_tx('i'); uart1_tx('\r');
+	wait_tick(1000);
 
+	if ((new_status = uart1_read_status()) != status)
+	{
+		status = new_status;
+		uart1_print_status(status);
+	}
+
+	alt_printf("tx -> %s\n", test);
+	for (i = 0; i < strlen(test); ++i)
+	{
+		if ((new_status = uart1_read_status()) != status)
+		{
+			status = new_status;
+			uart1_print_status(status);
+		}
+
+		uart1_tx(test[i]);
+
+		if ((new_status = uart1_read_status()) != status)
+		{
+			status = new_status;
+			uart1_print_status(status);
+		}
+	}
+
+	i = 0;
+	for (;;)
+	{
+		test_rx[i] = uart1_rx();
+		if ((new_status = uart1_read_status()) != status)
+		{
+			status = new_status;
+			uart1_print_status(status);
+		}
+
+		if (test_rx[i] == '\r')
+		{
+			break;
+		}
+
+		++i;
+	}
+
+	alt_printf("rx -> %s\n", test_rx);
+
+	bcd_convert(1234, bcd_out);
+	alt_printf("1234 -> %x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
+	bcd_convert(-1234, bcd_out);
+	alt_printf("-1234 -> -%x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
+
+	i = 0;
 	for (;;)
 	{
 		bool new_daylight = is_daylight();
-		int ch;
-		dword_t new_status;
-		bool rd = false;
 
 		if (daylight != new_daylight)
 		{
@@ -219,23 +281,38 @@ void test()
 			}
 		}
 
-		if ((new_status = uart1_read_status()) != status)
+		if (i % 2 == 0)
 		{
-			status = new_status;
-			alt_printf("UART status: %x\n", status);
+			status_led_en(STATUS_LED_0 | STATUS_LED_2);
+
+			for (j = 0; j < LEDS_MAX; ++j)
+			{
+				leds_enable_led(j, (j % 2) == 0);
+			}
+
+			for (j = 0; j < SSEG_MAX; ++j)
+			{
+				sseg_set_bcd(j, SSEG_VAL_EN | SSEG_DP, i);
+			}
+		}
+		else
+		{
+			status_led_en(STATUS_LED_1 | STATUS_LED_3);
+
+			for (j = 0; j < LEDS_MAX; ++j)
+			{
+				leds_enable_led(j, (j % 2) != 0);
+			}
+
+			for (j = 0; j < SSEG_MAX; ++j)
+			{
+				sseg_set_bcd(j, SSEG_VAL_EN | SSEG_SIGN, 0);
+			}
 		}
 
-		while ((ch = uart1_rx()) > 0)
-		{
-			alt_putchar(ch);
-			rd = true;
-		}
-
-		if (rd)
-		{
-			alt_putstr("\n");
-		}
-
-		wait_tick(10);
+		wait_tick(250);
+		++i;
 	}
 }
+
+#endif // TEST

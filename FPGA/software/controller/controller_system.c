@@ -34,40 +34,43 @@ static const dword_t TcStatusMap[] =
 
 static const dword_t TcResetMap[] =
 {
-	TC1_STATUS_BASE,
-	TC2_STATUS_BASE,
-	TC3_STATUS_BASE,
-	TC4_STATUS_BASE
+	TC_RESET_TC1,
+	TC_RESET_TC2,
+	TC_RESET_TC3,
+	TC_RESET_TC4
 };
 
 void bcd_convert(dword_t bin, byte_t bcd[BCD_MAX])
 {
-	dword_t orig_control = REGR(BCD1_CONTROL_BASE);
+	dword_t orig_control;
+	while (!(REGR(BCD1_STATUS_BASE) & BCD1_STATUS_READY));
 	REGW(BCD1_BIN_BASE, bin);
+	orig_control = REGR(BCD1_CONTROL_BASE);
 	REGW(BCD1_CONTROL_BASE, orig_control | BCD1_CONTROL_START);
 	nop();
 	REGW(BCD1_CONTROL_BASE, orig_control);
+	nop();
 	while (!(REGR(BCD1_STATUS_BASE) & BCD1_STATUS_READY));
 	dword_t t = REGR(BCD1_BCD_BASE);
-	bcd[0] = t & 0xf;
-	bcd[1] = t & 0xf0;
-	bcd[2] = t & 0xf00;
-	bcd[3] = t & 0xf000;
+	bcd[0] = (t & 0xf000) >> 12;
+	bcd[1] = (t & 0xf00)  >> 8;
+	bcd[2] = (t & 0xf0)   >> 4;
+	bcd[3] = t & 0xf;
 }
 
 void bcd_init(void)
 {
 	// Reset BCD and TC and wait for ready to go high
-	REGW(BCD1_CONTROL_BASE, 0x0);
-	nop();
 	REGW(BCD1_CONTROL_BASE, BCD1_CONTROL_TC_RESET | BCD1_CONTROL_RESET);
+	nop();
+	REGW(BCD1_CONTROL_BASE, 0x0);
 	nop();
 	while (!(REGR(BCD1_STATUS_BASE) & BCD1_STATUS_READY));
 }
 
 void bcd_shutdown(void)
 {
-	REGW(BCD1_CONTROL_BASE, 0);
+	REGW(BCD1_CONTROL_BASE, BCD1_CONTROL_TC_RESET | BCD1_CONTROL_RESET);
 }
 
 bool is_daylight(void)
@@ -92,9 +95,9 @@ void leds_enable_led(dword_t addr, bool en)
 void leds_init(void)
 {
 	int i;
-	REGW(LEDS_RESET_CONTROL_BASE, 0);
+	REGW(LEDS_RESET_CONTROL_BASE, LEDS_COUNTER_RESET | LEDS_RESET);
 	nop();
-	REGW(LEDS_RESET_CONTROL_BASE, LEDS_COUNTER_EN | LEDS_EN);
+	REGW(LEDS_RESET_CONTROL_BASE, 0);
 	nop();
 
 	for (i = 0; i < LEDS_MAX; ++i)
@@ -105,7 +108,7 @@ void leds_init(void)
 
 void leds_shutdown(void)
 {
-	REGW(LEDS_RESET_CONTROL_BASE, 0);
+	REGW(LEDS_RESET_CONTROL_BASE, LEDS_COUNTER_RESET | LEDS_RESET);
 }
 
 void sseg_set_brightness(byte_t brightness)
@@ -117,9 +120,9 @@ void sseg_init(void)
 {
 	dword_t i;
 
-	REGW(SSEG_RESET_CONTROL_BASE, 0);
+	REGW(SSEG_RESET_CONTROL_BASE, SSEG_COUNTER_RESET | SSEG_RESET);
 	nop();
-	REGW(SSEG_RESET_CONTROL_BASE, SSEG_COUNTER_EN | SSEG_EN);
+	REGW(SSEG_RESET_CONTROL_BASE, 0);
 	nop();
 
 	for (i = 0; i < SSEG_MAX; ++i)
@@ -130,7 +133,7 @@ void sseg_init(void)
 
 void sseg_shutdown(void)
 {
-	REGW(SSEG_RESET_CONTROL_BASE, 0);
+	REGW(SSEG_RESET_CONTROL_BASE, SSEG_COUNTER_RESET | SSEG_RESET);
 }
 
 void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val)
@@ -150,10 +153,11 @@ void status_led_en(dword_t mask)
 void tc_set_max(TcArray tc, dword_t m)
 {
 	dword_t orig = REGR(TC_RESET_CONTROL_BASE);
-	REGW(TC_RESET_CONTROL_BASE, orig & ~TcResetMap[tc]);
+	REGW(TC_RESET_CONTROL_BASE, orig | TcResetMap[tc]);
 	REGW(TcMMap[tc], m);
 	nop();
-	REGW(TC_RESET_CONTROL_BASE, orig | TcResetMap[tc]);
+	REGW(TC_RESET_CONTROL_BASE, orig & ~TcResetMap[tc]);
+	nop();
 }
 
 dword_t tc_get_ticks(TcArray tc)
@@ -169,61 +173,122 @@ bool tc_get_of(TcArray tc)
 void tc_reset(TcArray tc)
 {
 	dword_t orig = REGR(TC_RESET_CONTROL_BASE);
-	REGW(TC_RESET_CONTROL_BASE, orig & ~TcResetMap[tc]);
-	nop();
 	REGW(TC_RESET_CONTROL_BASE, orig | TcResetMap[tc]);
+	nop();
+	REGW(TC_RESET_CONTROL_BASE, orig & ~TcResetMap[tc]);
 	nop();
 }
 
 void tc_init(void)
 {
-	REGW(TC_RESET_CONTROL_BASE, 0);
+	REGW(TC_RESET_CONTROL_BASE, TC_RESET_TC1 | TC_RESET_TC2 | TC_RESET_TC3 | TC_RESET_TC4);
 	nop();
-	REGW(TC_RESET_CONTROL_BASE, TC_EN_TC1 | TC_EN_TC2 | TC_EN_TC3 | TC_EN_TC4);
+	REGW(TC_RESET_CONTROL_BASE, 0);
 	nop();
 }
 
 void tc_shutdown(void)
 {
-	REGW(TC_RESET_CONTROL_BASE, 0);
+	REGW(TC_RESET_CONTROL_BASE, TC_RESET_TC1 | TC_RESET_TC2 | TC_RESET_TC3 | TC_RESET_TC4);
 }
 
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr)
 {
 	dword_t baud = ((dbit & 0xf) << 18) | ((pbit & 0x3) << 16) | (sb_tick << 8) | (os_tick << 0);
-	REGW(UART1_RESET_CONTROL_BASE, 0);
+	dword_t counts = (dword_t)dvsr * os_tick * (dbit + pbit) + (dword_t)dvsr * sb_tick;
+	REGW(UART1_RESET_CONTROL_BASE, UART1_RESET | UART1_RESET_TX_TC | UART1_RESET_RX_TC);
 	nop();
-	REGW(UART1_RESET_CONTROL_BASE, UART1_EN | UART1_EN_TX_TC | UART1_EN_RX_TC);
 	REGW(UART1_BAUD_CONTROL_BASE, baud);
 	REGW(UART1_DVSR_BASE, dvsr);
+	while (counts-- > 0)
+	{
+		// Hold it high long enough to let the TX line stabilize on the other end
+		nop();
+	}
+
+	REGW(UART1_RESET_CONTROL_BASE, 0);
 	nop();
 }
 
 void uart1_shutdown(void)
 {
-	REGW(UART1_RESET_CONTROL_BASE, 0);
+	REGW(UART1_RESET_CONTROL_BASE, UART1_RESET | UART1_RESET_TX_TC | UART1_RESET_RX_TC);
 }
 
 int uart1_rx(void)
 {
-	if ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_EMPTY) == 0)
-	{
-		REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_RD);
-		nop();
-		REGW(UART1_WR_CONTROL_BASE, 0);
-		return REGR(UART1_R_DATA_BASE);
-	}
-
-	return -1;
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_READY) == 0);
+	REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_RD);
+	nop();
+	REGW(UART1_WR_CONTROL_BASE, 0);
+	nop();
+	return REGR(UART1_R_DATA_BASE);
 }
 
 void uart1_tx(char data)
 {
-	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_FULL) != 0);
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_READY) == 0);
 	REGW(UART1_W_DATA_BASE, data);
 	REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_WR);
 	nop();
 	REGW(UART1_WR_CONTROL_BASE, 0);
+	nop();
+}
+
+void uart1_print_status(dword_t status)
+{
+	alt_printf("uart_status: %x (", status);
+	if (status & UART1_STATUS_TX_COUNTER_OF)
+	{
+		alt_putstr("TX_COUNTER_OF ");
+	}
+
+	if (status & UART1_STATUS_RX_COUNTER_OF)
+	{
+		alt_putstr("RX_COUNTER_OF ");
+	}
+
+	if (status & UART1_STATUS_E_TXOF)
+	{
+		alt_putstr("E_TXOF ");
+	}
+
+	if (status & UART1_STATUS_E_RXOF)
+	{
+		alt_putstr("E_RXOF ");
+	}
+
+	if (status & UART1_STATUS_E_FRAME)
+	{
+		alt_putstr("E_FRAME ");
+	}
+
+	if (status & UART1_STATUS_E_PARITY)
+	{
+		alt_putstr("E_PARITY ");
+	}
+
+	if (status & UART1_STATUS_RX_EMPTY)
+	{
+		alt_putstr("RX_EMPTY ");
+	}
+
+	if (status & UART1_STATUS_TX_FULL)
+	{
+		alt_putstr("TX_FULL ");
+	}
+
+	if (status & UART1_STATUS_RX_READY)
+	{
+		alt_putstr("RX_READY ");
+	}
+
+	if (status & UART1_STATUS_TX_READY)
+	{
+		alt_putstr("TX_READY ");
+	}
+
+	alt_putstr(")\n");
 }
 
 dword_t uart1_read_status(void)
@@ -239,20 +304,20 @@ void warn_set_brightness(byte_t brightness)
 void warn_set_en(bool en)
 {
 	dword_t orig = REGR(WARN_PWM_CONTROL_BASE);
-	REGW(WARN_PWM_CONTROL_BASE, orig | (en ? WARN_PWM_CONTROL_EN1 : 0));
+	REGW(WARN_PWM_CONTROL_BASE, orig | (en ? WARN_PWM_CONTROL_EN : 0));
 }
 
 void warn_init(void)
 {
-	REGW(WARN_PWM_CONTROL_BASE, 0);
+	REGW(WARN_PWM_CONTROL_BASE, WARN_PWM_CONTROL_RESET);
 	nop();
-	REGW(WARN_PWM_CONTROL_BASE, WARN_PWM_CONTROL_EN2);
+	REGW(WARN_PWM_CONTROL_BASE, 0);
 	nop();
 }
 
 void warn_shutdown(void)
 {
-	REGW(WARN_PWM_CONTROL_BASE, 0);
+	REGW(WARN_PWM_CONTROL_BASE, WARN_PWM_CONTROL_RESET);
 }
 
 void rc_reset(dword_t counts)
@@ -262,4 +327,9 @@ void rc_reset(dword_t counts)
 		REGW(RC1_CONTROL_BASE, RC_CONTROL_START | (counts & (1 << (RC_M_BITS - 1))));
 		for (;;); // Bye. See you next time!
 	}
+}
+
+void led_set_period(dword_t period)
+{
+	REGW(LED_PERIOD_BASE, period & LEDS_PERIOD_MAX);
 }

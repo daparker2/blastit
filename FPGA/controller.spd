@@ -17,17 +17,21 @@
    type="SYSTEM_VERILOG"
    library="rsp_xbar_mux" />
  <file
-   path="controller/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux_002.sv"
+   path="controller/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux_004.sv"
    type="SYSTEM_VERILOG"
-   library="rsp_xbar_demux_002" />
+   library="rsp_xbar_demux_004" />
+ <file
+   path="controller/simulation/submodules/controller_mm_interconnect_0_rsp_xbar_demux.sv"
+   type="SYSTEM_VERILOG"
+   library="rsp_xbar_demux" />
  <file
    path="controller/simulation/submodules/altera_merlin_arbitrator.sv"
    type="SYSTEM_VERILOG"
-   library="cmd_xbar_mux_002" />
+   library="cmd_xbar_mux_004" />
  <file
-   path="controller/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux_002.sv"
+   path="controller/simulation/submodules/controller_mm_interconnect_0_cmd_xbar_mux_004.sv"
    type="SYSTEM_VERILOG"
-   library="cmd_xbar_mux_002" />
+   library="cmd_xbar_mux_004" />
  <file
    path="controller/simulation/submodules/altera_merlin_arbitrator.sv"
    type="SYSTEM_VERILOG"
@@ -45,9 +49,9 @@
    type="SYSTEM_VERILOG"
    library="cmd_xbar_demux" />
  <file
-   path="controller/simulation/submodules/controller_mm_interconnect_0_id_router_002.sv"
+   path="controller/simulation/submodules/controller_mm_interconnect_0_id_router_004.sv"
    type="SYSTEM_VERILOG"
-   library="id_router_002" />
+   library="id_router_004" />
  <file
    path="controller/simulation/submodules/controller_mm_interconnect_0_id_router.sv"
    type="SYSTEM_VERILOG"
@@ -105,6 +109,10 @@
    type="VERILOG"
    library="mm_interconnect_0" />
  <file
+   path="controller/simulation/submodules/controller_led_period.v"
+   type="VERILOG"
+   library="led_period" />
+ <file
    path="controller/simulation/submodules/controller_rc1_control.v"
    type="VERILOG"
    library="rc1_control" />
@@ -125,6 +133,14 @@
    type="VERILOG"
    library="sseg_wr_val" />
  <file
+   path="controller/simulation/submodules/controller_sseg_reset_control.v"
+   type="VERILOG"
+   library="sseg_reset_control" />
+ <file
+   path="controller/simulation/submodules/controller_warn_pwm_control.v"
+   type="VERILOG"
+   library="warn_pwm_control" />
+ <file
    path="controller/simulation/submodules/controller_status_led_en.v"
    type="VERILOG"
    library="status_led_en" />
@@ -137,6 +153,10 @@
    type="VERILOG"
    library="bcd1_bcd" />
  <file
+   path="controller/simulation/submodules/controller_bcd1_control.v"
+   type="VERILOG"
+   library="bcd1_control" />
+ <file
    path="controller/simulation/submodules/controller_bcd1_bin.v"
    type="VERILOG"
    library="bcd1_bin" />
@@ -144,10 +164,6 @@
    path="controller/simulation/submodules/controller_uart1_status_control.v"
    type="VERILOG"
    library="uart1_status_control" />
- <file
-   path="controller/simulation/submodules/controller_uart1_tx_counter.v"
-   type="VERILOG"
-   library="uart1_tx_counter" />
  <file
    path="controller/simulation/submodules/controller_uart1_r_data.v"
    type="VERILOG"

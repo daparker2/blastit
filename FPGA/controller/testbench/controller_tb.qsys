@@ -73,6 +73,14 @@
          type = "int";
       }
    }
+   element controller_inst_led_period_bfm
+   {
+      datum _sortIndex
+      {
+         value = "42";
+         type = "int";
+      }
+   }
    element controller_inst_leds_brightness_bfm
    {
       datum _sortIndex
@@ -572,7 +580,7 @@
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="3" />
+  <parameter name="SIGNAL_WIDTHS" value="8" />
   <parameter name="SIGNAL_DIRECTIONS" value="output" />
  </module>
  <module
@@ -583,7 +591,7 @@
   <parameter name="CLOCKED_SIGNAL" value="false" />
   <parameter name="ENABLE_RESET" value="false" />
   <parameter name="SIGNAL_ROLES" value="export" />
-  <parameter name="SIGNAL_WIDTHS" value="8" />
+  <parameter name="SIGNAL_WIDTHS" value="10" />
   <parameter name="SIGNAL_DIRECTIONS" value="output" />
  </module>
  <module
@@ -816,6 +824,17 @@
   <parameter name="SIGNAL_ROLES" value="export" />
   <parameter name="SIGNAL_WIDTHS" value="1" />
   <parameter name="SIGNAL_DIRECTIONS" value="output" />
+ </module>
+ <module
+   kind="altera_conduit_bfm"
+   version="13.1"
+   enabled="1"
+   name="controller_inst_led_period_bfm">
+  <parameter name="CLOCKED_SIGNAL" value="false" />
+  <parameter name="ENABLE_RESET" value="false" />
+  <parameter name="SIGNAL_ROLES" value="export" />
+  <parameter name="SIGNAL_WIDTHS" value="24" />
+  <parameter name="SIGNAL_DIRECTIONS" value="input" />
  </module>
  <connection
    kind="clock"
@@ -1255,6 +1274,17 @@
    version="13.1"
    start="controller_inst_rc1_ready_bfm.conduit"
    end="controller_inst.rc1_ready">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="13.1"
+   start="controller_inst_led_period_bfm.conduit"
+   end="controller_inst.led_period">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />

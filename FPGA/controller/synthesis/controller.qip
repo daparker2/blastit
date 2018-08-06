@@ -2,7 +2,7 @@ set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_N
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "controller" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../controller.sopcinfo"]
-set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1533355756"
+set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1533518009"
 set_global_assignment -library "controller" -name MISC_FILE [file join $::quartus(qip_path) "../../controller.cmp"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.regmap"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.debuginfo"]
@@ -18,12 +18,13 @@ set_global_assignment -library "controller" -name VERILOG_FILE [file join $::qua
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_arbitrator.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_rsp_xbar_mux_001.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_rsp_xbar_mux.sv"]
-set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_rsp_xbar_demux_002.sv"]
-set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_cmd_xbar_mux_002.sv"]
+set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_rsp_xbar_demux_004.sv"]
+set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_rsp_xbar_demux.sv"]
+set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_cmd_xbar_mux_004.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv"]
-set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_id_router_002.sv"]
+set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_id_router_004.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_id_router.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_addr_router_001.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_mm_interconnect_0_addr_router.sv"]
@@ -33,17 +34,20 @@ set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join 
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_agent.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_slave_translator.sv"]
 set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_translator.sv"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_led_period.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_rc1_control.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_dvsr.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_leds_wr_val.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_counter_of.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_wr_val.v"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_reset_control.v"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_warn_pwm_control.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_status_led_en.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_bcd1_status.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_bcd1_bcd.v"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_bcd1_control.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_bcd1_bin.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_status_control.v"]
-set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_tx_counter.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_r_data.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_baud_control.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_wr_control.v"]
@@ -83,12 +87,15 @@ set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_mux_001" -l
 set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_mux" -library "controller" -name IP_TOOL_NAME "altera_merlin_multiplexer"
 set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_mux" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_mux" -library "controller" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_002" -library "controller" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
-set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_002" -library "controller" -name IP_TOOL_VERSION "13.1"
-set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_002" -library "controller" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_002" -library "controller" -name IP_TOOL_NAME "altera_merlin_multiplexer"
-set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_002" -library "controller" -name IP_TOOL_VERSION "13.1"
-set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_002" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_004" -library "controller" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_004" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux_004" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux" -library "controller" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_mm_interconnect_0_rsp_xbar_demux" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_004" -library "controller" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_004" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux_004" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux" -library "controller" -name IP_TOOL_NAME "altera_merlin_multiplexer"
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_mux" -library "controller" -name IP_TOOL_ENV "Qsys"
@@ -98,9 +105,9 @@ set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_demux_001" 
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_demux" -library "controller" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_demux" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_mm_interconnect_0_cmd_xbar_demux" -library "controller" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "controller_mm_interconnect_0_id_router_002" -library "controller" -name IP_TOOL_NAME "altera_merlin_router"
-set_global_assignment -entity "controller_mm_interconnect_0_id_router_002" -library "controller" -name IP_TOOL_VERSION "13.1"
-set_global_assignment -entity "controller_mm_interconnect_0_id_router_002" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_mm_interconnect_0_id_router_004" -library "controller" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "controller_mm_interconnect_0_id_router_004" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_mm_interconnect_0_id_router_004" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_mm_interconnect_0_id_router" -library "controller" -name IP_TOOL_NAME "altera_merlin_router"
 set_global_assignment -entity "controller_mm_interconnect_0_id_router" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_mm_interconnect_0_id_router" -library "controller" -name IP_TOOL_ENV "Qsys"
@@ -125,6 +132,9 @@ set_global_assignment -entity "altera_merlin_slave_translator" -library "control
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_NAME "altera_merlin_master_translator"
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "altera_merlin_master_translator" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_led_period" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_led_period" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_led_period" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_rc1_control" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_rc1_control" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_rc1_control" -library "controller" -name IP_TOOL_ENV "Qsys"
@@ -140,6 +150,12 @@ set_global_assignment -entity "controller_sseg_counter_of" -library "controller"
 set_global_assignment -entity "controller_sseg_wr_val" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_sseg_wr_val" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_sseg_wr_val" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_sseg_reset_control" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_sseg_reset_control" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_sseg_reset_control" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_warn_pwm_control" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_warn_pwm_control" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_warn_pwm_control" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_status_led_en" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_status_led_en" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_status_led_en" -library "controller" -name IP_TOOL_ENV "Qsys"
@@ -149,15 +165,15 @@ set_global_assignment -entity "controller_bcd1_status" -library "controller" -na
 set_global_assignment -entity "controller_bcd1_bcd" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_bcd1_bcd" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_bcd1_bcd" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_bcd1_control" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_bcd1_control" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_bcd1_control" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_bcd1_bin" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_bcd1_bin" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_bcd1_bin" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_uart1_status_control" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_uart1_status_control" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_uart1_status_control" -library "controller" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "controller_uart1_tx_counter" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
-set_global_assignment -entity "controller_uart1_tx_counter" -library "controller" -name IP_TOOL_VERSION "13.1"
-set_global_assignment -entity "controller_uart1_tx_counter" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_uart1_r_data" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_uart1_r_data" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_uart1_r_data" -library "controller" -name IP_TOOL_ENV "Qsys"

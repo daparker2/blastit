@@ -53,7 +53,7 @@ module controller_uart1_reset_control (
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          data_out <= 0;
+          data_out <= 7;
       else if (chipselect && ~write_n && (address == 0))
           data_out <= writedata[2 : 0];
     end

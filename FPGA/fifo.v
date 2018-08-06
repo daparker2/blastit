@@ -7,6 +7,7 @@ module fifo
 	input wire clk, reset,
 	input wire rd, wr,
 	input wire [B-1:0] w_data,
+	input wire [B-1:0] buf_read,
 	output wire empty, full,
 	output wire [B-1:0] r_data
 );
@@ -16,20 +17,19 @@ reg [B-1:0] array_reg [2**W-1:0]; // register array
 reg [W-1:0] w_ptr_reg, w_ptr_next, w_ptr_succ;
 reg [W-1:0] r_ptr_reg, r_ptr_next, r_ptr_succ;
 reg full_reg, empty_reg, full_next, empty_next;
+reg rd_done_reg, rd_done_next;
 
 wire wr_en;
 
 // body
 // register file write operation
 always @(posedge clk)
-	if (wr_en)
-		array_reg[w_ptr_reg] <= w_data;
-		
-// register file read operation
-assign r_data = array_reg[r_ptr_reg];
-
-// write enabled only when FIFO is not full
-assign wr_en = wr & ~full_reg;
+	begin
+		if (wr_en)
+			array_reg[w_ptr_reg] <= w_data;
+		if (rd_done_reg)
+			array_reg[r_ptr_reg] <= buf_read;
+	end
 
 // fifo control logic
 // register for read and write pointers
@@ -40,6 +40,7 @@ always @(posedge clk, posedge reset)
 			r_ptr_reg <= 0;
 			full_reg <= 1'b0;
 			empty_reg <= 1'b1;
+			rd_done_reg <= 0;
 		end
 	else
 		begin
@@ -47,6 +48,7 @@ always @(posedge clk, posedge reset)
 			r_ptr_reg <= r_ptr_next;
 			full_reg <= full_next;
 			empty_reg <= empty_next;
+			rd_done_reg <= rd_done_next;
 		end
 
 // next-state logic for read and write pointers
@@ -59,6 +61,10 @@ always @*
 		r_ptr_next = r_ptr_reg;
 		full_next = full_reg;
 		empty_next = empty_reg;
+		rd_done_next = 1'b0;
+		
+		if (rd)
+			rd_done_next = 1'b1;
 		
 		case ({wr, rd})
 			2'b01: // read
@@ -89,5 +95,11 @@ always @*
 	// output
 	assign full = full_reg;
 	assign empty = empty_reg;
+		
+	// register file read operation
+	assign r_data = array_reg[r_ptr_reg];
+
+	// write enabled only when FIFO is not full
+	assign wr_en = wr & ~full_reg;
 		
 endmodule

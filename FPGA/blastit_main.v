@@ -58,8 +58,7 @@ module blastit_main
 
 	localparam T = 20; // Clock period
 
-	localparam LED_DISPLAY_PERIOD = 24'd7621,
-	           LED_PERIOD_BITS = 24;
+	localparam LED_PERIOD_BITS = 24;
 				  
 	// Timer params
 	localparam TC_M_BITS=32, 
@@ -67,15 +66,15 @@ module blastit_main
 	
 	// UART parameters
 	localparam UART_FIFO_R = 8,
-	           UART_FIFO_W = 2,
+	           UART_FIFO_W = 8,
 				  UART_DVSR_BIT = 16,
 				  UART_DBIT = 8,
-				  UART_RX_TICK_BITS = UART_FIFO_R,
-				  UART_TX_TICK_BITS = UART_FIFO_W;
+				  UART_RX_TICK_BITS = 8,
+				  UART_TX_TICK_BITS = 8;
 	
 	// BCD converter params
 	localparam BCD_N = 4,
-	           BCD_BIN_N = 14,
+	           BCD_BIN_N = 15,
 				  BCD_TICK_BITS = 8;	
 				  
 	// Warning & status LEDs params
@@ -106,6 +105,7 @@ module blastit_main
 	wire clk; // Goes to MCU
 	// Goes to status LEDs
 	wire led_tick;
+	wire [LED_PERIOD_BITS-1:0] led_period; // Goes to MCU
 				  
 	// Timer counter inputs
 	wire tc1_reset, tc2_reset, tc3_reset, tc4_reset;
@@ -132,6 +132,7 @@ module blastit_main
 	wire [21:0] uart1_baud_control; // Goes to MCU
 	
 	// UART outputs
+	wire uart1_tx_ready, uart1_rx_ready;
 	wire uart1_tx_full, uart1_rx_empty;
 	wire [7:0] uart1_r_data;                       // Goes tO MCU
 	wire uart1_tx_done_tick, uart1_rx_done_tick;
@@ -139,13 +140,13 @@ module blastit_main
 	wire [UART_RX_TICK_BITS-1:0] uart1_rx_counter; // Goes to MCU
 	wire [UART_TX_TICK_BITS-1:0] uart1_tx_counter; // Goes to MCU
 	wire uart1_rx_counter_of, uart1_tx_counter_of;
-	wire [7:0] uart1_status_control;               // Goes to MCU
+	wire [9:0] uart1_status_control;               // Goes to MCU
 	
 	// BCD converter inputs
 	wire bcd1_reset, bcd1_tc_reset;
 	wire bcd1_start;
-	wire [BCD_BIN_N:0] bcd1_bin; // Goes to MCU
-	wire [2:0] bcd1_control;     // Goes to MCU
+	wire [BCD_BIN_N-1:0] bcd1_bin; // Goes to MCU
+	wire [2:0] bcd1_control;       // Goes to MCU
 	
 	// BCD converter outputs
 	wire bcd1_ready, bcd1_done_tick;
@@ -207,7 +208,7 @@ module blastit_main
 	//
 	
 	// LED multiplexing
-	mod_m_counter #(.M_BITS(LED_PERIOD_BITS)) tick_counter(.clk(clk), .reset(rc1_reset), .m(LED_DISPLAY_PERIOD), .max_tick(led_tick), .q());
+	mod_m_counter #(.M_BITS(LED_PERIOD_BITS)) tick_counter(.clk(clk), .reset(rc1_reset), .m(led_period), .max_tick(led_tick), .q());
 	
 	// Timer counter
 	timer_counter #(.N_BITS(TC_N_BITS), .M_BITS(TC_M_BITS)) 
@@ -222,13 +223,14 @@ module blastit_main
 		        .os_tick(uart1_os_tick), .dvsr(uart1_dvsr), .rd_uart(uart1_rd_uart), .wr_uart(uart1_wr_uart), 
 				  .rx(UART_RX), .w_data(uart1_w_data), .tx_full(uart1_tx_full), .rx_empty(uart1_rx_empty),
 				  .tx(UART_TX), .r_data(uart1_r_data), .tx_done_tick(uart1_tx_done_tick), .rx_done_tick(uart1_rx_done_tick), 
-				  .e_parity(uart1_e_parity), .e_frame(uart1_e_frame), .e_rxof(uart1_e_rxof), .e_txof(uart1_e_txof));			  
+				  .e_parity(uart1_e_parity), .e_frame(uart1_e_frame), .e_rxof(uart1_e_rxof), .e_txof(uart1_e_txof),
+				  .rx_ready(uart1_rx_ready), .tx_ready(uart1_tx_ready));			  
 	tick_counter #(.N(UART_RX_TICK_BITS)) uart1_rx_tc(.clk(clk), .reset(uart1_rx_tc_reset), .tick(uart1_rx_done_tick), .counter(uart1_rx_counter), .of(uart1_rx_counter_of));
 	tick_counter #(.N(UART_TX_TICK_BITS)) uart1_tx_tc(.clk(clk), .reset(uart1_tx_tc_reset), .tick(uart1_tx_done_tick), .counter(uart1_tx_counter), .of(uart1_tx_counter_of));
 	
 	// BCD converter
-	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BCD_BIN_N)) bcd1(.clk(clk), .reset(bcd1_reset), .start(bcd1_start), .sign(bcd1_bin[BCD_BIN_N]),
-                                                    .bin(bcd1_bin[BCD_BIN_N-1:0]), .ready(bcd1_ready), .done_tick(bcd1_done_tick), .bcd(bcd1_bcd));
+	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BCD_BIN_N-1)) bcd1(.clk(clk), .reset(bcd1_reset), .start(bcd1_start), .sign(bcd1_bin[BCD_BIN_N-1]),
+                                                      .bin(bcd1_bin[BCD_BIN_N-2:0]), .ready(bcd1_ready), .done_tick(bcd1_done_tick), .bcd(bcd1_bcd));
 	tick_counter #(.N(BCD_TICK_BITS)) bcd1_tc(.clk(clk), .reset(bcd1_tc_reset), .tick(bcd1_done_tick), .counter(bcd1_counter), .of(bcd1_counter_of));
 
 	// Warning brightness PWM
@@ -237,14 +239,14 @@ module blastit_main
 	// SSEG array	
 	sseg_array #(.SSEG_BITS(SSEG_BITS), .SSEG_N(SSEG_N), .PWM_BITS(SSEG_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
 			ssegarr(.clk(clk), .reset(sseg_reset), .wr(sseg_wr), .brightness(sseg_brightness),
-					  .sel(sseg_sel), .led_period(LED_DISPLAY_PERIOD), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
+					  .sel(sseg_sel), .led_period(led_period), .en(sseg_en), .sign(sseg_sign), .dp(sseg_dp),
 					  .val(sseg_val), .o_sseg(sseg), .oe(sseg_oe), .done_tick(sseg_done_tick));
 	tick_counter #(.N(SSEG_TICK_BITS)) sseg_tc(.clk(clk), .reset(sseg_tc_reset), .tick(sseg_done_tick), .counter(sseg_counter), .of(sseg_counter_of));																
 	
 	// LED matrix
 	led_matrix #(.LEDS_N(LEDS_N), .LEDS_M(LEDS_M), .N_BITS(LEDS_N_BITS), .M_BITS(LEDS_M_BITS), .PWM_BITS(LEDS_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
 		leds(.clk(clk), .reset(leds_reset), .brightness(leds_brightness), .sel_addr(leds_sel_addr),
-			  .sel(leds_sel), .led_period(LED_DISPLAY_PERIOD), .en(leds_en), .n_en(leds_n_en), .m_en(leds_m_en), .done_tick(leds_done_tick));
+			  .sel(leds_sel), .led_period(led_period), .en(leds_en), .n_en(leds_n_en), .m_en(leds_m_en), .done_tick(leds_done_tick));
 	tick_counter #(.N(LEDS_COUNTER_BITS)) 
 		leds_tc(.clk(clk), .reset(leds_counter_reset), .tick(leds_done_tick), .counter(leds_counter), .of(leds_counter_of));
 	
@@ -292,8 +294,10 @@ module blastit_main
 						 .leds_reset_control_export(leds_reset_control),
 						 .leds_counter_of_export(leds_counter_of),
 						 .rc1_control_export(rc1_control),
-						 .rc1_ready_export(rc1_ready)
+						 .rc1_ready_export(rc1_ready),
+						 .led_period_export(led_period)
 					);
+					
 	//
 	// FSM logic
 	//
@@ -321,31 +325,31 @@ module blastit_main
 	assign clk = CLOCK_50;
 	
 	// Timer counter block
-	assign tc_reset_control = { ~tc4_reset, ~tc3_reset, ~tc2_reset, ~tc1_reset };
+	assign tc_reset_control = { tc4_reset, tc3_reset, tc2_reset, tc1_reset };
 	assign tc1_status = { tc1_of, tc1_counter };
 	assign tc2_status = { tc2_of, tc2_counter };
 	assign tc3_status = { tc3_of, tc3_counter };
 	assign tc4_status = { tc4_of, tc4_counter };
 	
 	// UART block
-	assign uart1_reset_control = { ~uart1_reset, ~uart1_rx_tc_reset, ~uart1_tx_tc_reset };
+	assign uart1_reset_control = { uart1_reset, uart1_rx_tc_reset, uart1_tx_tc_reset };
 	assign uart1_wr_control = { uart1_rd_uart, uart1_wr_uart };
 	assign uart1_baud_control = { uart1_dbit, uart1_pbit, uart1_sb_tick, uart1_os_tick };
-	assign uart1_status_control = {uart1_tx_full, uart1_rx_empty, uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof, uart1_rx_counter_of, uart1_tx_counter_of };
+	assign uart1_status_control = { uart1_tx_ready, uart1_rx_ready, uart1_tx_full, uart1_rx_empty, uart1_e_parity, uart1_e_frame, uart1_e_rxof, uart1_e_txof, uart1_rx_counter_of, uart1_tx_counter_of };
 	
 	// BCD converter block
-	assign bcd1_control = { ~bcd1_reset, ~bcd1_tc_reset, bcd1_start };
+	assign bcd1_control = { bcd1_reset, bcd1_tc_reset, bcd1_start };
 	assign bcd1_status = { bcd1_ready, bcd1_counter_of };
 	
 	// Warning & status PWM block
-	assign warn_pwm_control = { ~warn_pwm_reset, warn_pwm_en };
+	assign warn_pwm_control = { warn_pwm_reset, warn_pwm_en };
 	
 	// SSEG block
-	assign sseg_reset_control = { ~sseg_reset, ~sseg_tc_reset };
+	assign sseg_reset_control = { sseg_reset, sseg_tc_reset };
 	assign sseg_wr_val = { sseg_wr, sseg_sel, sseg_en, sseg_sign, sseg_dp, sseg_val };
 	
 	// LEDS block
-	assign leds_reset_control = { ~leds_reset, ~leds_counter_reset };
+	assign leds_reset_control = { leds_reset, leds_counter_reset };
 	assign leds_wr_val = { leds_sel, leds_en, leds_sel_addr };
 	
 	// Reset controller block

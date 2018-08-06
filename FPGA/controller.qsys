@@ -21,7 +21,7 @@
       }
       datum baseAddress
       {
-         value = "70400";
+         value = "70304";
          type = "String";
       }
    }
@@ -77,7 +77,7 @@
    {
       datum baseAddress
       {
-         value = "70408";
+         value = "70312";
          type = "String";
       }
    }
@@ -102,6 +102,14 @@
       datum _sortIndex
       {
          value = "2";
+         type = "int";
+      }
+   }
+   element led_period
+   {
+      datum _sortIndex
+      {
+         value = "44";
          type = "int";
       }
    }
@@ -177,51 +185,27 @@
          type = "int";
       }
    }
-   element leds_wr_val.s1
+   element uart1_w_data.s1
    {
       datum baseAddress
       {
-         value = "69632";
+         value = "70112";
          type = "String";
       }
    }
-   element tc1_status.s1
+   element rc1_control.s1
    {
       datum baseAddress
       {
-         value = "70304";
+         value = "69696";
          type = "String";
       }
    }
-   element status_led_en.s1
+   element tc4_status.s1
    {
       datum baseAddress
       {
-         value = "69728";
-         type = "String";
-      }
-   }
-   element onchip_ram.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element sseg_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "70064";
-         type = "String";
-      }
-   }
-   element tc3_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70336";
+         value = "70128";
          type = "String";
       }
    }
@@ -229,15 +213,47 @@
    {
       datum baseAddress
       {
-         value = "70272";
+         value = "70144";
          type = "String";
       }
    }
-   element bcd1_control.s1
+   element sseg_counter_of.s1
    {
       datum baseAddress
       {
-         value = "69792";
+         value = "69808";
+         type = "String";
+      }
+   }
+   element leds_counter_of.s1
+   {
+      datum baseAddress
+      {
+         value = "69728";
+         type = "String";
+      }
+   }
+   element uart1_baud_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70064";
+         type = "String";
+      }
+   }
+   element tc1_status.s1
+   {
+      datum baseAddress
+      {
+         value = "70176";
+         type = "String";
+      }
+   }
+   element led_period.s1
+   {
+      datum baseAddress
+      {
+         value = "69664";
          type = "String";
       }
    }
@@ -250,23 +266,71 @@
       }
       datum baseAddress
       {
-         value = "70176";
+         value = "70016";
          type = "String";
       }
    }
-   element uart1_baud_control.s1
+   element tc_reset_control.s1
    {
       datum baseAddress
       {
-         value = "70224";
+         value = "70192";
          type = "String";
       }
    }
-   element warn_pwm_brightness.s1
+   element bcd1_bin.s1
    {
       datum baseAddress
       {
-         value = "70080";
+         value = "69984";
+         type = "String";
+      }
+   }
+   element sseg_wr_val.s1
+   {
+      datum baseAddress
+      {
+         value = "69840";
+         type = "String";
+      }
+   }
+   element sseg_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69824";
+         type = "String";
+      }
+   }
+   element tc1_m.s1
+   {
+      datum baseAddress
+      {
+         value = "70256";
+         type = "String";
+      }
+   }
+   element uart1_rx_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "70000";
+         type = "String";
+      }
+   }
+   element leds_wr_val.s1
+   {
+      datum baseAddress
+      {
+         value = "69760";
+         type = "String";
+      }
+   }
+   element rc1_ready.s1
+   {
+      datum baseAddress
+      {
+         value = "69680";
          type = "String";
       }
    }
@@ -274,11 +338,27 @@
    {
       datum baseAddress
       {
-         value = "69856";
+         value = "70096";
          type = "String";
       }
    }
-   element uart1_rx_counter.s1
+   element warn_pwm_brightness.s1
+   {
+      datum baseAddress
+      {
+         value = "69904";
+         type = "String";
+      }
+   }
+   element onchip_ram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element tc2_status.s1
    {
       datum baseAddress
       {
@@ -290,31 +370,7 @@
    {
       datum baseAddress
       {
-         value = "70192";
-         type = "String";
-      }
-   }
-   element daylight.s1
-   {
-      datum baseAddress
-      {
-         value = "70384";
-         type = "String";
-      }
-   }
-   element tc4_status.s1
-   {
-      datum baseAddress
-      {
-         value = "70256";
-         type = "String";
-      }
-   }
-   element leds_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "69984";
+         value = "70032";
          type = "String";
       }
    }
@@ -322,135 +378,15 @@
    {
       datum baseAddress
       {
-         value = "70000";
+         value = "69792";
          type = "String";
       }
    }
-   element warn_pwm_control.s1
+   element tc3_m.s1
    {
       datum baseAddress
       {
-         value = "69760";
-         type = "String";
-      }
-   }
-   element sseg_counter_of.s1
-   {
-      datum baseAddress
-      {
-         value = "70016";
-         type = "String";
-      }
-   }
-   element bcd1_bcd.s1
-   {
-      datum baseAddress
-      {
-         value = "70128";
-         type = "String";
-      }
-   }
-   element rc1_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69936";
-         type = "String";
-      }
-   }
-   element uart1_w_data.s1
-   {
-      datum baseAddress
-      {
-         value = "70240";
-         type = "String";
-      }
-   }
-   element tc2_status.s1
-   {
-      datum baseAddress
-      {
-         value = "70288";
-         type = "String";
-      }
-   }
-   element bcd1_status.s1
-   {
-      datum baseAddress
-      {
-         value = "70096";
-         type = "String";
-      }
-   }
-   element tc_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69888";
-         type = "String";
-      }
-   }
-   element tc1_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70368";
-         type = "String";
-      }
-   }
-   element bcd1_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "70112";
-         type = "String";
-      }
-   }
-   element uart1_dvsr.s1
-   {
-      datum baseAddress
-      {
-         value = "69952";
-         type = "String";
-      }
-   }
-   element sseg_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "70032";
-         type = "String";
-      }
-   }
-   element uart1_r_data.s1
-   {
-      datum baseAddress
-      {
-         value = "70208";
-         type = "String";
-      }
-   }
-   element uart1_wr_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69824";
-         type = "String";
-      }
-   }
-   element sseg_wr_val.s1
-   {
-      datum baseAddress
-      {
-         value = "70048";
-         type = "String";
-      }
-   }
-   element bcd1_bin.s1
-   {
-      datum baseAddress
-      {
-         value = "70144";
+         value = "70224";
          type = "String";
       }
    }
@@ -458,11 +394,19 @@
    {
       datum baseAddress
       {
-         value = "69664";
+         value = "69776";
          type = "String";
       }
    }
-   element rc1_ready.s1
+   element bcd1_bcd.s1
+   {
+      datum baseAddress
+      {
+         value = "69952";
+         type = "String";
+      }
+   }
+   element bcd1_status.s1
    {
       datum baseAddress
       {
@@ -470,27 +414,35 @@
          type = "String";
       }
    }
-   element sseg_reset_control.s1
+   element status_led_en.s1
    {
       datum baseAddress
       {
-         value = "69696";
+         value = "69632";
          type = "String";
       }
    }
-   element tc2_m.s1
+   element uart1_dvsr.s1
    {
       datum baseAddress
       {
-         value = "70352";
+         value = "69712";
          type = "String";
       }
    }
-   element leds_counter_of.s1
+   element uart1_r_data.s1
    {
       datum baseAddress
       {
-         value = "69968";
+         value = "70048";
+         type = "String";
+      }
+   }
+   element uart1_wr_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70080";
          type = "String";
       }
    }
@@ -498,7 +450,71 @@
    {
       datum baseAddress
       {
-         value = "70320";
+         value = "70208";
+         type = "String";
+      }
+   }
+   element daylight.s1
+   {
+      datum baseAddress
+      {
+         value = "70272";
+         type = "String";
+      }
+   }
+   element sseg_brightness.s1
+   {
+      datum baseAddress
+      {
+         value = "69872";
+         type = "String";
+      }
+   }
+   element bcd1_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69936";
+         type = "String";
+      }
+   }
+   element leds_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69744";
+         type = "String";
+      }
+   }
+   element warn_pwm_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69888";
+         type = "String";
+      }
+   }
+   element bcd1_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69968";
+         type = "String";
+      }
+   }
+   element sseg_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69856";
+         type = "String";
+      }
+   }
+   element tc2_m.s1
+   {
+      datum baseAddress
+      {
+         value = "70240";
          type = "String";
       }
    }
@@ -933,6 +949,11 @@
    internal="rc1_ready.external_connection"
    type="conduit"
    dir="end" />
+ <interface
+   name="led_period"
+   internal="led_period.external_connection"
+   type="conduit"
+   dir="end" />
  <module kind="clock_source" version="13.1" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -1077,11 +1098,11 @@
   <parameter name="tightlyCoupledInstructionMaster1AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='leds_wr_val.s1' start='0x11000' end='0x11010' /><slave name='leds_reset_control.s1' start='0x11020' end='0x11030' /><slave name='sseg_reset_control.s1' start='0x11040' end='0x11050' /><slave name='status_led_en.s1' start='0x11060' end='0x11080' /><slave name='warn_pwm_control.s1' start='0x11080' end='0x11090' /><slave name='bcd1_control.s1' start='0x110A0' end='0x110B0' /><slave name='uart1_wr_control.s1' start='0x110C0' end='0x110D0' /><slave name='uart1_reset_control.s1' start='0x110E0' end='0x110F0' /><slave name='tc_reset_control.s1' start='0x11100' end='0x11110' /><slave name='rc1_ready.s1' start='0x11120' end='0x11130' /><slave name='rc1_control.s1' start='0x11130' end='0x11140' /><slave name='uart1_dvsr.s1' start='0x11140' end='0x11150' /><slave name='leds_counter_of.s1' start='0x11150' end='0x11160' /><slave name='leds_counter.s1' start='0x11160' end='0x11170' /><slave name='leds_brightness.s1' start='0x11170' end='0x11180' /><slave name='sseg_counter_of.s1' start='0x11180' end='0x11190' /><slave name='sseg_counter.s1' start='0x11190' end='0x111A0' /><slave name='sseg_wr_val.s1' start='0x111A0' end='0x111B0' /><slave name='sseg_brightness.s1' start='0x111B0' end='0x111C0' /><slave name='warn_pwm_brightness.s1' start='0x111C0' end='0x111D0' /><slave name='bcd1_status.s1' start='0x111D0' end='0x111E0' /><slave name='bcd1_counter.s1' start='0x111E0' end='0x111F0' /><slave name='bcd1_bcd.s1' start='0x111F0' end='0x11200' /><slave name='bcd1_bin.s1' start='0x11200' end='0x11210' /><slave name='uart1_rx_counter.s1' start='0x11210' end='0x11220' /><slave name='uart1_status_control.s1' start='0x11220' end='0x11230' /><slave name='uart1_tx_counter.s1' start='0x11230' end='0x11240' /><slave name='uart1_r_data.s1' start='0x11240' end='0x11250' /><slave name='uart1_baud_control.s1' start='0x11250' end='0x11260' /><slave name='uart1_w_data.s1' start='0x11260' end='0x11270' /><slave name='tc4_status.s1' start='0x11270' end='0x11280' /><slave name='tc3_status.s1' start='0x11280' end='0x11290' /><slave name='tc2_status.s1' start='0x11290' end='0x112A0' /><slave name='tc1_status.s1' start='0x112A0' end='0x112B0' /><slave name='tc4_m.s1' start='0x112B0' end='0x112C0' /><slave name='tc3_m.s1' start='0x112C0' end='0x112D0' /><slave name='tc2_m.s1' start='0x112D0' end='0x112E0' /><slave name='tc1_m.s1' start='0x112E0' end='0x112F0' /><slave name='daylight.s1' start='0x112F0' end='0x11300' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x11300' end='0x11308' /><slave name='sysid_c001.control_slave' start='0x11308' end='0x11310' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x112A0' end='0x112A8' /><slave name='sysid_c001.control_slave' start='0x112A8' end='0x112B0' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='status_led_en.s1' start='0x11000' end='0x11020' /><slave name='led_period.s1' start='0x11020' end='0x11030' /><slave name='rc1_ready.s1' start='0x11030' end='0x11040' /><slave name='rc1_control.s1' start='0x11040' end='0x11050' /><slave name='uart1_dvsr.s1' start='0x11050' end='0x11060' /><slave name='leds_counter_of.s1' start='0x11060' end='0x11070' /><slave name='leds_counter.s1' start='0x11070' end='0x11080' /><slave name='leds_wr_val.s1' start='0x11080' end='0x11090' /><slave name='leds_reset_control.s1' start='0x11090' end='0x110A0' /><slave name='leds_brightness.s1' start='0x110A0' end='0x110B0' /><slave name='sseg_counter_of.s1' start='0x110B0' end='0x110C0' /><slave name='sseg_counter.s1' start='0x110C0' end='0x110D0' /><slave name='sseg_wr_val.s1' start='0x110D0' end='0x110E0' /><slave name='sseg_reset_control.s1' start='0x110E0' end='0x110F0' /><slave name='sseg_brightness.s1' start='0x110F0' end='0x11100' /><slave name='warn_pwm_control.s1' start='0x11100' end='0x11110' /><slave name='warn_pwm_brightness.s1' start='0x11110' end='0x11120' /><slave name='bcd1_status.s1' start='0x11120' end='0x11130' /><slave name='bcd1_counter.s1' start='0x11130' end='0x11140' /><slave name='bcd1_bcd.s1' start='0x11140' end='0x11150' /><slave name='bcd1_control.s1' start='0x11150' end='0x11160' /><slave name='bcd1_bin.s1' start='0x11160' end='0x11170' /><slave name='uart1_rx_counter.s1' start='0x11170' end='0x11180' /><slave name='uart1_status_control.s1' start='0x11180' end='0x11190' /><slave name='uart1_tx_counter.s1' start='0x11190' end='0x111A0' /><slave name='uart1_r_data.s1' start='0x111A0' end='0x111B0' /><slave name='uart1_baud_control.s1' start='0x111B0' end='0x111C0' /><slave name='uart1_wr_control.s1' start='0x111C0' end='0x111D0' /><slave name='uart1_reset_control.s1' start='0x111D0' end='0x111E0' /><slave name='uart1_w_data.s1' start='0x111E0' end='0x111F0' /><slave name='tc4_status.s1' start='0x111F0' end='0x11200' /><slave name='tc3_status.s1' start='0x11200' end='0x11210' /><slave name='tc2_status.s1' start='0x11210' end='0x11220' /><slave name='tc1_status.s1' start='0x11220' end='0x11230' /><slave name='tc_reset_control.s1' start='0x11230' end='0x11240' /><slave name='tc4_m.s1' start='0x11240' end='0x11250' /><slave name='tc3_m.s1' start='0x11250' end='0x11260' /><slave name='tc2_m.s1' start='0x11260' end='0x11270' /><slave name='tc1_m.s1' start='0x11270' end='0x11280' /><slave name='daylight.s1' start='0x11280' end='0x11290' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x112A0' end='0x112A8' /><slave name='sysid_c001.control_slave' start='0x112A8' end='0x112B0' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone III" />
-  <parameter name="internalIrqMaskSystemInfo" value="15" />
+  <parameter name="internalIrqMaskSystemInfo" value="7" />
   <parameter name="customInstSlavesSystemInfo" value="&lt;info/&gt;" />
   <parameter name="deviceFeaturesSystemInfo">ADDRESS_STALL 1 ADVANCED_INFO 0 ANY_QFP 0 CELL_LEVEL_BACK_ANNOTATION_DISABLED 0 COMPILER_SUPPORT 1 DSP 0 DSP_SHIFTER_BLOCK 0 DUMP_ASM_LAB_BITS_FOR_POWER 1 EMUL 1 ENABLE_ADVANCED_IO_ANALYSIS_GUI_FEATURES 1 ENABLE_PIN_PLANNER 0 ENGINEERING_SAMPLE 0 EPCS 1 ESB 0 FAKE1 0 FAKE2 0 FAKE3 0 FAMILY_LEVEL_INSTALLATION_ONLY 1 FASTEST 0 FINAL_TIMING_MODEL 0 FITTER_USE_FALLING_EDGE_DELAY 1 GENERATE_DC_ON_CURRENT_WARNING_FOR_INTERNAL_CLAMPING_DIODE 0 HARDCOPY 0 HAS_18_BIT_MULTS 0 HAS_ACE_SUPPORT 1 HAS_ACTIVE_PARALLEL_FLASH_SUPPORT 0 HAS_ADJUSTABLE_OUTPUT_IO_TIMING_MEAS_POINT 1 HAS_ADVANCED_IO_INVERTED_CORNER 0 HAS_ADVANCED_IO_POWER_SUPPORT 1 HAS_ADVANCED_IO_TIMING_SUPPORT 1 HAS_ALM_SUPPORT 0 HAS_ATOM_AND_ROUTING_POWER_MODELED_TOGETHER 0 HAS_AUTO_DERIVE_CLOCK_UNCERTAINTY_SUPPORT 0 HAS_AUTO_FIT_SUPPORT 1 HAS_BALANCED_OPT_TECHNIQUE_SUPPORT 1 HAS_BENEFICIAL_SKEW_SUPPORT 1 HAS_BITLEVEL_DRIVE_STRENGTH_CONTROL 1 HAS_BSDL_FILE_GENERATION 0 HAS_CDB_RE_NETWORK_PRESERVATION_SUPPORT 0 HAS_CGA_SUPPORT 1 HAS_CHECK_NETLIST_SUPPORT 0 HAS_CLOCK_REGION_CHECKER_ENABLED 1 HAS_CORE_JUNCTION_TEMP_DERATING 0 HAS_CROSSTALK_SUPPORT 0 HAS_CUSTOM_REGION_SUPPORT 1 HAS_DAP_JTAG_FROM_HPS 0 HAS_DATA_DRIVEN_ACVQ_HSSI_SUPPORT 0 HAS_DDB_FDI_SUPPORT 0 HAS_DESIGN_ANALYZER_SUPPORT 1 HAS_DETAILED_IO_RAIL_POWER_MODEL 1 HAS_DETAILED_LEIM_STATIC_POWER_MODEL 1 HAS_DETAILED_LE_POWER_MODEL 1 HAS_DETAILED_ROUTING_MUX_STATIC_POWER_MODEL 1 HAS_DETAILED_THERMAL_CIRCUIT_PARAMETER_SUPPORT 1 HAS_DEVICE_MIGRATION_SUPPORT 1 HAS_DIAGONAL_MIGRATION_SUPPORT 0 HAS_EMIF_TOOLKIT_SUPPORT 0 HAS_ERROR_DETECTION_SUPPORT 0 HAS_FAMILY_VARIANT_MIGRATION_SUPPORT 0 HAS_FANOUT_FREE_NODE_SUPPORT 1 HAS_FAST_FIT_SUPPORT 1 HAS_FITTER_EARLY_TIMING_ESTIMATE_SUPPORT 1 HAS_FITTER_ECO_SUPPORT 1 HAS_FIT_NETLIST_OPT_RETIME_SUPPORT 1 HAS_FIT_NETLIST_OPT_SUPPORT 1 HAS_FORMAL_VERIFICATION_SUPPORT 1 HAS_FPGA_XCHANGE_SUPPORT 1 HAS_FSAC_LUTRAM_REGISTER_PACKING_SUPPORT 0 HAS_FULL_DAT_MIN_TIMING_SUPPORT 1 HAS_FULL_INCREMENTAL_DESIGN_SUPPORT 1 HAS_FUNCTIONAL_SIMULATION_SUPPORT 1 HAS_FUNCTIONAL_VERILOG_SIMULATION_SUPPORT 0 HAS_FUNCTIONAL_VHDL_SIMULATION_SUPPORT 0 HAS_GLITCH_FILTERING_SUPPORT 1 HAS_HARDCOPYII_SUPPORT 0 HAS_HC_READY_SUPPORT 0 HAS_HIGH_SPEED_LOW_POWER_TILE_SUPPORT 0 HAS_HOLD_TIME_AVOIDANCE_ACROSS_CLOCK_SPINE_SUPPORT 1 HAS_HSPICE_WRITER_SUPPORT 1 HAS_HSSI_POWER_CALCULATOR 0 HAS_IBISO_WRITER_SUPPORT 1 HAS_ICD_DATA_IP 0 HAS_INCREMENTAL_DAT_SUPPORT 1 HAS_INCREMENTAL_SYNTHESIS_SUPPORT 1 HAS_INTERFACE_PLANNER_SUPPORT 0 HAS_IO_ASSIGNMENT_ANALYSIS_SUPPORT 1 HAS_IO_DECODER 0 HAS_IO_PLACEMENT_OPTIMIZATION_SUPPORT 1 HAS_IO_SMART_RECOMPILE_SUPPORT 0 HAS_JITTER_SUPPORT 1 HAS_JTAG_SLD_HUB_SUPPORT 1 HAS_LIMITED_TCL_FITTER_SUPPORT 0 HAS_LOGICAL_FLOORPLANNER_SUPPORT 0 HAS_LOGIC_LOCK_SUPPORT 1 HAS_MICROPROCESSOR 0 HAS_MIF_SMART_COMPILE_SUPPORT 1 HAS_MINMAX_TIMING_MODELING_SUPPORT 1 HAS_MIN_TIMING_ANALYSIS_SUPPORT 1 HAS_MUX_RESTRUCTURE_SUPPORT 1 HAS_NEW_HC_FLOW_SUPPORT 0 HAS_NEW_SERDES_MAX_RESOURCE_COUNT_REPORTING_SUPPORT 1 HAS_NEW_VPR_SUPPORT 1 HAS_NONSOCKET_TECHNOLOGY_MIGRATION_SUPPORT 0 HAS_NO_HARDBLOCK_PARTITION_SUPPORT 0 HAS_NO_JTAG_USERCODE_SUPPORT 0 HAS_OPERATING_SETTINGS_AND_CONDITIONS_REPORTING_SUPPORT 1 HAS_PAD_LOCATION_ASSIGNMENT_SUPPORT 0 HAS_PARTIAL_RECONFIG_SUPPORT 0 HAS_PASSIVE_PARALLEL_SUPPORT 0 HAS_PHYSICAL_NETLIST_OUTPUT 0 HAS_PHYSICAL_ROUTING_SUPPORT 0 HAS_PIN_SPECIFIC_VOLTAGE_SUPPORT 1 HAS_PLDM_REF_SUPPORT 1 HAS_POWER_BINNING_LIMITS_DATA 0 HAS_POWER_ESTIMATION_SUPPORT 1 HAS_PRELIMINARY_CLOCK_UNCERTAINTY_NUMBERS 0 HAS_PRE_FITTER_FPP_SUPPORT 0 HAS_PRE_FITTER_LUTRAM_NETLIST_CHECKER_ENABLED 0 HAS_PVA_SUPPORT 1 HAS_RAPID_RECOMPILE_SUPPORT 0 HAS_RCF_SUPPORT 1 HAS_RCF_SUPPORT_FOR_DEBUGGING 0 HAS_RED_BLACK_SEPARATION_SUPPORT 0 HAS_RE_LEVEL_TIMING_GRAPH_SUPPORT 1 HAS_RISEFALL_DELAY_SUPPORT 1 HAS_SIGNAL_PROBE_SUPPORT 1 HAS_SIGNAL_TAP_SUPPORT 1 HAS_SIMULATOR_SUPPORT 1 HAS_SPLIT_IO_SUPPORT 1 HAS_SPLIT_LC_SUPPORT 1 HAS_STRICT_PRESERVATION_SUPPORT 0 HAS_SYNTH_FSYN_NETLIST_OPT_SUPPORT 1 HAS_SYNTH_NETLIST_OPT_RETIME_SUPPORT 1 HAS_SYNTH_NETLIST_OPT_SUPPORT 1 HAS_TCL_FITTER_SUPPORT 0 HAS_TECHNOLOGY_MIGRATION_SUPPORT 0 HAS_TEMPLATED_REGISTER_PACKING_SUPPORT 1 HAS_TIME_BORROWING_SUPPORT 0 HAS_TIMING_DRIVEN_SYNTHESIS_SUPPORT 1 HAS_TIMING_INFO_SUPPORT 1 HAS_TIMING_OPERATING_CONDITIONS 1 HAS_TIMING_SIMULATION_SUPPORT 1 HAS_TITAN_BASED_MAC_REGISTER_PACKER_SUPPORT 0 HAS_U2B2_SUPPORT 0 HAS_USER_HIGH_SPEED_LOW_POWER_TILE_SUPPORT 0 HAS_USE_FITTER_INFO_SUPPORT 1 HAS_VCCPD_POWER_RAIL 0 HAS_VERTICAL_MIGRATION_SUPPORT 1 HAS_VIEWDRAW_SYMBOL_SUPPORT 0 HAS_VIO_SUPPORT 1 HAS_VIRTUAL_DEVICES 0 HAS_WYSIWYG_DFFEAS_SUPPORT 1 HAS_XIBISO_WRITER_SUPPORT 0 IFP_USE_LEGACY_IO_CHECKER 0 INCREMENTAL_DESIGN_SUPPORTS_COMPATIBLE_CONSTRAINTS 1 INSTALLED 0 INTERNAL_POF_SUPPORT_ENABLED 0 INTERNAL_USE_ONLY 0 ISSUE_MILITARY_TEMPERATURE_WARNING 0 IS_CONFIG_ROM 0 IS_DEFAULT_FAMILY 0 IS_HARDCOPY_FAMILY 0 IS_HBGA_PACKAGE 0 IS_HIGH_CURRENT_PART 0 IS_LOW_POWER_PART 0 IS_SDM_ONLY_PACKAGE 0 LVDS_IO 0 M10K_MEMORY 0 M144K_MEMORY 0 M20K_MEMORY 0 M4K_MEMORY 0 M512_MEMORY 0 M9K_MEMORY 1 MLAB_MEMORY 0 MRAM_MEMORY 0 NOT_LISTED 0 NOT_MIGRATABLE 0 NO_FITTER_DELAY_CACHE_GENERATED 0 NO_PIN_OUT 0 NO_POF 0 NO_RPE_SUPPORT 0 NO_SUPPORT_FOR_LOGICLOCK_CONTENT_BACK_ANNOTATION 1 NO_SUPPORT_FOR_STA_CLOCK_UNCERTAINTY_CHECK 0 NO_TDC_SUPPORT 0 POSTFIT_BAK_DATABASE_EXPORT_ENABLED 1 POSTMAP_BAK_DATABASE_EXPORT_ENABLED 1 PROGRAMMER_SUPPORT 1 QFIT_IN_DEVELOPMENT 0 QMAP_IN_DEVELOPMENT 0 RAM_LOGICAL_NAME_CHECKING_IN_CUT_ENABLED 1 REPORTS_METASTABILITY_MTBF 1 REQUIRES_INSTALLATION_PATCH 0 REQUIRES_LIST_OF_TEMPERATURE_AND_VOLTAGE_OPERATING_CONDITIONS 1 RESERVES_SIGNAL_PROBE_PINS 0 RESOLVE_MAX_FANOUT_EARLY 1 RESOLVE_MAX_FANOUT_LATE 0 RESPECTS_FIXED_SIZED_LOCKED_LOCATION_LOGICLOCK 1 RESTRICTED_USER_SELECTION 0 RISEFALL_SUPPORT_IS_HIDDEN 0 SHOW_HIDDEN_FAMILY_IN_PROGRAMMER 0 STRICT_TIMING_DB_CHECKS 0 SUPPORTS_ADDITIONAL_OPTIONS_FOR_UNUSED_IO 0 SUPPORTS_CRC 1 SUPPORTS_DIFFERENTIAL_AIOT_BOARD_TRACE_MODEL 1 SUPPORTS_DSP_BALANCING_BACK_ANNOTATION 0 SUPPORTS_GENERATION_OF_EARLY_POWER_ESTIMATOR_FILE 1 SUPPORTS_GLOBAL_SIGNAL_BACK_ANNOTATION 0 SUPPORTS_MAC_CHAIN_OUT_ADDER 0 SUPPORTS_RAM_PACKING_BACK_ANNOTATION 0 SUPPORTS_REG_PACKING_BACK_ANNOTATION 0 SUPPORTS_SIGNALPROBE_REGISTER_PIPELINING 1 SUPPORTS_SINGLE_ENDED_AIOT_BOARD_TRACE_MODEL 1 SUPPORTS_USER_MANUAL_LOGIC_DUPLICATION 1 TMV_RUN_CUSTOMIZABLE_VIEWER 1 TMV_RUN_INTERNAL_DETAILS 1 TMV_RUN_INTERNAL_DETAILS_ON_IO 0 TMV_RUN_INTERNAL_DETAILS_ON_IOBUF 1 TMV_RUN_INTERNAL_DETAILS_ON_LCELL 0 TMV_RUN_INTERNAL_DETAILS_ON_LRAM 0 TRANSCEIVER_3G_BLOCK 0 TRANSCEIVER_6G_BLOCK 0 USES_ACV_FOR_FLED 1 USES_ADB_FOR_BACK_ANNOTATION 1 USES_ALTERA_LNSIM 0 USES_ASIC_ROUTING_POWER_CALCULATOR 0 USES_DATA_DRIVEN_PLL_COMPUTATION_UTIL 1 USES_DEV 1 USES_ICP_FOR_ECO_FITTER 0 USES_LIBERTY_TIMING 0 USES_POWER_SIGNAL_ACTIVITIES 1 USES_THIRD_GENERATION_TIMING_MODELS_TIS 1 USES_U2B2_TIMING_MODELS 0 USE_ADVANCED_IO_POWER_BY_DEFAULT 1 USE_ADVANCED_IO_TIMING_BY_DEFAULT 1 USE_BASE_FAMILY_DDB_PATH 0 USE_OCT_AUTO_CALIBRATION 0 USE_RELAX_IO_ASSIGNMENT_RULES 1 USE_RISEFALL_ONLY 1 USE_SEPARATE_LIST_FOR_TECH_MIGRATION 0 USE_SINGLE_COMPILER_PASS_PLL_MIF_FILE_WRITER 1 USE_TITAN_IO_BASED_IO_REGISTER_PACKER_UTIL 0 USING_28NM_OR_OLDER_TIMING_METHODOLOGY 1 WYSIWYG_BUS_WIDTH_CHECKING_IN_CUT_ENABLED 1</parameter>
   <parameter name="tightlyCoupledDataMaster0MapParam" value="" />
@@ -1202,7 +1223,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="15" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="4" />
@@ -1211,7 +1232,7 @@
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="tc1_status">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1225,7 +1246,7 @@
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="tc2_status">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1239,7 +1260,7 @@
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="tc3_status">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1253,7 +1274,7 @@
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="tc4_status">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1294,7 +1315,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="7" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="3" />
@@ -1343,7 +1364,7 @@
    name="uart1_r_data">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1361,7 +1382,7 @@
    name="uart1_rx_counter">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1379,7 +1400,7 @@
    name="uart1_tx_counter">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1387,7 +1408,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="3" />
+  <parameter name="width" value="8" />
   <parameter name="clockRate" value="50000000" />
  </module>
  <module
@@ -1397,15 +1418,15 @@
    name="uart1_status_control">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="true" />
-  <parameter name="irqType" value="EDGE" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="10" />
   <parameter name="clockRate" value="50000000" />
  </module>
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="bcd1_bin">
@@ -1434,7 +1455,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="6" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="3" />
@@ -1443,7 +1464,7 @@
  <module kind="altera_avalon_pio" version="13.1" enabled="1" name="bcd1_bcd">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1461,7 +1482,7 @@
    name="bcd1_counter">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1479,7 +1500,7 @@
    name="bcd1_status">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1538,7 +1559,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="2" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="2" />
@@ -1574,7 +1595,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="3" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="2" />
@@ -1605,7 +1626,7 @@
    name="sseg_counter">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1623,7 +1644,7 @@
    name="sseg_counter_of">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1664,7 +1685,7 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="3" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="2" />
@@ -1695,7 +1716,7 @@
    name="leds_counter">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1713,7 +1734,7 @@
    name="leds_counter_of">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="true" />
+  <parameter name="captureEdge" value="false" />
   <parameter name="direction" value="Input" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -1770,6 +1791,20 @@
   <parameter name="width" value="1" />
   <parameter name="clockRate" value="50000000" />
  </module>
+ <module kind="altera_avalon_pio" version="13.1" enabled="1" name="led_period">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="24" />
+  <parameter name="clockRate" value="50000000" />
+ </module>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="sysid_c001.clk" />
  <connection
    kind="reset"
@@ -1811,7 +1846,7 @@
    start="nios2e.data_master"
    end="sysid_c001.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011308" />
+  <parameter name="baseAddress" value="0x000112a8" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1820,7 +1855,7 @@
    start="nios2e.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011300" />
+  <parameter name="baseAddress" value="0x000112a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1858,7 +1893,7 @@
    start="nios2e.data_master"
    end="daylight.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112f0" />
+  <parameter name="baseAddress" value="0x00011280" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="tc1_m.clk" />
@@ -1880,7 +1915,7 @@
    start="nios2e.data_master"
    end="tc1_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112e0" />
+  <parameter name="baseAddress" value="0x00011270" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc1_m.reset" />
@@ -1891,7 +1926,7 @@
    start="nios2e.data_master"
    end="tc2_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112d0" />
+  <parameter name="baseAddress" value="0x00011260" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc3_m.reset" />
@@ -1901,7 +1936,7 @@
    start="nios2e.data_master"
    end="tc3_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112c0" />
+  <parameter name="baseAddress" value="0x00011250" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc4_m.reset" />
@@ -1911,7 +1946,7 @@
    start="nios2e.data_master"
    end="tc4_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112b0" />
+  <parameter name="baseAddress" value="0x00011240" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1925,7 +1960,7 @@
    start="nios2e.data_master"
    end="tc_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011100" />
+  <parameter name="baseAddress" value="0x00011230" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1939,7 +1974,7 @@
    start="nios2e.data_master"
    end="tc1_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112a0" />
+  <parameter name="baseAddress" value="0x00011220" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1953,7 +1988,7 @@
    start="nios2e.data_master"
    end="tc2_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011290" />
+  <parameter name="baseAddress" value="0x00011210" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1962,7 +1997,7 @@
    start="nios2e.data_master"
    end="tc3_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011280" />
+  <parameter name="baseAddress" value="0x00011200" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1981,7 +2016,7 @@
    start="nios2e.data_master"
    end="tc4_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011270" />
+  <parameter name="baseAddress" value="0x000111f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="uart1_w_data.clk" />
@@ -2027,7 +2062,7 @@
    start="nios2e.data_master"
    end="uart1_w_data.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011260" />
+  <parameter name="baseAddress" value="0x000111e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2041,7 +2076,7 @@
    start="nios2e.data_master"
    end="uart1_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110e0" />
+  <parameter name="baseAddress" value="0x000111d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2055,7 +2090,7 @@
    start="nios2e.data_master"
    end="uart1_wr_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110c0" />
+  <parameter name="baseAddress" value="0x000111c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2069,7 +2104,7 @@
    start="nios2e.data_master"
    end="uart1_baud_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011250" />
+  <parameter name="baseAddress" value="0x000111b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2083,7 +2118,7 @@
    start="nios2e.data_master"
    end="uart1_r_data.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011240" />
+  <parameter name="baseAddress" value="0x000111a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2102,7 +2137,7 @@
    start="nios2e.data_master"
    end="uart1_tx_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011230" />
+  <parameter name="baseAddress" value="0x00011190" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2111,7 +2146,7 @@
    start="nios2e.data_master"
    end="uart1_status_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011220" />
+  <parameter name="baseAddress" value="0x00011180" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2125,7 +2160,7 @@
    start="nios2e.data_master"
    end="uart1_rx_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011210" />
+  <parameter name="baseAddress" value="0x00011170" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_bin.clk" />
@@ -2140,7 +2175,7 @@
    start="nios2e.data_master"
    end="bcd1_bin.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011200" />
+  <parameter name="baseAddress" value="0x00011160" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_control.clk" />
@@ -2155,7 +2190,7 @@
    start="nios2e.data_master"
    end="bcd1_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110a0" />
+  <parameter name="baseAddress" value="0x00011150" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_bcd.clk" />
@@ -2170,7 +2205,7 @@
    start="nios2e.data_master"
    end="bcd1_bcd.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111f0" />
+  <parameter name="baseAddress" value="0x00011140" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_counter.clk" />
@@ -2185,7 +2220,7 @@
    start="nios2e.data_master"
    end="bcd1_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111e0" />
+  <parameter name="baseAddress" value="0x00011130" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_status.clk" />
@@ -2200,7 +2235,7 @@
    start="nios2e.data_master"
    end="bcd1_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111d0" />
+  <parameter name="baseAddress" value="0x00011120" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2214,7 +2249,7 @@
    start="nios2e.data_master"
    end="warn_pwm_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111c0" />
+  <parameter name="baseAddress" value="0x00011110" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2238,7 +2273,7 @@
    start="nios2e.data_master"
    end="warn_pwm_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011080" />
+  <parameter name="baseAddress" value="0x00011100" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="status_led_en.clk" />
@@ -2253,7 +2288,7 @@
    start="nios2e.data_master"
    end="status_led_en.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011060" />
+  <parameter name="baseAddress" value="0x00011000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2272,7 +2307,7 @@
    start="nios2e.data_master"
    end="sseg_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111b0" />
+  <parameter name="baseAddress" value="0x000110f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2291,7 +2326,7 @@
    start="nios2e.data_master"
    end="sseg_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011040" />
+  <parameter name="baseAddress" value="0x000110e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="sseg_wr_val.clk" />
@@ -2306,7 +2341,7 @@
    start="nios2e.data_master"
    end="sseg_wr_val.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111a0" />
+  <parameter name="baseAddress" value="0x000110d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="sseg_counter.clk" />
@@ -2321,7 +2356,7 @@
    start="nios2e.data_master"
    end="sseg_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011190" />
+  <parameter name="baseAddress" value="0x000110c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2340,7 +2375,7 @@
    start="nios2e.data_master"
    end="sseg_counter_of.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011180" />
+  <parameter name="baseAddress" value="0x000110b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2359,7 +2394,7 @@
    start="nios2e.data_master"
    end="leds_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011170" />
+  <parameter name="baseAddress" value="0x000110a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2378,7 +2413,7 @@
    start="nios2e.data_master"
    end="leds_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011020" />
+  <parameter name="baseAddress" value="0x00011090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="leds_wr_val.clk" />
@@ -2393,7 +2428,7 @@
    start="nios2e.data_master"
    end="leds_wr_val.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011000" />
+  <parameter name="baseAddress" value="0x00011080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="leds_counter.clk" />
@@ -2408,7 +2443,7 @@
    start="nios2e.data_master"
    end="leds_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011160" />
+  <parameter name="baseAddress" value="0x00011070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2427,7 +2462,7 @@
    start="nios2e.data_master"
    end="leds_counter_of.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011150" />
+  <parameter name="baseAddress" value="0x00011060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2641,7 +2676,7 @@
    start="nios2e.data_master"
    end="uart1_dvsr.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011140" />
+  <parameter name="baseAddress" value="0x00011050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2667,7 +2702,7 @@
    start="nios2e.data_master"
    end="rc1_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011130" />
+  <parameter name="baseAddress" value="0x00011040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2676,7 +2711,7 @@
    start="nios2e.data_master"
    end="rc1_ready.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011120" />
+  <parameter name="baseAddress" value="0x00011030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2704,12 +2739,53 @@
   <parameter name="irqNumber" value="2" />
  </connection>
  <connection
-   kind="interrupt"
+   kind="reset"
    version="13.1"
-   start="nios2e.d_irq"
-   end="uart1_status_control.irq">
-  <parameter name="irqNumber" value="3" />
+   start="nios2e.jtag_debug_module_reset"
+   end="sysid_c001.reset" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="nios2e.jtag_debug_module_reset"
+   end="onchip_ram.reset1" />
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="nios2e.instruction_master"
+   end="sysid_c001.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x000112a8" />
+  <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="nios2e.instruction_master"
+   end="jtag_uart_0.avalon_jtag_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x000112a0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="clock" version="13.1" start="clk_0.clk" end="led_period.clk" />
+ <connection
+   kind="reset"
+   version="13.1"
+   start="clk_0.clk_reset"
+   end="led_period.reset" />
+ <connection
+   kind="avalon"
+   version="13.1"
+   start="nios2e.data_master"
+   end="led_period.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00011020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="reset"
+   version="13.1"
+   start="nios2e.jtag_debug_module_reset"
+   end="led_period.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="false" />

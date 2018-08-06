@@ -15,7 +15,7 @@ typedef unsigned short word_t;
 typedef unsigned int dword_t;
 
 // Defines the clock period
-#define CLOCK_PERIOD_NS ((dword_t)20) // 20ns per 50ms clock
+#define CLOCK_PERIOD_NS ((dword_t)20) // 20ns per 50mhz clock
 #define CLOCK_MILLIS_TO_TICKS(X) (((dword_t)X * 1000000U) / CLOCK_PERIOD_NS)
 
 // Delays for one clock period
@@ -59,8 +59,8 @@ bool is_daylight(void);
 
 #define LEDS_MAX 80 // Maximum LED strip LEDs
 
-#define LEDS_COUNTER_EN   (1 << 0)
-#define LEDS_EN           (1 << 1)
+#define LEDS_COUNTER_RESET   (1 << 0)
+#define LEDS_RESET           (1 << 1)
 
 #define LEDS_N_BITS 4
 #define LEDS_M_BITS 4
@@ -96,8 +96,8 @@ void leds_shutdown(void);
 
 #define SSEG_MAX 16
 
-#define SSEG_COUNTER_EN  (1 << 0)
-#define SSEG_EN          (1 << 1)
+#define SSEG_COUNTER_RESET  (1 << 0)
+#define SSEG_RESET          (1 << 1)
 
 #define SSEG_VAL_BITS 4
 #define SSEG_SEL_BITS 5
@@ -149,13 +149,15 @@ void status_led_en(dword_t mask);
  * Timer counter control
  */
 
-#define TC_EN_TC1 (1 << 0)
-#define TC_EN_TC2 (1 << 1)
-#define TC_EN_TC3 (1 << 2)
-#define TC_EN_TC4 (1 << 3)
+#define TC_RESET_TC1 (1 << 0)
+#define TC_RESET_TC2 (1 << 1)
+#define TC_RESET_TC3 (1 << 2)
+#define TC_RESET_TC4 (1 << 3)
 
 #define TC_STATUS_COUNTER (1 << 0)
 #define TC_STATUS_OF      (1 << 25)
+
+#define TC_MAX (dword_t)((1 << 24) - 1)
 
 typedef enum TcArray_t
 {
@@ -190,9 +192,9 @@ void tc_shutdown(void);
 #define UART_DVSR_BIT 16
 #define UART_DBIT_BIT 8
 
-#define UART1_EN_TX_TC (1 << 0)
-#define UART1_EN_RX_TC (1 << 1)
-#define UART1_EN       (1 << 2)
+#define UART1_RESET_TX_TC (1 << 0)
+#define UART1_RESET_RX_TC (1 << 1)
+#define UART1_RESET       (1 << 2)
 
 #define UART1_WR_CONTROL_WR (1 << 0)
 #define UART1_WR_CONTROL_RD (1 << 1)
@@ -205,6 +207,8 @@ void tc_shutdown(void);
 #define UART1_STATUS_E_PARITY      (1 << 5)
 #define UART1_STATUS_RX_EMPTY      (1 << 6)
 #define UART1_STATUS_TX_FULL       (1 << 7)
+#define UART1_STATUS_RX_READY      (1 << 8)
+#define UART1_STATUS_TX_READY      (1 << 9)
 
 // Sets the baud rate; data bit, parity bit, clock ticks for stop bit, clock ticks for overscan ratio, and baud divisor int(50M/(os_tick * baud rate))
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr);
@@ -221,12 +225,15 @@ void uart1_tx(char data);
 // Reads values which can be masked by UART_STATUS
 dword_t uart1_read_status(void);
 
+// Debug print UART status
+void uart1_print_status(dword_t status);
+
 /*
  * Warning LED control
  */
 
-#define WARN_PWM_CONTROL_EN1 (1 << 0)
-#define WARN_PWM_CONTROL_EN2 (1 << 1)
+#define WARN_PWM_CONTROL_EN    (1 << 0)
+#define WARN_PWM_CONTROL_RESET (1 << 1)
 
 #define WARN_BRIGHTNESS_MAX 0xFF
 
@@ -252,3 +259,13 @@ void warn_shutdown(void);
 
 // Force the controller into reset, bringing it back up after counts
 void rc_reset(dword_t counts);
+
+/*
+ * Global LED control
+ */
+
+#define LEDS_PERIOD_MAX (dword_t)((1 << 24) - 1)
+
+// Set the LED transition period in clocks
+void led_set_period(dword_t period);
+

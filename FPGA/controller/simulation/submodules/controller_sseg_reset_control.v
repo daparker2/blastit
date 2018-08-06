@@ -33,9 +33,9 @@ module controller_sseg_reset_control (
                                      )
 ;
 
-  output  [  4: 0] out_port;
+  output  [  1: 0] out_port;
   output  [ 31: 0] readdata;
-  input   [  2: 0] address;
+  input   [  1: 0] address;
   input            chipselect;
   input            clk;
   input            reset_n;
@@ -43,22 +43,19 @@ module controller_sseg_reset_control (
   input   [ 31: 0] writedata;
 
   wire             clk_en;
-  reg     [  4: 0] data_out;
-  wire    [  4: 0] out_port;
-  wire    [  4: 0] read_mux_out;
+  reg     [  1: 0] data_out;
+  wire    [  1: 0] out_port;
+  wire    [  1: 0] read_mux_out;
   wire    [ 31: 0] readdata;
-  wire             wr_strobe;
   assign clk_en = 1;
   //s1, which is an e_avalon_slave
-  assign read_mux_out = {5 {(address == 0)}} & data_out;
-  assign wr_strobe = chipselect && ~write_n;
+  assign read_mux_out = {2 {(address == 0)}} & data_out;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          data_out <= 0;
-      else if (clk_en)
-          if (wr_strobe)
-              data_out <= (address == 5)? data_out & ~writedata[4 : 0]: (address == 4)? data_out | writedata[4 : 0]: (address == 0)? writedata[4 : 0]: data_out;
+          data_out <= 3;
+      else if (chipselect && ~write_n && (address == 0))
+          data_out <= writedata[1 : 0];
     end
 
 

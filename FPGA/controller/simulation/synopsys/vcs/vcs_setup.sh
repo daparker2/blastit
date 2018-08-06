@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.08.03.21:04:23
+# ACDS 13.1 162 win32 2018.08.05.18:05:03
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -75,12 +75,13 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_rsp_xbar_mux_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_rsp_xbar_mux.sv \
-  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_rsp_xbar_demux_002.sv \
-  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_mux_002.sv \
+  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_rsp_xbar_demux_004.sv \
+  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_rsp_xbar_demux.sv \
+  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_mux_004.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_mux.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_demux_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_cmd_xbar_demux.sv \
-  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router_002.sv \
+  $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router_004.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_id_router.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_addr_router_001.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0_addr_router.sv \
@@ -94,17 +95,20 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/altera_reset_synchronizer.v \
   $QSYS_SIMDIR/submodules/controller_irq_mapper.sv \
   $QSYS_SIMDIR/submodules/controller_mm_interconnect_0.v \
+  $QSYS_SIMDIR/submodules/controller_led_period.v \
   $QSYS_SIMDIR/submodules/controller_rc1_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_dvsr.v \
   $QSYS_SIMDIR/submodules/controller_leds_wr_val.v \
   $QSYS_SIMDIR/submodules/controller_sseg_counter_of.v \
   $QSYS_SIMDIR/submodules/controller_sseg_wr_val.v \
+  $QSYS_SIMDIR/submodules/controller_sseg_reset_control.v \
+  $QSYS_SIMDIR/submodules/controller_warn_pwm_control.v \
   $QSYS_SIMDIR/submodules/controller_status_led_en.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_status.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_bcd.v \
+  $QSYS_SIMDIR/submodules/controller_bcd1_control.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_bin.v \
   $QSYS_SIMDIR/submodules/controller_uart1_status_control.v \
-  $QSYS_SIMDIR/submodules/controller_uart1_tx_counter.v \
   $QSYS_SIMDIR/submodules/controller_uart1_r_data.v \
   $QSYS_SIMDIR/submodules/controller_uart1_baud_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_wr_control.v \

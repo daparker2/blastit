@@ -11,7 +11,6 @@ module mod_m_counter
 
 // signal declaration
 reg [M_BITS-1:0] r_reg, r_next;
-reg [M_BITS-1:0] m_reg, m_next;
 reg max_tick_reg, max_tick_next;
 
 // body
@@ -20,36 +19,30 @@ always @(posedge clk, posedge reset)
 	if (reset)
 		begin
 			r_reg <= 0;
-			m_reg <= 0;
 			max_tick_reg <= 0;
 		end
 	else
 		begin
 			r_reg <= r_next;
-			m_reg <= m_next;
 			max_tick_reg <= max_tick_next;
 		end
 		
 always @*
 	begin
-		m_next = m;
 		max_tick_next = max_tick_reg;
-		if (m_next != m_reg)
-			r_next = 0;
-		else
-			begin
-				r_next = r_reg;
-				if (r_next == (m_next - 1))
-					begin
-						max_tick_next = 1'b1;
-						r_next = 0;
-					end
-				else
-					begin
-						r_next = r_next + 1;
-						max_tick_next = 0;
-					end
-			end
+		begin
+			r_next = r_reg;
+			if (r_next == m)
+				begin
+					max_tick_next = 1'b1;
+					r_next = 0;
+				end
+			else
+				begin
+					r_next = r_next + 1;
+					max_tick_next = 0;
+				end
+		end
 		
 	end
 

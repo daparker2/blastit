@@ -3,17 +3,17 @@
 module bin2bcd_testbench;
 
 	localparam BCD_N = 4,
-	           BIN_N = 14;
+	           BIN_N = 15;
 	localparam T = 20;
 	
 	integer i;
 	reg clk, reset, start;
-	reg [BIN_N:0] bin;
+	reg [BIN_N-1:0] bin;
 	wire ready, done_tick;
 	wire [(4*BCD_N)-1:0] bcd;
 	
-	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BIN_N)) uut(.clk(clk), .reset(reset), .start(start), .sign(bin[BIN_N]),
-                                               .bin(bin[BIN_N-1:0]), .ready(ready), .done_tick(done_tick), .bcd(bcd));
+	bin2bcd #(.BCD_N(BCD_N), .BIN_N(BIN_N-1)) uut(.clk(clk), .reset(reset), .start(start), .sign(bin[BIN_N-1]),
+                                               .bin(bin[BIN_N-2:0]), .ready(ready), .done_tick(done_tick), .bcd(bcd));
 	
 	// set up the clock
 	always
@@ -52,6 +52,7 @@ module bin2bcd_testbench;
 		@(negedge reset);
 		@(negedge clk);
 		
+		bin2bcd_test(1234);
 		for (i = 0; i <= 16383; i = i + 1000)
 			bin2bcd_test(i);
 		
