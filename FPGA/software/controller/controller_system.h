@@ -216,7 +216,7 @@ void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t
 // Shuts down the UART, holding it in reset
 void uart1_shutdown(void);
 
-// Reads from the RX FIFO, returning -1 if no value could be read
+// Reads from the RX FIFO, blocking until the RX buffer is ready
 int uart1_rx(void);
 
 // Adds data to the TX FIFO, waiting for the FIFO to clear if full

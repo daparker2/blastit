@@ -7,7 +7,6 @@ module fifo
 	input wire clk, reset,
 	input wire rd, wr,
 	input wire [B-1:0] w_data,
-	input wire [B-1:0] buf_read,
 	output wire empty, full,
 	output wire [B-1:0] r_data
 );
@@ -27,8 +26,6 @@ always @(posedge clk)
 	begin
 		if (wr_en)
 			array_reg[w_ptr_reg] <= w_data;
-		if (rd_done_reg)
-			array_reg[r_ptr_reg] <= buf_read;
 	end
 
 // fifo control logic

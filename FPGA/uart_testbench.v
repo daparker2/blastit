@@ -136,6 +136,22 @@ task uart_test;
 				//uart_r1;
 				//compare(1, i, actual1);
 			end
+			
+		for (j = 1; j <= max; j = j + 1)
+			begin:wr2
+				uart_w1(j);
+				//uart_w2(i);
+			end
+			
+		#(sync);
+			
+		for (j = 1; j <= max; j = j + 1)
+			begin:rd2
+				uart_r2;	
+				compare(2, j, actual2);
+				//uart_r1;
+				//compare(1, i, actual1);
+			end
 	end
 endtask
 	
@@ -166,19 +182,19 @@ initial
 		@(negedge reset);
 		@(negedge clk);
 
-		for (i = 1; i <= 301; i = i + 100)
+		for (i = 1; i <= 150; i = i + 100)
 			begin
-				uart_test(8, 0, 32, 32, 13, i, T, 10);
-				uart_test(8, 1, 32, 32, 13, i, T * 2, 10);
-				uart_test(8, 2, 32, 32, 13, i, T * 3, 10);
+				uart_test(8, 0, 72, 72, 6, i, T, 10);
+				uart_test(8, 1, 72, 72, 6, i, T * 2, 10);
+				uart_test(8, 2, 72, 72, 6, i, T * 3, 10);
 				
 				uart_test(8, 0, 24, 16, 162, i, T, 11);
 				uart_test(8, 1, 24, 16, 162, i, T * 2, 11);
 				uart_test(8, 2, 24, 16, 162, i, T * 3, 11);
 				
-				uart_test(7, 0, 32, 32, 13, i, T, 12);
-				uart_test(7, 1, 32, 32, 13, i, T * 2, 12);
-				uart_test(7, 2, 32, 32, 13, i, T * 3, 12);
+				uart_test(7, 0, 48, 48, 9, i, T, 12);
+				uart_test(7, 1, 48, 48, 9, i, T * 2, 12);
+				uart_test(7, 2, 48, 48, 9, i, T * 3, 12);
 				
 				uart_test(7, 0, 32, 16, 162, i, T, 13);
 				uart_test(7, 1, 32, 16, 162, i, T * 2, 13);

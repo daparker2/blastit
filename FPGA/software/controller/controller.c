@@ -150,7 +150,7 @@ void init()
 	tc_init();
 	warn_init();
 
-	// Should give us 115200 baud
+	// The OBD2 UART is 3.3v, 11500, 8 data, 1 stop, no parity check
 	uart1_init(8, 0, 32, 32, 13);
 	uart_bufclr();
 
@@ -186,10 +186,11 @@ void shutdown()
 #ifdef TEST
 void test()
 {
-	dword_t i, j;
+	dword_t i, j, k, l;
 	dword_t status = 0;
 	dword_t new_status;
 	bool daylight = false;
+	bool sent = false;
 	const char test[] = "ati\r";
 	char test_rx[(1 << 8)] = {};
 	byte_t bcd_out[BCD_MAX] = {};
@@ -220,50 +221,13 @@ void test()
 		uart1_print_status(status);
 	}
 
-	alt_printf("tx -> %s\n", test);
-	for (i = 0; i < strlen(test); ++i)
-	{
-		if ((new_status = uart1_read_status()) != status)
-		{
-			status = new_status;
-			uart1_print_status(status);
-		}
-
-		uart1_tx(test[i]);
-
-		if ((new_status = uart1_read_status()) != status)
-		{
-			status = new_status;
-			uart1_print_status(status);
-		}
-	}
-
-	i = 0;
-	for (;;)
-	{
-		test_rx[i] = uart1_rx();
-		if ((new_status = uart1_read_status()) != status)
-		{
-			status = new_status;
-			uart1_print_status(status);
-		}
-
-		if (test_rx[i] == '\r')
-		{
-			break;
-		}
-
-		++i;
-	}
-
-	alt_printf("rx -> %s\n", test_rx);
-
 	bcd_convert(1234, bcd_out);
 	alt_printf("1234 -> %x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
 	bcd_convert(-1234, bcd_out);
 	alt_printf("-1234 -> -%x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
 
 	i = 0;
+	k = 0;
 	for (;;)
 	{
 		bool new_daylight = is_daylight();
@@ -306,11 +270,65 @@ void test()
 
 			for (j = 0; j < SSEG_MAX; ++j)
 			{
-				sseg_set_bcd(j, SSEG_VAL_EN | SSEG_SIGN, 0);
+				if (j % 2 == 0)
+				{
+					sseg_set_bcd(j, SSEG_VAL_EN | SSEG_SIGN, 0);
+				}
+				else
+				{
+					sseg_set_bcd(j, 0, 0);
+				}
+			}
+		}
+
+		if (!sent)
+		{
+			sent = true;
+			alt_printf("tx -> %s\n", test);
+			for (l = 0; l < strlen(test); ++l)
+			{
+				if ((new_status = uart1_read_status()) != status)
+				{
+					status = new_status;
+					uart1_print_status(status);
+				}
+
+				uart1_tx(test[l]);
+
+				if ((new_status = uart1_read_status()) != status)
+				{
+					status = new_status;
+					uart1_print_status(status);
+				}
 			}
 		}
 
 		wait_tick(250);
+
+		if (sent)
+		{
+			while (uart1_read_status() & UART1_STATUS_RX_READY)
+			{
+				test_rx[k] = uart1_rx();
+				if ((new_status = uart1_read_status()) != status)
+				{
+					status = new_status;
+					uart1_print_status(status);
+				}
+
+				if (test_rx[k] == '\r')
+				{
+					alt_printf("rx -> %s\n", test_rx);
+					k = 0;
+					break;
+				}
+
+				++k;
+			}
+
+			sent = false;
+		}
+
 		++i;
 	}
 }

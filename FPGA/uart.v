@@ -21,12 +21,6 @@ module uart
 	output wire rx_ready, tx_ready
 );
 
-// Just some stuff for debugging
-localparam TX_DATA_LOW = 8'hCC,
-           RX_DATA_LOW = 8'hDD,
-			  TX_FIFO_EMPTY = 8'hEE,
-			  RX_FIFO_EMPTY = 8'hFF;
-
 // signal declaration
 wire tick;
 wire tx_empty, tx_fifo_not_empty, rx_full;
@@ -86,10 +80,10 @@ always @*
 mod_m_counter #(.M_BITS(DVSR_BIT)) baud_gen_unit(.clk(clk), .reset(reset), .m(dvsr_reg), .q(), .max_tick(tick)); 
 
 edge_trigger uart_rx_trigger(.clk(clk), .reset(reset), .in(rd_uart), .en(1'b1), .tick(rd_uart_tick));
-fifo #(.B(DBIT), .W(FIFO_R)) fifo_rx_unit(.clk(clk), .reset(reset), .rd(rd_uart_tick), .wr(rx_done_tick), .w_data(rx_data_out), .empty(rx_empty), .full(rx_full), .r_data(fifo_r_data), .buf_read(RX_FIFO_EMPTY));
+fifo #(.B(DBIT), .W(FIFO_R)) fifo_rx_unit(.clk(clk), .reset(reset), .rd(rd_uart_tick), .wr(rx_done_tick), .w_data(rx_data_out), .empty(rx_empty), .full(rx_full), .r_data(fifo_r_data));
 uart_rx #(.DBIT(DBIT)) uart_rx_unit(.clk(clk), .reset(reset), .dbit(dbit_reg), .pbit(pbit_reg), .sb_tick(sb_tick_reg), .os_tick(os_tick_reg), .rx(rx), .s_tick(tick), .rx_done_tick(rx_done_tick), .dout(rx_data_out), .e_parity(e_parity), .e_frame(e_frame));
 
-fifo #(.B(DBIT), .W(FIFO_W)) fifo_tx_unit(.clk(clk), .reset(reset), .rd(tx_done_tick), .wr(wr_uart_tick), .w_data(w_data), .empty(tx_empty), .full(tx_full), .r_data(tx_fifo_out), .buf_read(TX_FIFO_EMPTY));
+fifo #(.B(DBIT), .W(FIFO_W)) fifo_tx_unit(.clk(clk), .reset(reset), .rd(tx_done_tick), .wr(wr_uart_tick), .w_data(w_data), .empty(tx_empty), .full(tx_full), .r_data(tx_fifo_out));
 edge_trigger uart_tx_trigger(.clk(clk), .reset(reset), .in(wr_uart), .en(1'b1), .tick(wr_uart_tick));
 uart_tx #(.DBIT(DBIT)) uart_tx_unit(.clk(clk), .reset(reset), .dbit(dbit_reg), .pbit(pbit_reg), .sb_tick(sb_tick_reg), .os_tick(os_tick_reg), .tx_start(tx_fifo_not_empty), .s_tick(tick), .din(tx_fifo_out), .tx_done_tick(tx_done_tick), .tx(tx));
 
