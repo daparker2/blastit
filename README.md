@@ -11,4 +11,5 @@ Replaces the IoT based proof of concept with a controller state machine implemen
 
 ![block diagram](/doc/stack.png)
 
-The new device should be lighter and roughly the same dimensions, while solving the problems above.
+The new device should be lighter and roughly the same dimensions, while solving the problems above. Still waiting on the final PCB to come in. [Rendition of 3D printable model of the thing.](https://github.com/daparker2/blastit/blob/master/doc/Enclosure/Demo.stl)
+
