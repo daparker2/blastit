@@ -40,6 +40,8 @@ static const dword_t TcResetMap[] =
 	TC_RESET_TC4
 };
 
+static dword_t uart1_reset_counts = 0;
+
 void bcd_convert(dword_t bin, byte_t bcd[BCD_MAX])
 {
 	dword_t orig_control;
@@ -195,11 +197,27 @@ void tc_shutdown(void)
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr)
 {
 	dword_t baud = ((dbit & 0xf) << 18) | ((pbit & 0x3) << 16) | (sb_tick << 8) | (os_tick << 0);
-	dword_t counts = (dword_t)dvsr * os_tick * (dbit + pbit) + (dword_t)dvsr * sb_tick;
+	uart1_reset_counts = (dword_t)dvsr * os_tick * (dbit + pbit) + (dword_t)dvsr * sb_tick;
+	dword_t counts = uart1_reset_counts;
 	REGW(UART1_RESET_CONTROL_BASE, UART1_RESET | UART1_RESET_TX_TC | UART1_RESET_RX_TC);
 	nop();
 	REGW(UART1_BAUD_CONTROL_BASE, baud);
 	REGW(UART1_DVSR_BASE, dvsr);
+	while (counts-- > 0)
+	{
+		// Hold it high long enough to let the TX line stabilize on the other end
+		nop();
+	}
+
+	REGW(UART1_RESET_CONTROL_BASE, 0);
+	nop();
+}
+
+void uart1_reset(void)
+{
+	dword_t counts = uart1_reset_counts;
+	REGW(UART1_RESET_CONTROL_BASE, UART1_RESET | UART1_RESET_TX_TC | UART1_RESET_RX_TC);
+	nop();
 	while (counts-- > 0)
 	{
 		// Hold it high long enough to let the TX line stabilize on the other end
@@ -217,7 +235,11 @@ void uart1_shutdown(void)
 
 int uart1_rx(void)
 {
-	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_READY) == 0);
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_READY) == 0)
+	{
+		nop();
+	}
+
 	REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_RD);
 	nop();
 	REGW(UART1_WR_CONTROL_BASE, 0);
@@ -227,7 +249,11 @@ int uart1_rx(void)
 
 void uart1_tx(char data)
 {
-	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_READY) == 0);
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_READY) == 0)
+	{
+		nop();
+	}
+
 	REGW(UART1_W_DATA_BASE, data);
 	REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_WR);
 	nop();

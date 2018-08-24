@@ -213,6 +213,9 @@ void tc_shutdown(void);
 // Sets the baud rate; data bit, parity bit, clock ticks for stop bit, clock ticks for overscan ratio, and baud divisor int(50M/(os_tick * baud rate))
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr);
 
+// Explicitly reset the UART, clearing internal FIFO and state
+void uart1_reset(void);
+
 // Shuts down the UART, holding it in reset
 void uart1_shutdown(void);
 

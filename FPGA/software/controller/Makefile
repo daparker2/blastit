@@ -144,6 +144,10 @@ ELF := controller.elf
 # Paths to C, C++, and assembly source files.
 C_SRCS += controller_system.c
 C_SRCS += controller.c
+C_SRCS += uart.c
+C_SRCS += obd2.c
+C_SRCS += test.c
+C_SRCS += display.c
 CXX_SRCS :=
 ASM_SRCS :=
 

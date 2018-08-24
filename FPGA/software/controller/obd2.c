@@ -14,6 +14,33 @@
 #include "controller.h"
 #include "obd2.h"
 #include "display.h"
+#include "uart.h"
+
+/*
+ * Debug
+ */
+
+#define OBD2_DEBUG
+
+#ifdef OBD2_DEBUG
+#define OBD2_TOKEN "obd2: "
+#define OBD2_PRINTF(X, ...) alt_printf(OBD2_TOKEN X, __VA_ARGS__);
+#define OBD2_PUTSTR(X) { \
+	alt_putstr(OBD2_TOKEN); \
+	alt_putstr(X); \
+}
+#define OBD2_NOTE_STATE(X) {                                                 \
+	OBD2_PRINTF("OBD2 noted state: %s\n", X);                                \
+	OBD2_PRINTF("OBD2 state: %s (%x)\n", obd2_etos(obd2_state), obd2_state); \
+	OBD2_PRINTF("UART state: %s (%x)\n", uart_etos(uart_error), uart_error); \
+}
+#else
+#define OBD2_TOKEN
+#define OBD2_PRINTF(X, ...)
+#define OBD2_PUTSTR(X)
+#define OBD2_NOTE_STATE(X)
+#endif // OBD2_DEBUG
+
 
 /*
  * Data types
@@ -32,10 +59,12 @@ Pid;
  * Supporting functions
  */
 
+static const char* obd2_etos(Obd2State state);
 static void obd2_state_entry();
-static void obd2_state_exit();
-static bool obd2_parse_at_response();
-static bool obd2_parse_pid_response();
+static void obd2_state_exit(const char* response);
+static bool obd2_at_command(const char* command); // Mainly used for OOR setup stuff.
+static bool obd2_parse_at_response(const char* str);
+static bool obd2_parse_pid_response(const char* str);
 static void obd2_update_pid_values();
 static int obd2_get_pid_result_size(int pid);
 static int tohex(char ch);
@@ -47,7 +76,7 @@ static int tohex(char ch);
 #define PID_STORAGE_SIZE 5
 #define BA_MODULO_N 10
 
-State obd2_state;                  // State machine state
+Obd2State obd2_state;              // State machine state
 static Pid pids[PID_STORAGE_SIZE]; // Pid storage, aggregate commands return up to 5 PID codes.
 static word_t ba_count;            // Count of successive BA states
 static int boost_ref;              // The boost reference in kPA
@@ -58,193 +87,279 @@ static int boost_ref;              // The boost reference in kPA
 
 void obd2_init()
 {
-	obd2_state = StateReset;
+	const char* AtCommands[] =
+	{
+		"atsp0\r",
+		"ate0\r",
+		"atsh 7e0\r",
+		"atat2\r"
+	};
+
+	int i;
+	int error;
+
+	OBD2_NOTE_STATE("Out of reset");
+	obd2_state = Obd2StateReset;
 	memset(pids, 0, sizeof(pids));
 	ba_count = 0;
 	boost_ref = 0;
+	uart_eol = '>';
+
+	// Perform OBD2 AT-initialization sequence
+	error = uart_putstr("\r");
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_putstr failed");
+	}
+
+	error = uart_flush();
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_flush failed");
+	}
+
+	obd2_at_command("atz\r");
+
+	for (i = 0; i < sizeof(AtCommands)/sizeof(AtCommands[0]); ++i)
+	{
+		if (!obd2_at_command(AtCommands[i]))
+		{
+			OBD2_PUTSTR("Failed init command\n");
+			OBD2_NOTE_STATE(AtCommands[i]);
+			return;
+		}
+	}
+
+	// Ready the coroutine.
+	obd2_state = Obd2StateCILBr;
+}
+
+void obd2_shutdown()
+{
+	int error;
+
+	error = uart_putstr("\r");
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_putstr failed");
+	}
+
+	error = uart_flush();
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_flush failed");
+	}
+
+	// Perform OBD2 AT low power sequence.
+	error = uart_putstr("atlp\r");
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_putstr failed");
+	}
+
+	error = uart_flush();
+	if (error < 0)
+	{
+		OBD2_NOTE_STATE("uart_flush failed");
+	}
+
+	uart_bufclr();
 }
 
 bool obd2_update(void)
 {
-	if (obd2_state == StateReset)
+	if (obd2_state == Obd2StateReset)
 	{
-		// We're in the reset state, so we need to send the first command to the device.
-		obd2_state_entry();
-		return true;
+		OBD2_NOTE_STATE("Coroutine update without successful init.");
+		return false;
 	}
 	else
 	{
-		if (0 != strstr(uart_rx_buf, ">"))
+		char* response;
+		int error = uart_end_getline(&response);
+		if (UartReady == error)
 		{
 			// We got a complete response to...something. Depending on the current state
 			// parse the result and move to the next state.
-			obd2_state_exit();
+			obd2_state_exit(response);
 			obd2_state_entry();
 			return true;
+		}
+		else if (UartErrorRxBusy != error)
+		{
+			OBD2_NOTE_STATE("uart_end_getline failed");
 		}
 	}
 
 	return false;
 }
 
-void obd2_state_entry()
+const char* obd2_etos(Obd2State state)
 {
-	if (StateReset == obd2_state)
+	switch (state)
 	{
-		strcpy(uart_tx_buf, "atz\r");
-	}
-	else if (StateAtsp0 == obd2_state)
-	{
-		strcpy(uart_tx_buf, "atsp0\r");
-	}
-	else if (StateAtlp == obd2_state)
-	{
-		strcpy(uart_tx_buf, "atlp\r");
-	}
-	else if (StateAte0 == obd2_state)
-	{
-		strcpy(uart_tx_buf, "ate0\r");
-	}
-	else if (StateAtsh7e0 == obd2_state)
-	{
-		strcpy(uart_tx_buf, "atsh 7e0\r");
-	}
-	else if (StateAtat2 == obd2_state)
-	{
-		strcpy(uart_tx_buf, "atat2\r");
-	}
-	else if (StateCILBr == obd2_state)
-	{
-		strcpy(uart_tx_buf, "01 05 0f 04 33\r");
-	}
-	else if (StateOil == obd2_state)
-	{
-		strcpy(uart_tx_buf, "21 01\r");
-	}
-	else if (StateBA == obd2_state)
-	{
-		strcpy(uart_tx_buf, "01 34 0b\r");
+	case Obd2StateReset:
+		return "Obd2StateReset";
+	case Obd2StateCILBr:
+		return "Obd2StateCILBr";
+	case Obd2StateOil:
+		return "Obd2StateOil";
+	case Obd2StateBA:
+		return "Obd2StateBA";
+	default:
+		return "Obd2StateUnknown";
 	}
 }
 
-void obd2_state_exit()
+void obd2_state_entry()
 {
-	if (StateReset == obd2_state)
+	int error = UartReady;
+
+	if (Obd2StateCILBr == obd2_state)
 	{
-		if (obd2_parse_at_response())
+		error = uart_putstr("01 05 0f 04 33\r");
+	}
+	else if (Obd2StateOil == obd2_state)
+	{
+		error = uart_putstr("21 01\r");
+	}
+	else if (Obd2StateBA == obd2_state)
+	{
+		error = uart_putstr("01 34 0b\r");
+	}
+	else
+	{
+		obd2_state = Obd2StateReset;
+		OBD2_NOTE_STATE("Unknown OBD2 state");
+	}
+
+	if (error < 0)
+	{
+		obd2_state = Obd2StateReset;
+		OBD2_NOTE_STATE("uart_putstr failed");
+	}
+	else
+	{
+		error = uart_start_getline();
+		if (error < 0)
 		{
-			// If the modem turned on wait for the ECU to be ready
-			obd2_state = StateAtsp0;
+			obd2_state = Obd2StateReset;
+			OBD2_NOTE_STATE("uart_start_getline failed");
 		}
 	}
-	else if (StateAtsp0 == obd2_state)
+}
+
+void obd2_state_exit(const char* response)
+{
+	if (Obd2StateCILBr == obd2_state)
 	{
-		if (obd2_parse_at_response())
+		if (obd2_parse_pid_response(response))
 		{
-			obd2_state = StateAte0;
+			// Check if we are in ignition off state. If yes, move to reset.
+			if (0 == display_params.Load)
+			{
+				obd2_state = Obd2StateReset;
+			}
+			else
+			{
+				obd2_state = Obd2StateOil;
+			}
 		}
 		else
 		{
-			wait_tick(1000);
+			OBD2_NOTE_STATE("Invalid PID response");
+			obd2_state = Obd2StateReset;
 		}
 	}
-	else if (StateAtlp == obd2_state)
+	else if (Obd2StateOil == obd2_state)
 	{
-		// Delay a few thousand MS before powering the controller back on
-		wait_tick(5000);
-		obd2_state = StateCILBr;
-	}
-	else if (StateAte0 == obd2_state)
-	{
-		if (obd2_parse_at_response())
+		if (obd2_parse_pid_response(response))
 		{
-			obd2_state = StateAtsh7e0;
+			obd2_state = Obd2StateBA;
 		}
 		else
 		{
-			wait_tick(1000);
-			obd2_state = StateReset;
+			OBD2_NOTE_STATE("Invalid PID response");
+			obd2_state = Obd2StateReset;
 		}
 	}
-	else if (StateAtsh7e0 == obd2_state)
+	else if (Obd2StateBA == obd2_state)
 	{
-		if (obd2_parse_at_response())
-		{
-			obd2_state = StateAtat2;
-		}
-		else
-		{
-			wait_tick(1000);
-			obd2_state = StateReset;
-		}
-	}
-	else if (StateAtat2 == obd2_state)
-	{
-		if (obd2_parse_at_response())
-		{
-			obd2_state = StateCILBr;
-		}
-		else
-		{
-			wait_tick(1000);
-			obd2_state = StateReset;
-		}
-	}
-	else if (StateCILBr == obd2_state)
-	{
-		if (obd2_parse_pid_response())
-		{
-			obd2_state = StateOil;
-		}
-		else
-		{
-			obd2_state = StateAtlp;
-		}
-	}
-	else if (StateOil == obd2_state)
-	{
-		if (obd2_parse_pid_response())
-		{
-			obd2_state = StateBA;
-		}
-		else
-		{
-			obd2_state = StateAtlp;
-		}
-	}
-	else if (StateBA == obd2_state)
-	{
-		if (obd2_parse_pid_response())
+		if (obd2_parse_pid_response(response))
 		{
 			if (ba_count++ < BA_MODULO_N)
 			{
-				obd2_state = StateBA;
+				obd2_state = Obd2StateBA;
 			}
 			else
 			{
 				ba_count = 0;
-				obd2_state = StateCILBr;
+				obd2_state = Obd2StateCILBr;
 			}
 		}
 		else
 		{
-			obd2_state = StateAtlp;
+			OBD2_NOTE_STATE("Invalid PID response");
+			obd2_state = Obd2StateReset;
 		}
 	}
 	else
 	{
 		// Completely unknown state
-		obd2_state = StateReset;
+		OBD2_NOTE_STATE("Unknown OBD2 state at exit");
+		obd2_state = Obd2StateReset;
 	}
 }
 
-bool obd2_parse_at_response()
+bool obd2_at_command(const char* command)
 {
-	// A command is an "AT" directive which is either OK or fails
-	return strstr(uart_rx_buf, "OK") != 0;
+	char *str;
+	int error;
+
+	OBD2_NOTE_STATE(command);
+	error = uart_putstr(command);
+	if (error < 0)
+	{
+		OBD2_PUTSTR("uart_putstr failed\n");
+		return false;
+	}
+
+	error = uart_flush();
+	if (error < 0)
+	{
+		OBD2_PUTSTR("uart_flush failed\n");
+		return false;
+	}
+
+	if (UartReady == uart_getline(&str))
+	{
+		OBD2_PUTSTR(str);
+		OBD2_PUTSTR("\n");
+
+		if (obd2_parse_at_response(str))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		OBD2_PUTSTR("Command failed\n");
+	}
+
+	return false;
 }
 
-bool obd2_parse_pid_response()
+bool obd2_parse_at_response(const char* str)
+{
+	// A command is an "AT" directive which is either OK or fails
+	return strstr(str, "OK") != 0;
+}
+
+bool obd2_parse_pid_response(const char* str)
 {
 	int iPid = -1, iPidEnd = 0;
 	int pidSize = 0;
@@ -253,12 +368,12 @@ bool obd2_parse_pid_response()
 	//A PID response to a coded request for data
 	memset(pids, 0, sizeof(pids));
 
-	if (strstr(uart_rx_buf, "UNABLE TO CONNECT") != 0)
+	if (strstr(str, "UNABLE TO CONNECT") != 0)
 	{
 		// The car is off.
 		return false;
 	}
-	else if (strstr(uart_rx_buf, "NO DATA") != 0)
+	else if (strstr(str, "NO DATA") != 0)
 	{
 		// The PID is bad, but we'll try the next one without an update.
 		return true;
@@ -266,7 +381,7 @@ bool obd2_parse_pid_response()
 	else
 	{
 		// We MIGHT have our PID response.
-		char *ptr = uart_rx_buf;
+		char *ptr = (char*)str;
 		bool start_line = true;
 		bool skip_digit = false;
 
