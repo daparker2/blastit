@@ -58,6 +58,7 @@ VIEWPANE_HOLE_OFFSET_X2=43;
 VIEWPANE_HOLE_OFFSET_Y1=46;
 VIEWPANE_HOLE_OFFSET_Y2=-46;
 VIEWPANE_HOLE_SCALE = 1.25;
+VIEWPANE_Z=1;
 
 // Clamshell front
 CLAMSHELL_VIEWPANE_Z=3;
@@ -162,9 +163,9 @@ module clamshell_outer_region() {
 	}
 }
 
-module clamshell_viewpane_region() {
+module clamshell_viewpane_region(viewpane_z) {
 	minkowski() {
-		cube([CLAMSHELL_OUTER_X, CLAMSHELL_OUTER_Y, CLAMSHELL_VIEWPANE_Z], center=true);
+		cube([CLAMSHELL_OUTER_X, CLAMSHELL_OUTER_Y, viewpane_z], center=true);
 		cylinder(r=CLAMSHELL_ROUND_W/2, center=true, $fn=FN_ROUND);
 	}
 }
@@ -237,7 +238,7 @@ module clamshell_back() {
 			clamshell_inner_region();
 			translate([0,0,CLAMSHELL_BACK_Z/2])
 			scale([1.05, 1.05, CLAMSHELL_VIEWPANE_SCALE_Z])
-				clamshell_viewpane_region();			
+				clamshell_viewpane_region(CLAMSHELL_VIEWPANE_Z);			
 			viewpane_drill_holes(false);
 			clamshell_back_cutout_region();
 			clamshell_connector();
@@ -254,7 +255,7 @@ module clamshell_viewpane() {
 	color("Yellow", 0.25) {
 		translate([0,0,10]) {
 			difference() {
-				clamshell_viewpane_region();
+				clamshell_viewpane_region(VIEWPANE_Z);
 				viewpane_drill_holes(true);
 			}
 		}
@@ -322,7 +323,7 @@ module main(demo, viewpane, back, connector, base) {
 }
 
 //main(true, false, false, false, false);  // Uncomment to view the whole thing
-//main(false, true, false, false, false);  // Uncomment for viewpane
+main(false, true, false, false, false);  // Uncomment for viewpane
 //main(false, false, true, false, false);  // Uncomment for back
-main(false, false, false, true, false);  // Uncomment for connector
+//main(false, false, false, true, false);  // Uncomment for connector
 //main(false, false, false, false, true);  // Uncomment for base

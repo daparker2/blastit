@@ -394,14 +394,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=LTKTSQGN
 
-[GeneratedDocument1]
-DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevB.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for PCB_Project\Design Rule Check - RevC.html
-DItemRevisionGUID=
-
 [Configuration1]
 Name=Sources
 ParameterCount=0
