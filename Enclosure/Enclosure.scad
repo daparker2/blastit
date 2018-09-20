@@ -58,7 +58,8 @@ VIEWPANE_HOLE_OFFSET_X2=43;
 VIEWPANE_HOLE_OFFSET_Y1=46;
 VIEWPANE_HOLE_OFFSET_Y2=-46;
 VIEWPANE_HOLE_SCALE = 1.25;
-VIEWPANE_Z=1;
+VIEWPANE_COVER_Z=1;
+VIEWPANE_SKIRT_Z=3; // Skirt around ICs that are now sticking out...
 
 // Clamshell front
 CLAMSHELL_VIEWPANE_Z=3;
@@ -255,7 +256,14 @@ module clamshell_viewpane() {
 	color("Yellow", 0.25) {
 		translate([0,0,10]) {
 			difference() {
-				clamshell_viewpane_region(VIEWPANE_Z);
+				union() {
+					clamshell_viewpane_region(VIEWPANE_COVER_Z);
+					translate([0,0,VIEWPANE_SKIRT_Z - 0.001])
+						difference() {
+							clamshell_viewpane_region(VIEWPANE_SKIRT_Z);
+			clamshell_inner_region();
+						}
+				}
 				viewpane_drill_holes(true);
 			}
 		}
