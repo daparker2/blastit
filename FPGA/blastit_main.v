@@ -25,12 +25,12 @@ module blastit_main
 	//
 	// Seven segment selector address input
 	//
-	output wire[15:0] C,
+	output wire[19:0] C,
 	
 	//
-	// Diode array address output
+	// Boost array address output
 	//
-	output wire[7:0] D,
+	output wire[5:0] D,
 	
 	//
 	// Diode array address input
@@ -65,7 +65,7 @@ module blastit_main
 	           TC_N_BITS=24;
 	
 	// UART parameters
-	localparam UART_FIFO_R = 8,
+	localparam UART_FIFO_R = 12,
 	           UART_FIFO_W = 8,
 				  UART_DVSR_BIT = 16,
 				  UART_DBIT = 8,
@@ -82,17 +82,19 @@ module blastit_main
 	
 	// SSEG array params			  
 	localparam SSEG_BITS=5,
-				  SSEG_N=16,
+				  SSEG_N=20,
 				  SSEG_PWM_BITS=8,
 				  SSEG_TICK_BITS=8;
 				  
 	// LED matrix params
 	localparam LEDS_N=10,
-				  LEDS_M=8,
+				  LEDS_M=3,
 				  LEDS_N_BITS = 4,
 				  LEDS_M_BITS = 4,
 				  LEDS_PWM_BITS = 8,
-				  LEDS_COUNTER_BITS = 8;
+				  LEDS_COUNTER_BITS = 8,
+				  LEDS_SEL_BITS = 3,
+				  LEDS_BANKS = 2;
 	
 	// Reset controller counter resolution
 	localparam RC1_TIMER_BITS = 24;
@@ -181,19 +183,22 @@ module blastit_main
 	wire sseg_counter_of;                   // Goes tO MCU
 	
 	// LED matrix inputs
-	wire leds_reset, leds_counter_reset;
-	wire [LEDS_COUNTER_BITS-1:0] leds_brightness;            // Goes to MCU
-	wire [LEDS_N_BITS + LEDS_M_BITS - 1:0] leds_sel_addr;
-	wire leds_sel, leds_en;
-	wire [1:0] leds_reset_control;                           // Goes to MCU
-	wire [2 + LEDS_N_BITS + LEDS_M_BITS - 1:0] leds_wr_val;  // Goes to MCU
+	wire leds1_reset, leds1_counter_reset, leds2_reset, leds2_counter_reset;
+	wire [LEDS_COUNTER_BITS-1:0] leds1_brightness, leds2_brightness;           // Goes to MCU
+	wire [LEDS_N_BITS + LEDS_M_BITS - 1:0] leds1_sel_addr, leds2_sel_addr;
+	wire leds1_sel, leds1_en, leds2_sel, leds2_en;
+	wire [1:0] leds1_reset_control, leds2_reset_control;                       // Goes to MCU
+	wire [2 + LEDS_N_BITS + LEDS_M_BITS - 1:0] leds1_wr_val, leds2_wr_val;     // Goes to MCU
 	
 	// LED matrix outputs
-	wire [LEDS_N-1:0] leds_n_en;
-	wire [LEDS_M-1:0] leds_m_en;
-	wire leds_done_tick;
-	wire [LEDS_COUNTER_BITS-1:0] leds_counter; // Goes to MCU
-	wire leds_counter_of;                      // Goes to MCU	
+	wire [LEDS_N-1:0] leds1_n_en, leds2_n_en, leds_n_en;
+	wire [LEDS_M-1:0] leds1_m_en, leds2_m_en;
+	wire leds1_done_tick, leds2_done_tick;
+	wire [LEDS_COUNTER_BITS-1:0] leds1_counter, leds2_counter; // Goes to MCU
+	wire leds1_counter_of, leds2_counter_of;                   // Goes to MCU	
+	
+	// LED matrix selector
+	reg [LEDS_SEL_BITS-1:0] led_idx_reg, led_idx_next;
 	
 	// Timed reset controller inputs
 	wire [RC1_TIMER_BITS-1:0] rc1_m;
@@ -201,7 +206,7 @@ module blastit_main
 	wire [RC1_TIMER_BITS:0] rc1_control; // Goes to MCU
 	
 	// Timed reset controller outputs
-	wire rc1_reset, rc1_ready;           // Goes to MCU`
+	wire rc1_reset, rc1_ready;           // Goes to MCU
 	
 	//
 	// Entity blocks
@@ -244,11 +249,19 @@ module blastit_main
 	tick_counter #(.N(SSEG_TICK_BITS)) sseg_tc(.clk(clk), .reset(sseg_tc_reset), .tick(sseg_done_tick), .counter(sseg_counter), .of(sseg_counter_of));																
 	
 	// LED matrix
+	
+	// body	
 	led_matrix #(.LEDS_N(LEDS_N), .LEDS_M(LEDS_M), .N_BITS(LEDS_N_BITS), .M_BITS(LEDS_M_BITS), .PWM_BITS(LEDS_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
-		leds(.clk(clk), .reset(leds_reset), .brightness(leds_brightness), .sel_addr(leds_sel_addr),
-			  .sel(leds_sel), .led_period(led_period), .en(leds_en), .n_en(leds_n_en), .m_en(leds_m_en), .done_tick(leds_done_tick));
+		leds1(.clk(clk), .reset(leds1_reset), .brightness(leds1_brightness), .sel_addr(leds1_sel_addr),
+			  .sel(leds1_sel), .led_period(led_period), .en(leds1_en), .n_en(leds1_n_en), .m_en(leds1_m_en), .done_tick(leds1_done_tick));
 	tick_counter #(.N(LEDS_COUNTER_BITS)) 
-		leds_tc(.clk(clk), .reset(leds_counter_reset), .tick(leds_done_tick), .counter(leds_counter), .of(leds_counter_of));
+		leds1_tc(.clk(clk), .reset(leds1_counter_reset), .tick(leds1_done_tick), .counter(leds1_counter), .of(leds1_counter_of));
+		
+	led_matrix #(.LEDS_N(LEDS_N), .LEDS_M(LEDS_M), .N_BITS(LEDS_N_BITS), .M_BITS(LEDS_M_BITS), .PWM_BITS(LEDS_PWM_BITS), .LED_PERIOD_BITS(LED_PERIOD_BITS))
+		leds2(.clk(clk), .reset(leds2_reset), .brightness(leds2_brightness), .sel_addr(leds2_sel_addr),
+			  .sel(leds2_sel), .led_period(led_period), .en(leds2_en), .n_en(leds2_n_en), .m_en(leds2_m_en), .done_tick(leds2_done_tick));
+	tick_counter #(.N(LEDS_COUNTER_BITS)) 
+		leds2_tc(.clk(clk), .reset(leds2_counter_reset), .tick(leds2_done_tick), .counter(leds2_counter), .of(leds2_counter_of));
 	
 	// Timed reset controller
 	reset_controller #(.M_BITS(RC1_TIMER_BITS)) rc1(.clk(clk), .reset(1'b0), .start(rc1_start), .m(rc1_m), .en(rc1_reset), .ready(rc1_ready));
@@ -288,11 +301,16 @@ module blastit_main
 						 .sseg_wr_val_export(sseg_wr_val),
 						 .sseg_counter_export(sseg_counter),
 						 .sseg_counter_of_export(sseg_counter_of),
-						 .leds_brightness_export(leds_brightness),
-						 .leds_wr_val_export(leds_wr_val),
-						 .leds_counter_export(leds_counter),
-						 .leds_reset_control_export(leds_reset_control),
-						 .leds_counter_of_export(leds_counter_of),
+						 .leds1_brightness_export(leds1_brightness),
+						 .leds1_wr_val_export(leds1_wr_val),
+						 .leds1_counter_export(leds1_counter),
+						 .leds1_reset_control_export(leds1_reset_control),
+						 .leds1_counter_of_export(leds1_counter_of),
+						 .leds2_brightness_export(leds2_brightness),
+						 .leds2_wr_val_export(leds2_wr_val),
+						 .leds2_counter_export(leds2_counter),
+						 .leds2_reset_control_export(leds2_reset_control),
+						 .leds2_counter_of_export(leds2_counter_of),
 						 .rc1_control_export(rc1_control),
 						 .rc1_ready_export(rc1_ready),
 						 .led_period_export(led_period)
@@ -305,17 +323,24 @@ module blastit_main
 	always @(posedge clk)
 		begin
 			led_i_reg <= led_i_next;
+			led_idx_reg <= led_idx_next;
 		end
 		
 	always @*
 		begin
 			led_i_next = led_i_reg;
+			led_idx_next = led_idx_reg;
 			if (led_tick)
 				begin
 					led_i_next = led_i_reg + 1'b1;
 					if (led_i_next == 4'd4)
 						led_i_next = 0;
 				end
+				
+			if (leds1_done_tick && led_idx_next == 0)
+				led_idx_next = 1;
+			if (leds2_done_tick && led_idx_next == 1)
+				led_idx_next = 0;
 		end
 	
 	//
@@ -349,8 +374,11 @@ module blastit_main
 	assign sseg_wr_val = { sseg_wr, sseg_sel, sseg_en, sseg_sign, sseg_dp, sseg_val };
 	
 	// LEDS block
-	assign leds_reset_control = { leds_reset, leds_counter_reset };
-	assign leds_wr_val = { leds_sel, leds_en, leds_sel_addr };
+	assign leds1_reset_control = { leds1_reset, leds1_counter_reset };
+	assign leds1_wr_val = { leds1_sel, leds1_en, leds1_sel_addr };
+	
+	assign leds2_reset_control = { leds2_reset, leds2_counter_reset };
+	assign leds2_wr_val = { leds2_sel, leds2_en, leds2_sel_addr };
 	
 	// Reset controller block
 	assign rc1_control = { rc1_start, rc1_m };
@@ -376,9 +404,16 @@ module blastit_main
 			assign G[g_i] = (leds_n_en[g_i] == 1'b1) ? 1'b0 : 1'bz;
 		end
 		
-		for (d_i = 0; d_i < LEDS_M; d_i = d_i + 1) begin:gen_d
-			assign D[d_i] = (leds_m_en[d_i] == 1'b1) ? 1'b1 : 1'bz;
+		for (d_i = 0; d_i < LEDS_M; d_i = d_i + 1) begin:gen_d1
+			assign D[d_i] = (leds1_m_en[d_i] == 1'b1) ? 1'b1 : 1'bz;
+		end
+		
+		for (d_i = 0; d_i < LEDS_M; d_i = d_i + 1) begin:gen_d2
+			assign D[3 + d_i] = (leds2_m_en[d_i] == 1'b1) ? 1'b1 : 1'bz;
 		end
 	endgenerate
-									
+						
+	// Hackfix for dual LED bars sharing one matrix
+	assign leds_n_en = led_idx_next == 0 ? leds1_n_en : leds2_n_en;
+			
 endmodule

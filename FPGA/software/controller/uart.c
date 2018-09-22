@@ -191,7 +191,7 @@ int uart_update()
 #endif // UART_DEBUG
 
 				uart1_tx(*uart_next_tx++);
-				wait_tick(1000); // This is a hack. Something is wrong with the transmitter. :(
+				wait_tick(100); // This is a hack. Something is wrong with the transmitter. :(
 				--uart_tx_bufsz;
 			}
 			else
@@ -220,7 +220,7 @@ int uart_update()
 				++uart_rx_bufsz;
 				++uart_cur_rx;
 				*uart_cur_rx = uart1_rx();
-				wait_tick(1000); // This is a hack. Something is wrong with the transmitter. :(
+				wait_tick(100); // This is a hack. Something is wrong with the transmitter. :(
 
 #ifdef UART_DEBUG
 				char buf[2] = { *uart_cur_rx, 0 };

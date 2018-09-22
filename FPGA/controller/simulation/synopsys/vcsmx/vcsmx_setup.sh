@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.08.05.18:05:03
+# ACDS 13.1 162 win32 2018.09.21.22:24:12
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -79,7 +79,7 @@ mkdir -p ./libraries/mm_interconnect_0/
 mkdir -p ./libraries/led_period/
 mkdir -p ./libraries/rc1_control/
 mkdir -p ./libraries/uart1_dvsr/
-mkdir -p ./libraries/leds_wr_val/
+mkdir -p ./libraries/leds1_wr_val/
 mkdir -p ./libraries/sseg_counter_of/
 mkdir -p ./libraries/sseg_wr_val/
 mkdir -p ./libraries/sseg_reset_control/
@@ -168,7 +168,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_led_period.v"                            -work led_period                                                                 
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_rc1_control.v"                           -work rc1_control                                                                
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                 
-  vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_leds_wr_val.v"                           -work leds_wr_val                                                                
+  vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_leds1_wr_val.v"                          -work leds1_wr_val                                                               
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_sseg_counter_of.v"                       -work sseg_counter_of                                                            
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
   vlogan +v2k           "$QSYS_SIMDIR/submodules/controller_sseg_reset_control.v"                    -work sseg_reset_control                                                         

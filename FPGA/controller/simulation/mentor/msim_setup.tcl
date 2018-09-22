@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.08.05.18:05:03
+# ACDS 13.1 162 win32 2018.09.21.22:24:12
 
 # ----------------------------------------
 # Auto-generated simulation script
@@ -128,8 +128,8 @@ ensure_lib                                                                      
 vmap       rc1_control                                                                 ./libraries/rc1_control/                                                                
 ensure_lib                                                                             ./libraries/uart1_dvsr/                                                                 
 vmap       uart1_dvsr                                                                  ./libraries/uart1_dvsr/                                                                 
-ensure_lib                                                                             ./libraries/leds_wr_val/                                                                
-vmap       leds_wr_val                                                                 ./libraries/leds_wr_val/                                                                
+ensure_lib                                                                             ./libraries/leds1_wr_val/                                                               
+vmap       leds1_wr_val                                                                ./libraries/leds1_wr_val/                                                               
 ensure_lib                                                                             ./libraries/sseg_counter_of/                                                            
 vmap       sseg_counter_of                                                             ./libraries/sseg_counter_of/                                                            
 ensure_lib                                                                             ./libraries/sseg_wr_val/                                                                
@@ -224,7 +224,7 @@ alias com {
   vlog     "$QSYS_SIMDIR/submodules/controller_led_period.v"                            -work led_period                                                                 
   vlog     "$QSYS_SIMDIR/submodules/controller_rc1_control.v"                           -work rc1_control                                                                
   vlog     "$QSYS_SIMDIR/submodules/controller_uart1_dvsr.v"                            -work uart1_dvsr                                                                 
-  vlog     "$QSYS_SIMDIR/submodules/controller_leds_wr_val.v"                           -work leds_wr_val                                                                
+  vlog     "$QSYS_SIMDIR/submodules/controller_leds1_wr_val.v"                          -work leds1_wr_val                                                               
   vlog     "$QSYS_SIMDIR/submodules/controller_sseg_counter_of.v"                       -work sseg_counter_of                                                            
   vlog     "$QSYS_SIMDIR/submodules/controller_sseg_wr_val.v"                           -work sseg_wr_val                                                                
   vlog     "$QSYS_SIMDIR/submodules/controller_sseg_reset_control.v"                    -work sseg_reset_control                                                         
@@ -260,14 +260,14 @@ alias com {
 # Elaborate top level design
 alias elab {
   echo "\[exec\] elab"
-  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_004 -L rsp_xbar_demux -L cmd_xbar_mux_004 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_004 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L led_period -L rc1_control -L uart1_dvsr -L leds_wr_val -L sseg_counter_of -L sseg_wr_val -L sseg_reset_control -L warn_pwm_control -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_control -L bcd1_bin -L uart1_status_control -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_004 -L rsp_xbar_demux -L cmd_xbar_mux_004 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_004 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L led_period -L rc1_control -L uart1_dvsr -L leds1_wr_val -L sseg_counter_of -L sseg_wr_val -L sseg_reset_control -L warn_pwm_control -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_control -L bcd1_bin -L uart1_status_control -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------
 # Elaborate the top level design with novopt option
 alias elab_debug {
   echo "\[exec\] elab_debug"
-  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_004 -L rsp_xbar_demux -L cmd_xbar_mux_004 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_004 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L led_period -L rc1_control -L uart1_dvsr -L leds_wr_val -L sseg_counter_of -L sseg_wr_val -L sseg_reset_control -L warn_pwm_control -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_control -L bcd1_bin -L uart1_status_control -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
+  eval vsim -novopt -t ps $ELAB_OPTIONS -L work -L work_lib -L rsp_xbar_mux_001 -L rsp_xbar_mux -L rsp_xbar_demux_004 -L rsp_xbar_demux -L cmd_xbar_mux_004 -L cmd_xbar_mux -L cmd_xbar_demux_001 -L cmd_xbar_demux -L id_router_004 -L id_router -L addr_router_001 -L addr_router -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo -L nios2e_jtag_debug_module_translator_avalon_universal_slave_0_agent -L nios2e_instruction_master_translator_avalon_universal_master_0_agent -L nios2e_jtag_debug_module_translator -L nios2e_instruction_master_translator -L rst_controller -L irq_mapper -L mm_interconnect_0 -L led_period -L rc1_control -L uart1_dvsr -L leds1_wr_val -L sseg_counter_of -L sseg_wr_val -L sseg_reset_control -L warn_pwm_control -L status_led_en -L bcd1_status -L bcd1_bcd -L bcd1_control -L bcd1_bin -L uart1_status_control -L uart1_r_data -L uart1_baud_control -L uart1_wr_control -L uart1_reset_control -L uart1_w_data -L tc1_status -L tc_reset_control -L tc1_m -L daylight -L onchip_ram -L nios2e -L jtag_uart_0 -L sysid_c001 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiii_ver $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------

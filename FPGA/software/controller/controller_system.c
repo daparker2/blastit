@@ -40,6 +40,24 @@ static const dword_t TcResetMap[] =
 	TC_RESET_TC4
 };
 
+static const dword_t LedsBrightnessMap[] =
+{
+	LEDS1_BRIGHTNESS_BASE,
+	LEDS2_BRIGHTNESS_BASE
+};
+
+static const dword_t LedsWrMap[] =
+{
+	LEDS1_WR_VAL_BASE,
+	LEDS2_WR_VAL_BASE
+};
+
+static const dword_t LedsResetMap[] =
+{
+	LEDS1_RESET_CONTROL_BASE,
+	LEDS2_RESET_CONTROL_BASE
+};
+
 static dword_t uart1_reset_counts = 0;
 
 void bcd_convert(dword_t bin, byte_t bcd[BCD_MAX])
@@ -80,37 +98,37 @@ bool is_daylight(void)
 	return REGR(DAYLIGHT_BASE) > 0;
 }
 
-void leds_set_brightness(byte_t brightness)
+void leds_set_brightness(LedArray arr, byte_t brightness)
 {
-	REGW(LEDS_BRIGHTNESS_BASE, brightness);
+	REGW(LedsBrightnessMap[arr], brightness);
 }
 
-void leds_enable_led(dword_t addr, bool en)
+void leds_enable_led(LedArray arr, dword_t addr, bool en)
 {
 	dword_t wr_val = LEDS_CONTROL_SEL | (en ? LEDS_CONTROL_EN : 0) | (addr & LEDS_ADDR_MASK);
-	REGW(LEDS_WR_VAL_BASE, wr_val);
+	REGW(LedsWrMap[arr], wr_val);
 	nop();
-	REGW(LEDS_WR_VAL_BASE, 0);
+	REGW(LedsWrMap[arr], 0);
 	nop();
 }
 
-void leds_init(void)
+void leds_init(LedArray arr)
 {
 	int i;
-	REGW(LEDS_RESET_CONTROL_BASE, LEDS_COUNTER_RESET | LEDS_RESET);
+	REGW(LedsResetMap[arr], LEDS_COUNTER_RESET | LEDS_RESET);
 	nop();
-	REGW(LEDS_RESET_CONTROL_BASE, 0);
+	REGW(LedsResetMap[arr], 0);
 	nop();
 
 	for (i = 0; i < LEDS_MAX; ++i)
 	{
-		leds_enable_led(i, false);
+		leds_enable_led(LedsResetMap[arr], i, false);
 	}
 }
 
-void leds_shutdown(void)
+void leds_shutdown(LedArray arr)
 {
-	REGW(LEDS_RESET_CONTROL_BASE, LEDS_COUNTER_RESET | LEDS_RESET);
+	REGW(LedsResetMap[arr], LEDS_COUNTER_RESET | LEDS_RESET);
 }
 
 void sseg_set_brightness(byte_t brightness)

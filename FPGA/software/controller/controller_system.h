@@ -57,7 +57,13 @@ bool is_daylight(void);
  * LED array control
  */
 
-#define LEDS_MAX 80 // Maximum LED strip LEDs
+typedef enum LedArray_t
+{
+	LedArray1 = 0,
+	LedArray2 = 1
+} LedArray;
+
+#define LEDS_MAX 30 // Maximum LED strip LEDs
 
 #define LEDS_COUNTER_RESET   (1 << 0)
 #define LEDS_RESET           (1 << 1)
@@ -79,22 +85,22 @@ bool is_daylight(void);
 #define LEDS_BRIGHTNESS_MAX 0xFF
 
 // Control LED brightness
-void leds_set_brightness(byte_t brightness);
+void leds_set_brightness(LedArray arr, byte_t brightness);
 
 // Enable or disable an LED
-void leds_enable_led(dword_t addr, bool en);
+void leds_enable_led(LedArray arr, dword_t addr, bool en);
 
 // Initialize and reset the LED module
-void leds_init(void);
+void leds_init(LedArray arr);
 
 // Shutdown the LED module, holding it in reset
-void leds_shutdown(void);
+void leds_shutdown(LedArray arr);
 
 /*
  * SSEG array control
  */
 
-#define SSEG_MAX 16
+#define SSEG_MAX 20
 
 #define SSEG_COUNTER_RESET  (1 << 0)
 #define SSEG_RESET          (1 << 1)

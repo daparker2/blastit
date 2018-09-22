@@ -32,7 +32,7 @@ set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::qu
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_led_period.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_rc1_control.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_dvsr.v"]
-set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_leds_wr_val.v"]
+set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_leds1_wr_val.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_sseg_counter_of.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_sseg_wr_val.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_sseg_reset_control.v"]

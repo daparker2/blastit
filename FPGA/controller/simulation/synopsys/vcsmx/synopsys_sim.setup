@@ -25,7 +25,7 @@ mm_interconnect_0:                                                           ./l
 led_period:                                                                  ./libraries/led_period/                                                                 
 rc1_control:                                                                 ./libraries/rc1_control/                                                                
 uart1_dvsr:                                                                  ./libraries/uart1_dvsr/                                                                 
-leds_wr_val:                                                                 ./libraries/leds_wr_val/                                                                
+leds1_wr_val:                                                                ./libraries/leds1_wr_val/                                                               
 sseg_counter_of:                                                             ./libraries/sseg_counter_of/                                                            
 sseg_wr_val:                                                                 ./libraries/sseg_wr_val/                                                                
 sseg_reset_control:                                                          ./libraries/sseg_reset_control/                                                         

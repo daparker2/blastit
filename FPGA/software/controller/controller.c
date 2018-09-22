@@ -82,7 +82,8 @@ void init()
 	led_set_period(8000);
 	bcd_init();
 	sseg_init();
-	leds_init();
+	leds_init(LedArray1);
+	leds_init(LedArray2);
 	tc_init();
 	warn_init();
 
@@ -94,21 +95,26 @@ void init()
 	tc_set_max(TC_TICK_COUNTER, 1000000U / CLOCK_PERIOD_NS); // 1 ms per tick
 	tc_set_max(TC_FRAME_COUNTER, 8000000U / CLOCK_PERIOD_NS); // 8 ms per tick
 
+#ifndef TEST
 	// Init business logic coroutines.
 	obd2_init();
+#endif // TEST
 }
 
 void shutdown()
 {
 	static const dword_t ResetTicks = CLOCK_MILLIS_TO_TICKS(5000);
 
+#ifndef TEST
 	// Shutdown business logic coroutines.
 	obd2_shutdown();
+#endif // TEST
 
 	// Shutdown everything and go into a low power state for a few thousand MS.
 	bcd_shutdown();
 	sseg_shutdown();
-	leds_shutdown();
+	leds_shutdown(LedArray2);
+	leds_shutdown(LedArray1);
 	tc_shutdown();
 	warn_shutdown();
 	uart1_shutdown();

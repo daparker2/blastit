@@ -10,7 +10,7 @@
  * Test panel support
  */
 
-// #define TEST
+ #define TEST
 
 #ifdef TEST
 void test(void);

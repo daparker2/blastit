@@ -34,10 +34,12 @@ void test()
 
 	status_led_en(STATUS_LED_0 | STATUS_LED_1 | STATUS_LED_2 | STATUS_LED_3);
 
-	leds_set_brightness(LEDS_BRIGHTNESS_MAX);
+	leds_set_brightness(LedArray1, LEDS_BRIGHTNESS_MAX);
+	leds_set_brightness(LedArray2, LEDS_BRIGHTNESS_MAX);
 	for (i = 0; i < LEDS_MAX; ++i)
 	{
-		leds_enable_led(i, true);
+		leds_enable_led(LedArray1, i, true);
+		leds_enable_led(LedArray2, i, true);
 	}
 
 	sseg_set_brightness(SSEG_BRIGHTNESS_MAX);
@@ -84,7 +86,8 @@ void test()
 
 			for (j = 0; j < LEDS_MAX; ++j)
 			{
-				leds_enable_led(j, (j % 2) == 0);
+				leds_enable_led(LedArray1, j, (j % 2) == 0);
+				leds_enable_led(LedArray2, j, (j % 2) == 0);
 			}
 
 			for (j = 0; j < SSEG_MAX; ++j)
@@ -98,7 +101,8 @@ void test()
 
 			for (j = 0; j < LEDS_MAX; ++j)
 			{
-				leds_enable_led(j, (j % 2) != 0);
+				leds_enable_led(LedArray1, j, (j % 2) != 0);
+				leds_enable_led(LedArray2, j, (j % 2) != 0);
 			}
 
 			for (j = 0; j < SSEG_MAX; ++j)

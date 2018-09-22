@@ -121,9 +121,9 @@
    type="VERILOG"
    library="uart1_dvsr" />
  <file
-   path="controller/simulation/submodules/controller_leds_wr_val.v"
+   path="controller/simulation/submodules/controller_leds1_wr_val.v"
    type="VERILOG"
-   library="leds_wr_val" />
+   library="leds1_wr_val" />
  <file
    path="controller/simulation/submodules/controller_sseg_counter_of.v"
    type="VERILOG"

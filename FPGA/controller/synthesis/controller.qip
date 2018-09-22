@@ -2,7 +2,7 @@ set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_N
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "controller" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../controller.sopcinfo"]
-set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1533518009"
+set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1537593934"
 set_global_assignment -library "controller" -name MISC_FILE [file join $::quartus(qip_path) "../../controller.cmp"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.regmap"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.debuginfo"]
@@ -37,7 +37,7 @@ set_global_assignment -library "controller" -name SYSTEMVERILOG_FILE [file join 
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_led_period.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_rc1_control.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_uart1_dvsr.v"]
-set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_leds_wr_val.v"]
+set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_leds1_wr_val.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_counter_of.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_wr_val.v"]
 set_global_assignment -library "controller" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/controller_sseg_reset_control.v"]
@@ -141,9 +141,9 @@ set_global_assignment -entity "controller_rc1_control" -library "controller" -na
 set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_uart1_dvsr" -library "controller" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "controller_leds_wr_val" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
-set_global_assignment -entity "controller_leds_wr_val" -library "controller" -name IP_TOOL_VERSION "13.1"
-set_global_assignment -entity "controller_leds_wr_val" -library "controller" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "controller_leds1_wr_val" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
+set_global_assignment -entity "controller_leds1_wr_val" -library "controller" -name IP_TOOL_VERSION "13.1"
+set_global_assignment -entity "controller_leds1_wr_val" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "controller_sseg_counter_of" -library "controller" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "controller_sseg_counter_of" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller_sseg_counter_of" -library "controller" -name IP_TOOL_ENV "Qsys"

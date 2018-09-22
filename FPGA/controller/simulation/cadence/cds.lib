@@ -32,7 +32,7 @@ DEFINE mm_interconnect_0                                                        
 DEFINE led_period                                                                  ./libraries/led_period/                                                                 
 DEFINE rc1_control                                                                 ./libraries/rc1_control/                                                                
 DEFINE uart1_dvsr                                                                  ./libraries/uart1_dvsr/                                                                 
-DEFINE leds_wr_val                                                                 ./libraries/leds_wr_val/                                                                
+DEFINE leds1_wr_val                                                                ./libraries/leds1_wr_val/                                                               
 DEFINE sseg_counter_of                                                             ./libraries/sseg_counter_of/                                                            
 DEFINE sseg_wr_val                                                                 ./libraries/sseg_wr_val/                                                                
 DEFINE sseg_reset_control                                                          ./libraries/sseg_reset_control/                                                         

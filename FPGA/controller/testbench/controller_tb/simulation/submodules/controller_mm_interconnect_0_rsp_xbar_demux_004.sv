@@ -29,7 +29,7 @@
 // Generation parameters:
 //   output_name:         controller_mm_interconnect_0_rsp_xbar_demux_004
 //   ST_DATA_W:           99
-//   ST_CHANNEL_W:        44
+//   ST_CHANNEL_W:        49
 //   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
 // ------------------------------------------
@@ -47,7 +47,7 @@ module controller_mm_interconnect_0_rsp_xbar_demux_004
     // -------------------
     input  [1-1      : 0]   sink_valid,
     input  [99-1    : 0]   sink_data, // ST_DATA_W=99
-    input  [44-1 : 0]   sink_channel, // ST_CHANNEL_W=44
+    input  [49-1 : 0]   sink_channel, // ST_CHANNEL_W=49
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -57,7 +57,7 @@ module controller_mm_interconnect_0_rsp_xbar_demux_004
     // -------------------
     output reg                      src0_valid,
     output reg [99-1    : 0] src0_data, // ST_DATA_W=99
-    output reg [44-1 : 0] src0_channel, // ST_CHANNEL_W=44
+    output reg [49-1 : 0] src0_channel, // ST_CHANNEL_W=49
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
@@ -94,7 +94,7 @@ module controller_mm_interconnect_0_rsp_xbar_demux_004
     // -------------------
     assign ready_vector[0] = src0_ready;
 
-    assign sink_ready = |(sink_channel & {{43{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{48{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
 

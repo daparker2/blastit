@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.08.05.18:13:24
+# ACDS 13.1 162 win32 2018.09.21.22:25:32
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -99,7 +99,7 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_led_period.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_rc1_control.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_dvsr.v \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_leds_wr_val.v \
+  $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_leds1_wr_val.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_counter_of.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_wr_val.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sseg_reset_control.v \
@@ -128,24 +128,6 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_nios2e_test_bench.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_jtag_uart_0.v \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller_sysid_c001.vo \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0018.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0017.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0016.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0015.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0014.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0013.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0012.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0011.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0010.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0009.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0008.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0007.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0006.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0005.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0004.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0003.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm_0002.sv \
-  $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_conduit_bfm.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_reset_source.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/altera_avalon_clock_source.sv \
   $QSYS_SIMDIR/controller_tb/simulation/submodules/controller.v \
