@@ -10,11 +10,20 @@
  * Test panel support
  */
 
- #define TEST
+// #define TEST
 
 #ifdef TEST
 void test(void);
 #endif // TEST
+
+/*
+ * Debug LED support
+ */
+
+#define POWER_STATUS_LED STATUS_LED_0
+#define OBD2_STATUS_LED  STATUS_LED_1
+#define URX_STATUS_LED   STATUS_LED_2
+#define UTX_STATUS_LED   STATUS_LED_3
 
 /*
  * Timer counter support

@@ -16,9 +16,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-// Comment this out for normal functionality
-//#define TEST
-
 static void init();
 static void coroutine_entry();
 static void shutdown();
@@ -95,9 +92,11 @@ void init()
 	tc_set_max(TC_TICK_COUNTER, 1000000U / CLOCK_PERIOD_NS); // 1 ms per tick
 	tc_set_max(TC_FRAME_COUNTER, 8000000U / CLOCK_PERIOD_NS); // 8 ms per tick
 
+	status_led_on(POWER_STATUS_LED);
+
 #ifndef TEST
 	// Init business logic coroutines.
-	obd2_init();
+	//obd2_init();
 #endif // TEST
 }
 
@@ -107,7 +106,7 @@ void shutdown()
 
 #ifndef TEST
 	// Shutdown business logic coroutines.
-	obd2_shutdown();
+	//obd2_shutdown();
 #endif // TEST
 
 	// Shutdown everything and go into a low power state for a few thousand MS.
@@ -118,6 +117,7 @@ void shutdown()
 	tc_shutdown();
 	warn_shutdown();
 	uart1_shutdown();
+	status_led_off(STATUS_LED_0 | STATUS_LED_1 | STATUS_LED_2 | STATUS_LED_3);
 	rc_reset(ResetTicks);
 }
 
@@ -145,13 +145,13 @@ void coroutine_entry()
 			if (!display_initialized)
 			{
 				display_initialized = true;
-
-				// Turn on the display.
+				status_led_on(OBD2_STATUS_LED);
+				display_init();
 			}
 
 			if (is_frame())
 			{
-				// Update the display.
+				display_update();
 			}
 		}
 

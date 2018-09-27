@@ -148,8 +148,9 @@ void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val);
 #define STATUS_LED_2 STATUS_LED_IDX(2)
 #define STATUS_LED_3 STATUS_LED_IDX(3)
 
-// Enable or disable one of the status LED by mask
-void status_led_en(dword_t mask);
+// Enable or disable LEDS by max
+void status_led_on(dword_t mask);
+void status_led_off(dword_t mask);
 
 /*
  * Timer counter control

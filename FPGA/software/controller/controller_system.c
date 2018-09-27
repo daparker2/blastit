@@ -59,6 +59,7 @@ static const dword_t LedsResetMap[] =
 };
 
 static dword_t uart1_reset_counts = 0;
+static dword_t status_led_mask = 0;
 
 void bcd_convert(dword_t bin, byte_t bcd[BCD_MAX])
 {
@@ -165,9 +166,16 @@ void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val)
 	nop();
 }
 
-void status_led_en(dword_t mask)
+void status_led_on(dword_t mask)
 {
-	REGW(STATUS_LED_EN_BASE, mask);
+	status_led_mask |= mask;
+	REGW(STATUS_LED_EN_BASE, status_led_mask);
+}
+
+void status_led_off(dword_t mask)
+{
+	status_led_mask &= ~mask;
+	REGW(STATUS_LED_EN_BASE, status_led_mask);
 }
 
 void tc_set_max(TcArray tc, dword_t m)

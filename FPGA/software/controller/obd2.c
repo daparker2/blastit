@@ -68,6 +68,7 @@ static bool obd2_parse_pid_response(const char* str);
 static void obd2_update_pid_values();
 static int obd2_get_pid_result_size(int pid);
 static int tohex(char ch);
+static float ctof(float c);
 
 /*
  * Data storage
@@ -79,7 +80,7 @@ static int tohex(char ch);
 Obd2State obd2_state;              // State machine state
 static Pid pids[PID_STORAGE_SIZE]; // Pid storage, aggregate commands return up to 5 PID codes.
 static word_t ba_count;            // Count of successive BA states
-static int boost_ref;              // The boost reference in kPA
+static float boost_ref;            // The boost reference in kPA
 
 /*
  * Functions definitions
@@ -521,42 +522,42 @@ void obd2_update_pid_values(void)
 		if (pids[i].Code == 0x0134)
 		{
 			// AFR
-			display_params.Afr = (pids[i].N[0] * 25600 - pids[i].N[1] * 100) / (327680 * 147);
+			display_params.Afr = (pids[i].N[0] * 2560.f - pids[i].N[1] * 10.f) / (32768.f * 147.f);
 		}
 		else if (pids[i].Code == 0x010b)
 		{
 			// Intake manifold pressure
-			display_params.Boost = (pids[i].N[0] - boost_ref) * 14 / 10;
+			display_params.Boost = (pids[i].N[0] - boost_ref) * 14.5f / 100.f;
 		}
 		else if (pids[i].Code == 0x0104)
 		{
 			// Calculated engine load
-			display_params.Load = pids[i].N[0] * 1000 / 255;
+			display_params.Load = pids[i].N[0] * 100.f / 255.f;
 		}
 		else if (pids[i].Code == 0x015c)
 		{
 			// Engine oil temp
-			display_params.OilTemp = 10 * pids[i].N[0] - 400;
+			display_params.OilTemp = pids[i].N[0] * 1.8f / 32.f;
 		}
 		else if (pids[i].Code == 0x2101)
 		{
 			// Subaru specific debug dump
-			display_params.OilTemp = 10 * pids[i].N[28] - 400;
+			display_params.OilTemp = ctof(pids[i].N[28] - 40.f);
 		}
 		else if (pids[i].Code == 0x0105)
 		{
 			// Engine coolant temp
-			display_params.CoolantTemp = 10 * pids[i].N[0] - 400;
+			display_params.CoolantTemp = ctof(pids[i].N[0] - 40.f);
 		}
 		else if (pids[i].Code == 0x010f)
 		{
 			// Intake air temp
-			display_params.IntakeTemp = 10 * pids[i].N[0] - 400;
+			display_params.IntakeTemp = ctof(pids[i].N[0] - 40.f);
 		}
 		else if (pids[i].Code == 0x0133)
 		{
 			// Barometric pressure
-			boost_ref = 10 * pids[i].N[0];
+			boost_ref = pids[i].N[0];
 		}
 	}
 }
@@ -575,4 +576,9 @@ int tohex(char ch)
 	{
 		return 0;
 	}
+}
+
+float ctof(float c)
+{
+	return c * 1.8f + 32.f;
 }

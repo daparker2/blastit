@@ -79,6 +79,7 @@ void uart_bufclr(void)
 
 int uart_putstr(const char* str)
 {
+	status_led_on(UTX_STATUS_LED);
 	uart_error = UartReady;
 
 	if (uart_tx_bufsz > 0)
@@ -239,6 +240,19 @@ int uart_update()
 		rxError = UartErrorBufferOverflow;
 	}
 
+	if (0 == uart_rx_bufsz)
+	{
+		status_led_off(URX_STATUS_LED);
+	}
+	else
+	{
+		status_led_on(URX_STATUS_LED);
+	}
+
+	if (0 == uart_tx_bufsz)
+	{
+		status_led_off(UTX_STATUS_LED);
+	}
 
 	uart_error = (txError > rxError) ? txError : rxError;
 	return uart_error;
