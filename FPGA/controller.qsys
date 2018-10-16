@@ -21,7 +21,7 @@
       }
       datum baseAddress
       {
-         value = "70384";
+         value = "70400";
          type = "String";
       }
    }
@@ -77,7 +77,7 @@
    {
       datum baseAddress
       {
-         value = "70392";
+         value = "70408";
          type = "String";
       }
    }
@@ -225,71 +225,15 @@
          type = "int";
       }
    }
-   element rc1_control.s1
+   element tc4_m.s1
    {
       datum baseAddress
       {
-         value = "69776";
+         value = "70304";
          type = "String";
       }
    }
-   element uart1_dvsr.s1
-   {
-      datum baseAddress
-      {
-         value = "69792";
-         type = "String";
-      }
-   }
-   element tc4_status.s1
-   {
-      datum baseAddress
-      {
-         value = "70208";
-         type = "String";
-      }
-   }
-   element uart1_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70176";
-         type = "String";
-      }
-   }
-   element leds2_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69728";
-         type = "String";
-      }
-   }
-   element uart1_baud_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70144";
-         type = "String";
-      }
-   }
-   element bcd1_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70048";
-         type = "String";
-      }
-   }
-   element led_period.s1
-   {
-      datum baseAddress
-      {
-         value = "69744";
-         type = "String";
-      }
-   }
-   element sseg_counter.s1
+   element sseg_counter_of.s1
    {
       datum baseAddress
       {
@@ -297,31 +241,7 @@
          type = "String";
       }
    }
-   element rc1_ready.s1
-   {
-      datum baseAddress
-      {
-         value = "69760";
-         type = "String";
-      }
-   }
-   element tc4_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70288";
-         type = "String";
-      }
-   }
-   element leds2_wr_val.s1
-   {
-      datum baseAddress
-      {
-         value = "69712";
-         type = "String";
-      }
-   }
-   element leds1_counter_of.s1
+   element uart1_dvsr.s1
    {
       datum baseAddress
       {
@@ -329,71 +249,15 @@
          type = "String";
       }
    }
-   element leds1_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69856";
-         type = "String";
-      }
-   }
-   element uart1_r_data.s1
-   {
-      datum baseAddress
-      {
-         value = "70128";
-         type = "String";
-      }
-   }
-   element tc3_status.s1
-   {
-      datum baseAddress
-      {
-         value = "70224";
-         type = "String";
-      }
-   }
-   element uart1_w_data.s1
-   {
-      datum baseAddress
-      {
-         value = "70192";
-         type = "String";
-      }
-   }
    element tc2_m.s1
    {
       datum baseAddress
       {
-         value = "70320";
+         value = "70336";
          type = "String";
       }
    }
-   element warn_pwm_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "69984";
-         type = "String";
-      }
-   }
-   element bcd1_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "70016";
-         type = "String";
-      }
-   }
-   element sseg_wr_val.s1
-   {
-      datum baseAddress
-      {
-         value = "69920";
-         type = "String";
-      }
-   }
-   element tc_reset_control.s1
+   element tc1_status.s1
    {
       datum baseAddress
       {
@@ -401,11 +265,35 @@
          type = "String";
       }
    }
-   element leds1_brightness.s1
+   element tc1_m.s1
    {
       datum baseAddress
       {
-         value = "69872";
+         value = "70352";
+         type = "String";
+      }
+   }
+   element tc2_status.s1
+   {
+      datum baseAddress
+      {
+         value = "70256";
+         type = "String";
+      }
+   }
+   element tc3_status.s1
+   {
+      datum baseAddress
+      {
+         value = "70240";
+         type = "String";
+      }
+   }
+   element leds2_wr_val.s1
+   {
+      datum baseAddress
+      {
+         value = "69728";
          type = "String";
       }
    }
@@ -413,11 +301,240 @@
    {
       datum baseAddress
       {
-         value = "70000";
+         value = "70016";
+         type = "String";
+      }
+   }
+   element bcd1_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "70032";
+         type = "String";
+      }
+   }
+   element daylight.s1
+   {
+      datum baseAddress
+      {
+         value = "70368";
+         type = "String";
+      }
+   }
+   element leds1_brightness.s1
+   {
+      datum baseAddress
+      {
+         value = "69888";
+         type = "String";
+      }
+   }
+   element sseg_brightness.s1
+   {
+      datum baseAddress
+      {
+         value = "69968";
+         type = "String";
+      }
+   }
+   element uart1_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70192";
+         type = "String";
+      }
+   }
+   element leds2_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69744";
+         type = "String";
+      }
+   }
+   element leds1_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69840";
+         type = "String";
+      }
+   }
+   element uart1_w_data.s1
+   {
+      datum baseAddress
+      {
+         value = "70208";
          type = "String";
       }
    }
    element sseg_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69952";
+         type = "String";
+      }
+   }
+   element bcd1_bcd.s1
+   {
+      datum baseAddress
+      {
+         value = "70048";
+         type = "String";
+      }
+   }
+   element leds1_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69872";
+         type = "String";
+      }
+   }
+   element tc3_m.s1
+   {
+      datum baseAddress
+      {
+         value = "70320";
+         type = "String";
+      }
+   }
+   element tc_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70288";
+         type = "String";
+      }
+   }
+   element uart1_status_control.s1
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+      datum baseAddress
+      {
+         value = "70112";
+         type = "String";
+      }
+   }
+   element led_period.s1
+   {
+      datum baseAddress
+      {
+         value = "69760";
+         type = "String";
+      }
+   }
+   element bcd1_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70064";
+         type = "String";
+      }
+   }
+   element uart1_baud_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70160";
+         type = "String";
+      }
+   }
+   element leds2_counter_of.s1
+   {
+      datum baseAddress
+      {
+         value = "69696";
+         type = "String";
+      }
+   }
+   element leds2_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69712";
+         type = "String";
+      }
+   }
+   element warn_pwm_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69984";
+         type = "String";
+      }
+   }
+   element uart1_r_data.s1
+   {
+      datum baseAddress
+      {
+         value = "70144";
+         type = "String";
+      }
+   }
+   element rc1_ready.s1
+   {
+      datum baseAddress
+      {
+         value = "69776";
+         type = "String";
+      }
+   }
+   element uart1_rx_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "70096";
+         type = "String";
+      }
+   }
+   element rc1_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69792";
+         type = "String";
+      }
+   }
+   element uart1_wr_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70176";
+         type = "String";
+      }
+   }
+   element bcd1_bin.s1
+   {
+      datum baseAddress
+      {
+         value = "70080";
+         type = "String";
+      }
+   }
+   element leds1_counter_of.s1
+   {
+      datum baseAddress
+      {
+         value = "69824";
+         type = "String";
+      }
+   }
+   element status_led_en.s1
+   {
+      datum baseAddress
+      {
+         value = "69632";
+         type = "String";
+      }
+   }
+   element sseg_wr_val.s1
    {
       datum baseAddress
       {
@@ -433,19 +550,11 @@
          type = "boolean";
       }
    }
-   element leds1_wr_val.s1
+   element warn_pwm_brightness.s1
    {
       datum baseAddress
       {
-         value = "69840";
-         type = "String";
-      }
-   }
-   element bcd1_bin.s1
-   {
-      datum baseAddress
-      {
-         value = "70064";
+         value = "70000";
          type = "String";
       }
    }
@@ -453,23 +562,7 @@
    {
       datum baseAddress
       {
-         value = "69664";
-         type = "String";
-      }
-   }
-   element warn_pwm_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69968";
-         type = "String";
-      }
-   }
-   element tc3_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70304";
+         value = "69680";
          type = "String";
       }
    }
@@ -477,124 +570,31 @@
    {
       datum baseAddress
       {
-         value = "70112";
+         value = "70128";
          type = "String";
       }
    }
-   element bcd1_bcd.s1
+   element tc4_status.s1
    {
       datum baseAddress
       {
-         value = "70032";
+         value = "70224";
          type = "String";
       }
    }
-   element tc1_status.s1
+   element sseg_counter.s1
    {
       datum baseAddress
       {
-         value = "70256";
+         value = "69920";
          type = "String";
       }
    }
-   element tc2_status.s1
+   element leds1_wr_val.s1
    {
       datum baseAddress
       {
-         value = "70240";
-         type = "String";
-      }
-   }
-   element uart1_wr_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70160";
-         type = "String";
-      }
-   }
-   element status_led_en.s1
-   {
-      datum baseAddress
-      {
-         value = "69632";
-         type = "String";
-      }
-   }
-   element sseg_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "69952";
-         type = "String";
-      }
-   }
-   element uart1_status_control.s1
-   {
-      datum _tags
-      {
-         value = "";
-         type = "String";
-      }
-      datum baseAddress
-      {
-         value = "70096";
-         type = "String";
-      }
-   }
-   element uart1_rx_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "70080";
-         type = "String";
-      }
-   }
-   element leds1_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "69824";
-         type = "String";
-      }
-   }
-   element tc1_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70336";
-         type = "String";
-      }
-   }
-   element leds2_counter_of.s1
-   {
-      datum baseAddress
-      {
-         value = "69680";
-         type = "String";
-      }
-   }
-   element daylight.s1
-   {
-      datum baseAddress
-      {
-         value = "70352";
-         type = "String";
-      }
-   }
-   element sseg_counter_of.s1
-   {
-      datum baseAddress
-      {
-         value = "69888";
-         type = "String";
-      }
-   }
-   element leds2_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "69696";
+         value = "69856";
          type = "String";
       }
    }
@@ -1203,8 +1203,8 @@
   <parameter name="tightlyCoupledInstructionMaster1AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x112F0' end='0x112F8' /><slave name='sysid_c001.control_slave' start='0x112F8' end='0x11300' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='status_led_en.s1' start='0x11000' end='0x11020' /><slave name='leds2_brightness.s1' start='0x11020' end='0x11030' /><slave name='leds2_counter_of.s1' start='0x11030' end='0x11040' /><slave name='leds2_counter.s1' start='0x11040' end='0x11050' /><slave name='leds2_wr_val.s1' start='0x11050' end='0x11060' /><slave name='leds2_reset_control.s1' start='0x11060' end='0x11070' /><slave name='led_period.s1' start='0x11070' end='0x11080' /><slave name='rc1_ready.s1' start='0x11080' end='0x11090' /><slave name='rc1_control.s1' start='0x11090' end='0x110A0' /><slave name='uart1_dvsr.s1' start='0x110A0' end='0x110B0' /><slave name='leds1_counter_of.s1' start='0x110B0' end='0x110C0' /><slave name='leds1_counter.s1' start='0x110C0' end='0x110D0' /><slave name='leds1_wr_val.s1' start='0x110D0' end='0x110E0' /><slave name='leds1_reset_control.s1' start='0x110E0' end='0x110F0' /><slave name='leds1_brightness.s1' start='0x110F0' end='0x11100' /><slave name='sseg_counter_of.s1' start='0x11100' end='0x11110' /><slave name='sseg_counter.s1' start='0x11110' end='0x11120' /><slave name='sseg_wr_val.s1' start='0x11120' end='0x11130' /><slave name='sseg_reset_control.s1' start='0x11130' end='0x11140' /><slave name='sseg_brightness.s1' start='0x11140' end='0x11150' /><slave name='warn_pwm_control.s1' start='0x11150' end='0x11160' /><slave name='warn_pwm_brightness.s1' start='0x11160' end='0x11170' /><slave name='bcd1_status.s1' start='0x11170' end='0x11180' /><slave name='bcd1_counter.s1' start='0x11180' end='0x11190' /><slave name='bcd1_bcd.s1' start='0x11190' end='0x111A0' /><slave name='bcd1_control.s1' start='0x111A0' end='0x111B0' /><slave name='bcd1_bin.s1' start='0x111B0' end='0x111C0' /><slave name='uart1_rx_counter.s1' start='0x111C0' end='0x111D0' /><slave name='uart1_status_control.s1' start='0x111D0' end='0x111E0' /><slave name='uart1_tx_counter.s1' start='0x111E0' end='0x111F0' /><slave name='uart1_r_data.s1' start='0x111F0' end='0x11200' /><slave name='uart1_baud_control.s1' start='0x11200' end='0x11210' /><slave name='uart1_wr_control.s1' start='0x11210' end='0x11220' /><slave name='uart1_reset_control.s1' start='0x11220' end='0x11230' /><slave name='uart1_w_data.s1' start='0x11230' end='0x11240' /><slave name='tc4_status.s1' start='0x11240' end='0x11250' /><slave name='tc3_status.s1' start='0x11250' end='0x11260' /><slave name='tc2_status.s1' start='0x11260' end='0x11270' /><slave name='tc1_status.s1' start='0x11270' end='0x11280' /><slave name='tc_reset_control.s1' start='0x11280' end='0x11290' /><slave name='tc4_m.s1' start='0x11290' end='0x112A0' /><slave name='tc3_m.s1' start='0x112A0' end='0x112B0' /><slave name='tc2_m.s1' start='0x112B0' end='0x112C0' /><slave name='tc1_m.s1' start='0x112C0' end='0x112D0' /><slave name='daylight.s1' start='0x112D0' end='0x112E0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x112F0' end='0x112F8' /><slave name='sysid_c001.control_slave' start='0x112F8' end='0x11300' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x11300' end='0x11308' /><slave name='sysid_c001.control_slave' start='0x11308' end='0x11310' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_ram.s1' start='0x0' end='0x9C40' /><slave name='nios2e.jtag_debug_module' start='0x10800' end='0x11000' /><slave name='status_led_en.s1' start='0x11000' end='0x11020' /><slave name='leds2_brightness.s1' start='0x11030' end='0x11040' /><slave name='leds2_counter_of.s1' start='0x11040' end='0x11050' /><slave name='leds2_counter.s1' start='0x11050' end='0x11060' /><slave name='leds2_wr_val.s1' start='0x11060' end='0x11070' /><slave name='leds2_reset_control.s1' start='0x11070' end='0x11080' /><slave name='led_period.s1' start='0x11080' end='0x11090' /><slave name='rc1_ready.s1' start='0x11090' end='0x110A0' /><slave name='rc1_control.s1' start='0x110A0' end='0x110B0' /><slave name='uart1_dvsr.s1' start='0x110B0' end='0x110C0' /><slave name='leds1_counter_of.s1' start='0x110C0' end='0x110D0' /><slave name='leds1_counter.s1' start='0x110D0' end='0x110E0' /><slave name='leds1_wr_val.s1' start='0x110E0' end='0x110F0' /><slave name='leds1_reset_control.s1' start='0x110F0' end='0x11100' /><slave name='leds1_brightness.s1' start='0x11100' end='0x11110' /><slave name='sseg_counter_of.s1' start='0x11110' end='0x11120' /><slave name='sseg_counter.s1' start='0x11120' end='0x11130' /><slave name='sseg_wr_val.s1' start='0x11130' end='0x11140' /><slave name='sseg_reset_control.s1' start='0x11140' end='0x11150' /><slave name='sseg_brightness.s1' start='0x11150' end='0x11160' /><slave name='warn_pwm_control.s1' start='0x11160' end='0x11170' /><slave name='warn_pwm_brightness.s1' start='0x11170' end='0x11180' /><slave name='bcd1_status.s1' start='0x11180' end='0x11190' /><slave name='bcd1_counter.s1' start='0x11190' end='0x111A0' /><slave name='bcd1_bcd.s1' start='0x111A0' end='0x111B0' /><slave name='bcd1_control.s1' start='0x111B0' end='0x111C0' /><slave name='bcd1_bin.s1' start='0x111C0' end='0x111D0' /><slave name='uart1_rx_counter.s1' start='0x111D0' end='0x111E0' /><slave name='uart1_status_control.s1' start='0x111E0' end='0x111F0' /><slave name='uart1_tx_counter.s1' start='0x111F0' end='0x11200' /><slave name='uart1_r_data.s1' start='0x11200' end='0x11210' /><slave name='uart1_baud_control.s1' start='0x11210' end='0x11220' /><slave name='uart1_wr_control.s1' start='0x11220' end='0x11230' /><slave name='uart1_reset_control.s1' start='0x11230' end='0x11240' /><slave name='uart1_w_data.s1' start='0x11240' end='0x11250' /><slave name='tc4_status.s1' start='0x11250' end='0x11260' /><slave name='tc3_status.s1' start='0x11260' end='0x11270' /><slave name='tc2_status.s1' start='0x11270' end='0x11280' /><slave name='tc1_status.s1' start='0x11280' end='0x11290' /><slave name='tc_reset_control.s1' start='0x11290' end='0x112A0' /><slave name='tc4_m.s1' start='0x112A0' end='0x112B0' /><slave name='tc3_m.s1' start='0x112B0' end='0x112C0' /><slave name='tc2_m.s1' start='0x112C0' end='0x112D0' /><slave name='tc1_m.s1' start='0x112D0' end='0x112E0' /><slave name='daylight.s1' start='0x112E0' end='0x112F0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x11300' end='0x11308' /><slave name='sysid_c001.control_slave' start='0x11308' end='0x11310' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone III" />
   <parameter name="internalIrqMaskSystemInfo" value="7" />
@@ -2041,7 +2041,7 @@
    start="nios2e.data_master"
    end="sysid_c001.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112f8" />
+  <parameter name="baseAddress" value="0x00011308" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2050,7 +2050,7 @@
    start="nios2e.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112f0" />
+  <parameter name="baseAddress" value="0x00011300" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2088,7 +2088,7 @@
    start="nios2e.data_master"
    end="daylight.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112d0" />
+  <parameter name="baseAddress" value="0x000112e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="tc1_m.clk" />
@@ -2110,7 +2110,7 @@
    start="nios2e.data_master"
    end="tc1_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112c0" />
+  <parameter name="baseAddress" value="0x000112d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc1_m.reset" />
@@ -2121,7 +2121,7 @@
    start="nios2e.data_master"
    end="tc2_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112b0" />
+  <parameter name="baseAddress" value="0x000112c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc3_m.reset" />
@@ -2131,7 +2131,7 @@
    start="nios2e.data_master"
    end="tc3_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112a0" />
+  <parameter name="baseAddress" value="0x000112b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="reset" version="13.1" start="clk_0.clk_reset" end="tc4_m.reset" />
@@ -2141,7 +2141,7 @@
    start="nios2e.data_master"
    end="tc4_m.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011290" />
+  <parameter name="baseAddress" value="0x000112a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2155,7 +2155,7 @@
    start="nios2e.data_master"
    end="tc_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011280" />
+  <parameter name="baseAddress" value="0x00011290" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2169,7 +2169,7 @@
    start="nios2e.data_master"
    end="tc1_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011270" />
+  <parameter name="baseAddress" value="0x00011280" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2183,7 +2183,7 @@
    start="nios2e.data_master"
    end="tc2_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011260" />
+  <parameter name="baseAddress" value="0x00011270" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2192,7 +2192,7 @@
    start="nios2e.data_master"
    end="tc3_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011250" />
+  <parameter name="baseAddress" value="0x00011260" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2211,7 +2211,7 @@
    start="nios2e.data_master"
    end="tc4_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011240" />
+  <parameter name="baseAddress" value="0x00011250" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="uart1_w_data.clk" />
@@ -2257,7 +2257,7 @@
    start="nios2e.data_master"
    end="uart1_w_data.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011230" />
+  <parameter name="baseAddress" value="0x00011240" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2271,7 +2271,7 @@
    start="nios2e.data_master"
    end="uart1_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011220" />
+  <parameter name="baseAddress" value="0x00011230" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2285,7 +2285,7 @@
    start="nios2e.data_master"
    end="uart1_wr_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011210" />
+  <parameter name="baseAddress" value="0x00011220" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2299,7 +2299,7 @@
    start="nios2e.data_master"
    end="uart1_baud_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011200" />
+  <parameter name="baseAddress" value="0x00011210" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2313,7 +2313,7 @@
    start="nios2e.data_master"
    end="uart1_r_data.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111f0" />
+  <parameter name="baseAddress" value="0x00011200" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2332,7 +2332,7 @@
    start="nios2e.data_master"
    end="uart1_tx_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111e0" />
+  <parameter name="baseAddress" value="0x000111f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2341,7 +2341,7 @@
    start="nios2e.data_master"
    end="uart1_status_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111d0" />
+  <parameter name="baseAddress" value="0x000111e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2355,7 +2355,7 @@
    start="nios2e.data_master"
    end="uart1_rx_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111c0" />
+  <parameter name="baseAddress" value="0x000111d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_bin.clk" />
@@ -2370,7 +2370,7 @@
    start="nios2e.data_master"
    end="bcd1_bin.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111b0" />
+  <parameter name="baseAddress" value="0x000111c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_control.clk" />
@@ -2385,7 +2385,7 @@
    start="nios2e.data_master"
    end="bcd1_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000111a0" />
+  <parameter name="baseAddress" value="0x000111b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_bcd.clk" />
@@ -2400,7 +2400,7 @@
    start="nios2e.data_master"
    end="bcd1_bcd.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011190" />
+  <parameter name="baseAddress" value="0x000111a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_counter.clk" />
@@ -2415,7 +2415,7 @@
    start="nios2e.data_master"
    end="bcd1_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011180" />
+  <parameter name="baseAddress" value="0x00011190" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="bcd1_status.clk" />
@@ -2430,7 +2430,7 @@
    start="nios2e.data_master"
    end="bcd1_status.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011170" />
+  <parameter name="baseAddress" value="0x00011180" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2444,7 +2444,7 @@
    start="nios2e.data_master"
    end="warn_pwm_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011160" />
+  <parameter name="baseAddress" value="0x00011170" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2468,7 +2468,7 @@
    start="nios2e.data_master"
    end="warn_pwm_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011150" />
+  <parameter name="baseAddress" value="0x00011160" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="status_led_en.clk" />
@@ -2502,7 +2502,7 @@
    start="nios2e.data_master"
    end="sseg_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011140" />
+  <parameter name="baseAddress" value="0x00011150" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2521,7 +2521,7 @@
    start="nios2e.data_master"
    end="sseg_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011130" />
+  <parameter name="baseAddress" value="0x00011140" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="sseg_wr_val.clk" />
@@ -2536,7 +2536,7 @@
    start="nios2e.data_master"
    end="sseg_wr_val.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011120" />
+  <parameter name="baseAddress" value="0x00011130" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="sseg_counter.clk" />
@@ -2551,7 +2551,7 @@
    start="nios2e.data_master"
    end="sseg_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011110" />
+  <parameter name="baseAddress" value="0x00011120" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2570,7 +2570,7 @@
    start="nios2e.data_master"
    end="sseg_counter_of.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011100" />
+  <parameter name="baseAddress" value="0x00011110" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2589,7 +2589,7 @@
    start="nios2e.data_master"
    end="leds1_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110f0" />
+  <parameter name="baseAddress" value="0x00011100" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2608,7 +2608,7 @@
    start="nios2e.data_master"
    end="leds1_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110e0" />
+  <parameter name="baseAddress" value="0x000110f0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="leds1_wr_val.clk" />
@@ -2623,7 +2623,7 @@
    start="nios2e.data_master"
    end="leds1_wr_val.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110d0" />
+  <parameter name="baseAddress" value="0x000110e0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="leds1_counter.clk" />
@@ -2638,7 +2638,7 @@
    start="nios2e.data_master"
    end="leds1_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110c0" />
+  <parameter name="baseAddress" value="0x000110d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2657,7 +2657,7 @@
    start="nios2e.data_master"
    end="leds1_counter_of.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110b0" />
+  <parameter name="baseAddress" value="0x000110c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2871,7 +2871,7 @@
    start="nios2e.data_master"
    end="uart1_dvsr.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000110a0" />
+  <parameter name="baseAddress" value="0x000110b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2897,7 +2897,7 @@
    start="nios2e.data_master"
    end="rc1_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011090" />
+  <parameter name="baseAddress" value="0x000110a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2906,7 +2906,7 @@
    start="nios2e.data_master"
    end="rc1_ready.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011080" />
+  <parameter name="baseAddress" value="0x00011090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2949,7 +2949,7 @@
    start="nios2e.instruction_master"
    end="sysid_c001.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112f8" />
+  <parameter name="baseAddress" value="0x00011308" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -2958,7 +2958,7 @@
    start="nios2e.instruction_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000112f0" />
+  <parameter name="baseAddress" value="0x00011300" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="led_period.clk" />
@@ -2973,7 +2973,7 @@
    start="nios2e.data_master"
    end="led_period.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011070" />
+  <parameter name="baseAddress" value="0x00011080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3002,7 +3002,7 @@
    start="nios2e.data_master"
    end="leds2_reset_control.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011060" />
+  <parameter name="baseAddress" value="0x00011070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="clock" version="13.1" start="clk_0.clk" end="leds2_wr_val.clk" />
@@ -3022,7 +3022,7 @@
    start="nios2e.data_master"
    end="leds2_wr_val.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011050" />
+  <parameter name="baseAddress" value="0x00011060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3042,7 +3042,7 @@
    start="nios2e.data_master"
    end="leds2_counter.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011040" />
+  <parameter name="baseAddress" value="0x00011050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3066,7 +3066,7 @@
    start="nios2e.data_master"
    end="leds2_counter_of.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011030" />
+  <parameter name="baseAddress" value="0x00011040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3090,7 +3090,7 @@
    start="nios2e.data_master"
    end="leds2_brightness.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011020" />
+  <parameter name="baseAddress" value="0x00011030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

@@ -47,6 +47,8 @@
  */
 
 #define PID_T_MAX_N 29
+#define OBD2_AT_MAX_N (1 << 6)
+#define OBD2_PID_MAX_N (1 << 8)
 
 typedef struct Pid_t
 {
@@ -90,14 +92,13 @@ void obd2_init()
 {
 	const char* AtCommands[] =
 	{
+		"\ratz\r",
 		"atsp0\r",
 		"ate0\r",
-		"atsh 7e0\r",
-		"atat2\r"
+		"atsh 7e0\r"
 	};
 
 	int i;
-	int error;
 
 	OBD2_NOTE_STATE("Out of reset");
 	obd2_state = Obd2StateReset;
@@ -106,28 +107,12 @@ void obd2_init()
 	boost_ref = 0;
 	uart_eol = '>';
 
-	// Perform OBD2 AT-initialization sequence
-	error = uart_putstr("\r");
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_putstr failed");
-	}
-
-	error = uart_flush();
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_flush failed");
-	}
-
-	obd2_at_command("atz\r");
-
 	for (i = 0; i < sizeof(AtCommands)/sizeof(AtCommands[0]); ++i)
 	{
 		if (!obd2_at_command(AtCommands[i]))
 		{
 			OBD2_PUTSTR("Failed init command\n");
 			OBD2_NOTE_STATE(AtCommands[i]);
-			return;
 		}
 	}
 
@@ -139,32 +124,12 @@ void obd2_shutdown()
 {
 	int error;
 
-	error = uart_putstr("\r");
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_putstr failed");
-	}
-
-	error = uart_flush();
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_flush failed");
-	}
-
 	// Perform OBD2 AT low power sequence.
-	error = uart_putstr("atlp\r");
+	error = uart_sendline("atlp\r",  UART_FLAG_SYNC);
 	if (error < 0)
 	{
 		OBD2_NOTE_STATE("uart_putstr failed");
 	}
-
-	error = uart_flush();
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_flush failed");
-	}
-
-	uart_bufclr();
 }
 
 bool obd2_update(void)
@@ -176,8 +141,8 @@ bool obd2_update(void)
 	}
 	else
 	{
-		char* response;
-		int error = uart_end_getline(&response);
+		char response[OBD2_PID_MAX_N];
+		int error = uart_readline(response, OBD2_PID_MAX_N, UART_FLAG_NONE);
 		if (UartReady == error)
 		{
 			// We got a complete response to...something. Depending on the current state
@@ -218,15 +183,15 @@ void obd2_state_entry()
 
 	if (Obd2StateCILBr == obd2_state)
 	{
-		error = uart_putstr("01 05 0f 04 33\r");
+		error = uart_sendline("01 05 0f 04 33\r", UART_FLAG_NONE);
 	}
 	else if (Obd2StateOil == obd2_state)
 	{
-		error = uart_putstr("21 01\r");
+		error = uart_sendline("21 01\r", UART_FLAG_NONE);
 	}
 	else if (Obd2StateBA == obd2_state)
 	{
-		error = uart_putstr("01 34 0b\r");
+		error = uart_sendline("01 34 0b\r", UART_FLAG_NONE);
 	}
 	else
 	{
@@ -238,15 +203,6 @@ void obd2_state_entry()
 	{
 		obd2_state = Obd2StateReset;
 		OBD2_NOTE_STATE("uart_putstr failed");
-	}
-	else
-	{
-		error = uart_start_getline();
-		if (error < 0)
-		{
-			obd2_state = Obd2StateReset;
-			OBD2_NOTE_STATE("uart_start_getline failed");
-		}
 	}
 }
 
@@ -314,25 +270,19 @@ void obd2_state_exit(const char* response)
 
 bool obd2_at_command(const char* command)
 {
-	char *str;
+	char str[OBD2_AT_MAX_N] = {};
 	int error;
 
 	OBD2_NOTE_STATE(command);
-	error = uart_putstr(command);
+
+	error = uart_sendline(command, UART_FLAG_SYNC);
 	if (error < 0)
 	{
 		OBD2_PUTSTR("uart_putstr failed\n");
 		return false;
 	}
 
-	error = uart_flush();
-	if (error < 0)
-	{
-		OBD2_PUTSTR("uart_flush failed\n");
-		return false;
-	}
-
-	if (UartReady == uart_getline(&str))
+	if (UartReady == uart_readline(str, OBD2_AT_MAX_N, UART_FLAG_SYNC))
 	{
 		OBD2_PUTSTR(str);
 		OBD2_PUTSTR("\n");

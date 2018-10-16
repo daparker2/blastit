@@ -2,7 +2,7 @@ set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_N
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_VERSION "13.1"
 set_global_assignment -entity "controller" -library "controller" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "controller" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../controller.sopcinfo"]
-set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1537593934"
+set_global_assignment -entity "controller" -library "controller" -name SLD_INFO "QSYS_NAME controller HAS_SOPCINFO 1 GENERATION_ID 1538874450"
 set_global_assignment -library "controller" -name MISC_FILE [file join $::quartus(qip_path) "../../controller.cmp"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.regmap"]
 set_global_assignment -library "controller" -name SLD_FILE [file join $::quartus(qip_path) "controller.debuginfo"]

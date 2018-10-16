@@ -17,15 +17,82 @@
 #include <string.h>
 
 #ifdef TEST
+
+#define TEST_UART_ECHO_LINE
+//#define TEST_UART_ECHO
+//#define TEST_DISPLAY
+
+#ifdef TEST_UART_ECHO_LINE
+
+#define BUFSZ (1 << 8)
+//#define SYNC
+
+void test()
+{
+	dword_t sf = 0;
+
+	uart_eol = '\r';
+
+#ifdef SYNC
+	sf = UART_FLAG_SYNC;
+#endif
+
+	for (;;)
+	{
+		char str[BUFSZ] = {};
+		int rc;
+
+		rc = uart_readline(str, BUFSZ, sf);
+		if (0 <= rc)
+		{
+			rc = uart_sendline(str, sf);
+			if (0 > rc)
+			{
+				alt_printf("uart_sendline failed: %x (%s)\n", rc, uart_etos(rc));
+			}
+		}
+		else if (UartErrorRxBusy != rc)
+		{
+			alt_printf("uart_readline failed: %x (%s)\n", rc, uart_etos(rc));
+		}
+	}
+}
+
+#endif
+
+#ifdef TEST_UART_ECHO
+
+void test()
+{
+	dword_t status = 0;
+
+	// Echo test
+	for (;;)
+	{
+		dword_t new_status = uart1_read_status();
+		char ch;
+
+		if (new_status != status)
+		{
+			uart1_print_status(new_status);
+			status = new_status;
+		}
+
+		ch = uart1_rx();
+		uart1_tx(ch);
+	}
+}
+
+#endif // TEST_UART_ECHO
+
+#ifdef TEST_DISPLAY
+
 void test()
 {
 	dword_t i, j, k, l;
 	dword_t status = 0;
 	dword_t new_status;
 	bool daylight = false;
-	bool sent = false;
-	const char test[] = "ati\r";
-	char test_rx[(1 << 8)] = {};
 	byte_t bcd_out[BCD_MAX] = {};
 
 	// Dan's test function
@@ -49,12 +116,6 @@ void test()
 	}
 
 	wait_tick(1000);
-
-	if ((new_status = uart1_read_status()) != status)
-	{
-		status = new_status;
-		uart1_print_status(status);
-	}
 
 	bcd_convert(1234, bcd_out);
 	alt_printf("1234 -> %x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
@@ -117,57 +178,9 @@ void test()
 				}
 			}
 		}
-
-		if (!sent)
-		{
-			sent = true;
-			alt_printf("tx -> %s\n", test);
-			for (l = 0; l < strlen(test); ++l)
-			{
-				if ((new_status = uart1_read_status()) != status)
-				{
-					status = new_status;
-					uart1_print_status(status);
-				}
-
-				uart1_tx(test[l]);
-
-				if ((new_status = uart1_read_status()) != status)
-				{
-					status = new_status;
-					uart1_print_status(status);
-				}
-			}
-		}
-
-		wait_tick(250);
-
-		if (sent)
-		{
-			while (uart1_read_status() & UART1_STATUS_RX_READY)
-			{
-				test_rx[k] = uart1_rx();
-				if ((new_status = uart1_read_status()) != status)
-				{
-					status = new_status;
-					uart1_print_status(status);
-				}
-
-				if (test_rx[k] == '\r')
-				{
-					alt_printf("rx -> %s\n", test_rx);
-					k = 0;
-					break;
-				}
-
-				++k;
-			}
-
-			sent = false;
-		}
-
-		++i;
 	}
 }
+
+#endif // TEST_DISPLAY
 
 #endif // TEST

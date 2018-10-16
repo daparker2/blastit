@@ -11,7 +11,8 @@ module uart_rx
 	input wire rx, s_tick,
 	output reg rx_done_tick,
 	output wire [DBIT-1:0] dout,
-	output wire e_parity, e_frame
+	output wire e_parity, e_frame,
+	output wire [2:0] rx_status
 );
 
 localparam [2:0]
@@ -107,15 +108,15 @@ always @*
 			parity:
 					if (s_tick)
 						begin
-								if (s_reg == (os_tick - 1))
-									begin
-										e_parity_next = rx_parity != rx;
-										s_next = 0;
-										n_next = 0;
-										state_next = stop;
-									end
-								else
-									s_next = s_reg + 1'b1;
+							if (s_reg == (os_tick - 1))
+								begin
+									e_parity_next = rx_parity != rx;
+									s_next = 0;
+									n_next = 0;
+									state_next = stop;
+								end
+							else
+								s_next = s_reg + 1'b1;
 						end
 			stop:
 				if (s_tick)
@@ -126,8 +127,6 @@ always @*
 							n_next = 0;
 							state_next = idle;
 							rx_done_tick = 1'b1;
-							if (b_reg == 0)
-								$display(" BUG: %h", b_reg);
 						end
 					else
 						s_next = s_reg + 1'd1;
@@ -140,5 +139,6 @@ always @*
 					  0;
 	assign e_parity = e_parity_reg;
 	assign e_frame = e_frame_reg;
+	assign rx_status = state_reg;
 
 endmodule

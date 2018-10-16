@@ -11,7 +11,7 @@
  */
 
 // Turn on extra UART debugging
-#define UART_DEBUG
+//#define UART_DEBUG
 
 /*
  * UART status
@@ -24,58 +24,88 @@ typedef enum UartError_t
 	UartErrorRxBusy = -2,
 	UartErrorTimeout = -3,
 	UartErrorRemaining = -4,
-	UartErrorBufferOverflow = -5
+	UartErrorBufferOverflow = -5,
+	UartErrorInvalidArg = -6
 } UartError;
 
-// This stores the last UART error, or OK
-extern UartError uart_error;
-extern dword_t uart_status;
+extern UartError uart_error;     // This stores the last UART error, or OK
+extern dword_t uart_status;      // This stores the last UART status
+extern dword_t uart_rx_timeout;  // This stores the UART RX timeout
+
+/*
+ * UART config
+ */
+
+typedef enum uart_dbit_t
+{
+	UART_DBIT_7 = 7,
+	UART_DBIT_8 = 8
+} uart_dbit;
+
+typedef enum uart_sbit_t
+{
+	UART_SBIT_HALF,
+	UART_SBIT_ONE,
+	UART_SBIT_TWO
+} uart_sbit;
+
+typedef enum uart_parity_t
+{
+	UART_PARITY_NONE = 0,
+	UART_PARITY_EVEN = 1,
+	UART_PARITY_ODD = 2
+} uart_parity;
+
+/*
+ * UART RX/TX flags
+ */
+
+typedef enum uart_flags_t
+{
+	UART_FLAG_NONE = 0x0,
+	UART_FLAG_SYNC = 0x1
+} uart_flags;
 
 /*
  * UART buffers
  */
 
-#define UART_TX_BUFSZ (1 << 10)
 #define UART_RX_BUFSZ (1 << 10)
 
 // These buffers are supplied for convenience so the user can read or write to them.
 // The below functions all update them.
-extern char uart_tx_buf[UART_TX_BUFSZ], uart_rx_buf[UART_RX_BUFSZ];
-extern dword_t uart_tx_bufsz, uart_rx_bufsz;
+extern char uart_rx_buf[UART_RX_BUFSZ];
+extern dword_t uart_rx_bufsz;
 
 /*
  * UART behavior modifiers
  */
 
-#define DEFAULT_UART_TIMEOUT_CLOCKS CLOCK_MILLIS_TO_TICKS(10000)
 #define DEFAULT_UART_EOL '\n'
+#define URX_TIMEOUT_DEFAULT 30000
 
 // Define the EOL character for uart_readline
 extern char uart_eol;
 
-// Define the UART timeout in clocks
-extern dword_t uart_timeout_clocks; // Default to a 10ish second timeout
+/*
+ * UART functions
+ */
 
 // Convert a UART error type to a string
 const char* uart_etos(UartError error);
 
-// Reset the UART buffers
-void uart_bufclr(void);
+// Open the UART
+int uart_open(uart_dbit dbit, uart_sbit sbit, uart_parity parity, dword_t baud);
+
+// Close the UART
+void uart_close(uart_flags flags);
+
+// Flush the UART
+void uart_flush(uart_flags flags);
 
 // Transmit string data over the UART, updating uart_tx_buf and returning the size of data written or a UART error
-int uart_putstr(const char* str);
-
-// Reads a line of data off the UART using uart_eol as the delimiter in nonblocking mode.
-// - If the read failed or the terminator was not read than a corresponding error is returned.
-// - If the read succeeded, the corresponding string is pointed to by str.
-int uart_start_getline();
-int uart_end_getline(char** str);
+int uart_sendline(const char* str, uart_flags flags);
 
 // This just wraps start/get endline
-int uart_getline(char** str);
+int uart_readline(char* str, dword_t bufsz, uart_flags flags);
 
-// Updates the UART state machine once per frame allowing for coroutine behavior of UART functions.
-int uart_update();
-
-// Blocks until the UART TX and RX buffers are empty. Returns an error indicating the status of the operation.
-int uart_flush();

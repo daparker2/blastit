@@ -15,7 +15,8 @@ typedef unsigned short word_t;
 typedef unsigned int dword_t;
 
 // Defines the clock period
-#define CLOCK_PERIOD_NS ((dword_t)20) // 20ns per 50mhz clock
+#define CLOCK_SPEED_HZ           ((dword_t)50000000)                         // ex 50Mhz
+#define CLOCK_PERIOD_NS          ((dword_t)20)                               // 20ns per 50mhz clock
 #define CLOCK_MILLIS_TO_TICKS(X) (((dword_t)X * 1000000U) / CLOCK_PERIOD_NS)
 
 // Delays for one clock period
@@ -149,6 +150,7 @@ void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val);
 #define STATUS_LED_3 STATUS_LED_IDX(3)
 
 // Enable or disable LEDS by max
+void status_led_enable(bool en);
 void status_led_on(dword_t mask);
 void status_led_off(dword_t mask);
 
@@ -196,8 +198,9 @@ void tc_shutdown(void);
  * UART1 control
  */
 
-#define UART_DVSR_BIT 16
-#define UART_DBIT_BIT 8
+#define UART_OS_MAX   ((dword_t)(1 << 8) - 1)
+#define UART_DVSR_BIT ((dword_t)UART1_DVSR_DATA_WIDTH)
+#define UART_DBIT_BIT ((dword_t)8
 
 #define UART1_RESET_TX_TC (1 << 0)
 #define UART1_RESET_RX_TC (1 << 1)
@@ -214,8 +217,8 @@ void tc_shutdown(void);
 #define UART1_STATUS_E_PARITY      (1 << 5)
 #define UART1_STATUS_RX_EMPTY      (1 << 6)
 #define UART1_STATUS_TX_FULL       (1 << 7)
-#define UART1_STATUS_RX_READY      (1 << 8)
-#define UART1_STATUS_TX_READY      (1 << 9)
+#define UART1_STATUS_RX_FULL       (1 << 8)
+#define UART1_STATUS_TX_EMPTY      (1 << 9)
 
 // Sets the baud rate; data bit, parity bit, clock ticks for stop bit, clock ticks for overscan ratio, and baud divisor int(50M/(os_tick * baud rate))
 void uart1_init(byte_t dbit, byte_t pbit, byte_t sb_tick, byte_t os_tick, word_t dvsr);

@@ -11,29 +11,87 @@ module fifo_testbench;
 	wire empty, full;
 	wire [WORD_LEN-1:0] r_data;
 	
-	fifo #(WORD_LEN, ADDR_W) uut (clk, reset, rd, wr, w_data, empty, full, r_data);
+	fifo #(.B(WORD_LEN), .W(ADDR_W)) uut (.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .empty(empty), .full(full), .r_data(r_data));
 	
-	task fifo_wr;
-		input integer max;
-		input integer delay;
+	task fifo_write;
+		input reg [WORD_LEN-1:0] w;
 		begin
-			for (i = 1; i <= max; i = i + 1)
+			w_data = w;
+			wr = 1'b1;
+			#(T);
+			wr = 1'b0;
+			#(T);
+			$display("    wrote %x (empty=%d full=%d)", w_data, empty, full);
+		end
+	endtask
+	
+	task fifo_read;
+		reg [WORD_LEN-1:0] r;
+		begin
+			r = r_data;
+			rd = 1'b1;
+			#(T);
+			rd = 1'b0;
+			#(T);
+			$display("    read %x (empty=%d full=%d)", r, empty, full);
+		end
+	endtask
+	
+	task fifo_readwrite;
+		input reg [WORD_LEN-1:0] w;
+		reg [WORD_LEN-1:0] r;
+		begin
+			w_data = w;
+			r = r_data;
+			wr = 1'b1;
+			rd = 1'b1;
+			#(T);
+			wr = 1'b0;
+			rd = 1'b0;
+			#(T);
+			$display("    wrote %x, read %x (empty=%d full=%d)", w_data, r, empty, full);
+		end
+	endtask
+		
+	task fifo_test;
+		input integer wr_max;
+		input integer rd_max;
+		input integer delay;
+		input integer wr;
+		begin
+			$display("=== fifo test wr_max=%d rd_max=%d delay=%d wr=%d", wr_max, rd_max, delay, wr);
+		
+			if (0 != wr)
 				begin
-					w_data = i;
-					wr = 1'b1;
-					@(negedge clk);
-					#(T/2);
-					#(delay);
-					wr = 1'b0;
+					if (wr_max == rd_max)
+						begin						
+							for (i = 1; i <= wr_max; i = i + 1)
+								fifo_readwrite(i);
+						end
+					else if (wr_max < rd_max)
+						begin
+							for (i = 1; i <= wr_max; i = i + 1)
+								fifo_readwrite(i);
+								
+							for (i = 1; i <= rd_max - wr_max; i = i + 1)
+								fifo_read();
+						end
+					else if (wr_max > rd_max)
+						begin
+							for (i = 1; i <= wr_max - rd_max; i = i + 1)
+								fifo_write(i);
+								
+							for (i = 1; i <= rd_max; i = i + 1)
+								fifo_readwrite(i + wr_max - rd_max);
+						end
 				end
-			
-			for (i = 1; i <= max; i = i + 1)
+			else
 				begin
-					rd = 1'b1;
-					@(negedge clk);
-					#(T/2);
-					#(delay);
-					rd = 1'b0;
+					for (i = 1; i <= wr_max; i = i + 1)
+						fifo_write(i);
+					
+					for (i = 1; i <= rd_max; i = i + 1)
+						fifo_read();
 				end
 		end
 	endtask
@@ -63,11 +121,18 @@ module fifo_testbench;
 		@(negedge reset);
 		@(negedge clk);
 		
-		fifo_wr(1, 0);
-		fifo_wr(4, 0);
-		fifo_wr(4, 200);
-		fifo_wr(NUM_WORDS, 0);
-		fifo_wr(NUM_WORDS, 50);
+		fifo_test(1, 1, 0, 0);
+		fifo_test(1, 1, 0, 1);
+		fifo_test(4, 2, 10, 0);
+		fifo_test(4, 4, 200, 0);
+		fifo_test(4, 2, 10, 1);
+		fifo_test(4, 4, 200, 1);
+		fifo_test(NUM_WORDS, NUM_WORDS, 0, 0);
+		fifo_test(NUM_WORDS - 1, NUM_WORDS, 10, 0);
+		fifo_test(NUM_WORDS, NUM_WORDS + 1, 200, 0);
+		fifo_test(NUM_WORDS, NUM_WORDS, 0, 1);
+		fifo_test(NUM_WORDS, NUM_WORDS + 1, 10, 1);
+		fifo_test(NUM_WORDS, NUM_WORDS - 1, 200, 1);
 		
 		@(negedge clk);
 		$stop;

@@ -11,7 +11,8 @@ module uart_tx
 	input wire tx_start, s_tick,
 	input wire [DBIT-1:0] din,
 	output reg tx_done_tick,
-	output wire tx
+	output wire tx,
+	output wire [2:0] tx_status
 );
 
 localparam [2:0]
@@ -133,5 +134,6 @@ always @*
 
 // output
 assign tx = tx_reg;
+assign tx_status = state_reg;
 		
 endmodule

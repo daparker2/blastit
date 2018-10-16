@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 #include <string.h>
+#include <limits.h>
 #include "sys/alt_stdio.h"
 #include "system.h"
 #include "altera_avalon_pio_regs.h"
@@ -20,27 +21,21 @@
 // This stores the last UART error, or OK
 UartError uart_error = UartReady;
 dword_t uart_status = 0;
+dword_t uart_rx_timeout = URX_TIMEOUT_DEFAULT;
 
 /*
  * UART settings
  */
 
 char uart_eol = DEFAULT_UART_EOL;
-dword_t uart_timeout_clocks = DEFAULT_UART_TIMEOUT_CLOCKS;
 
 /*
  * UART buffers
  */
 
-char uart_tx_buf[UART_TX_BUFSZ], uart_rx_buf[UART_RX_BUFSZ];
-dword_t uart_tx_bufsz, uart_rx_bufsz;
-static char *uart_next_tx, *uart_cur_rx;
-
-/*
- * UART coroutine support
- */
-
-static dword_t uart_tx_clocks, uart_rx_clocks;
+char uart_rx_buf[UART_RX_BUFSZ];
+dword_t uart_rx_bufsz;
+static bool eol = false;
 
 /*
  * UART functions
@@ -62,212 +57,180 @@ const char* uart_etos(UartError error)
 		return "UartErrorRemaining";
 	case UartErrorBufferOverflow:
 		return "UartErrorBufferOverflow";
+	case UartErrorInvalidArg:
+		return "UartErrorInvalidArg";
 	default:
 		return "UartUnknownError"; // Uh-oh. Shouldn't hit this.
 	}
 }
 
-void uart_bufclr(void)
+int uart_open(uart_dbit dbit, uart_sbit sbit, uart_parity pbit, dword_t baud)
 {
-	memset(uart_rx_buf, 0, UART_RX_BUFSZ);
-	memset(uart_tx_buf, 0, UART_TX_BUFSZ);
-	uart_rx_bufsz = uart_tx_bufsz = 0;
-	uart_next_tx = uart_cur_rx = 0;
-	uart_tx_clocks = uart_rx_clocks = uart_timeout_clocks;
-	uart1_reset();
+	int rc = 0;
+	byte_t os_tick = 16;
+	byte_t sb_tick;
+	word_t dvsr;
+
+	switch (sbit)
+	{
+	case UART_SBIT_HALF:
+		sb_tick = os_tick / 2;
+		break;
+	case UART_SBIT_ONE:
+		sb_tick = os_tick;
+		break;
+	case UART_SBIT_TWO:
+		sb_tick = 2 * os_tick;
+		break;
+	default:
+		rc = UartErrorInvalidArg;
+		goto exit;
+	}
+
+	dvsr = CLOCK_SPEED_HZ / (os_tick * baud);
+
+	if (0 == dbit)
+	{
+		rc = UartErrorInvalidArg;
+		goto exit;
+	}
+
+	alt_printf("uart1_init: dbit=%x pbit=%x sb_tick=%x os_tick=%x dvsr=%x\n", dbit, pbit, sb_tick, os_tick, dvsr);
+	uart1_init(dbit, pbit, sb_tick, os_tick, dvsr);
+	uart_rx_bufsz = 0;
+	eol = false;
+
+exit:
+
+	return rc;
 }
 
-int uart_putstr(const char* str)
+void uart_close(uart_flags flags)
 {
+	uart_flush(flags);
+	status_led_off(UTX_STATUS_LED);
+	status_led_off(URX_STATUS_LED);
+	uart_error = uart1_read_status();
+	uart1_shutdown();
+}
+
+void uart_flush(uart_flags flags)
+{
+	if (flags & UART_FLAG_SYNC)
+	{
+		while ((uart1_read_status() & UART1_STATUS_TX_EMPTY) == 0);
+	}
+
+	uart_error = uart1_read_status();
+}
+
+int uart_sendline(const char* str, uart_flags flags)
+{
+	int i;
+	int len = strlen(str);
+
+	status_led_off(URX_STATUS_LED);
 	status_led_on(UTX_STATUS_LED);
-	uart_error = UartReady;
 
-	if (uart_tx_bufsz > 0)
+	if (flags & UART_FLAG_SYNC)
 	{
-		uart_error = UartErrorTxBusy;
-		return uart_error;
-	}
-
-	uart_tx_bufsz = strlen(str);
-	if (uart_tx_bufsz >= UART_TX_BUFSZ)
-	{
-		uart_tx_bufsz = 0;
-		uart_error = UartErrorBufferOverflow;
-		return uart_error;
-	}
-
-	memset(uart_tx_buf, 0, UART_TX_BUFSZ);
-	strcpy(uart_tx_buf, str);
-	uart_tx_clocks = uart_timeout_clocks;
-	uart_next_tx = &uart_tx_buf[0];
-
-	return uart_error;
-}
-
-int uart_start_getline()
-{
-	memset(uart_rx_buf, 0, UART_RX_BUFSZ);
-	uart_tx_clocks = uart_timeout_clocks;
-	uart_cur_rx = &uart_rx_buf[0];
-	uart_error = UartReady;
-	return uart_error;
-}
-
-int uart_end_getline(char** str)
-{
-	uart_error = UartReady;
-
-	if (*uart_cur_rx == uart_eol)
-	{
-		*str = uart_rx_buf;
-	}
-	else if (uart_timeout_clocks == 0)
-	{
-		uart_error = UartErrorTimeout;
-		return uart_error;
-	}
-	else
-	{
-		uart_error = UartErrorRxBusy;
-		return uart_error;
-	}
-
-	return uart_error;
-}
-
-// This just wraps start/get endline in a blocking mode
-int uart_getline(char** str)
-{
-	int error;
-
-	*str = 0;
-	error = uart_start_getline();
-
-	if (UartReady == error)
-	{
-		do
+		// Determine if the transmitter has stopped sending before sending another one
+		while ((uart1_read_status() & UART1_STATUS_TX_EMPTY) == 0)
 		{
-			uart_update();
-			error = uart_end_getline(str);
+			nop();
 		}
-		while (error == UartErrorRxBusy);
 	}
 
-	return error;
+	for (i = 0; i < len; ++i)
+	{
+		uart1_tx(str[i]);
+	}
+
+	// Set the synchronous RX timeout
+	tc_set_max(TC_URX_COUNTER, 1000000U / CLOCK_PERIOD_NS);
+	uart_error = uart1_read_status();
+	return len;
 }
 
-int uart_update()
+int uart_readline(char* str, dword_t bufsz, uart_flags flags)
 {
-	// Read UART status
-	dword_t status = uart1_read_status();
-	UartError txError = UartReady, rxError = UartReady;
+	int rc = 0;
 
-	if (status != uart_status)
+	status_led_off(UTX_STATUS_LED);
+	status_led_on(URX_STATUS_LED);
+
+	if (flags & UART_FLAG_SYNC)
 	{
-#ifdef UART_DEBUG
-		//uart1_print_status(status);
-#endif // UART_DEBUG
-		uart_status = status;
+		// Set the synchronous timeout.
+		tc_set_max(TC_URX_COUNTER, 1000000U / CLOCK_PERIOD_NS);
 	}
 
-	// TX update
-	if (uart_tx_bufsz > 0)
+	for (;;)
 	{
-		if (uart_tx_clocks > 0)
+		if (eol)
 		{
-			--uart_tx_clocks;
+			if (uart_rx_bufsz > 0)
+			{
+				int size = uart_rx_bufsz;
+				if (size > bufsz - 1)
+				{
+					size = bufsz - 1;
+				}
+
+				// We found EOL in the last loop, so copy our buffer out and reset it.
+				memset(str, 0, bufsz);
+				strncpy(str, uart_rx_buf, size);
+			}
+
+			// Reset the UART status
+			eol = false;
+			rc = uart_rx_bufsz;
+			uart_rx_bufsz = 0;
+			memset(uart_rx_buf, 0, UART_RX_BUFSZ);
+			break;
+		}
+		else if (!(uart1_read_status() & UART1_STATUS_RX_EMPTY))
+		{
+			if (UART_RX_BUFSZ == uart_rx_bufsz)
+			{
+				// Overflow condition
+				eol = true;
+				continue;
+			}
+
+			// Read a character
+			uart_rx_buf[uart_rx_bufsz] = uart1_rx();
+			if (uart_rx_buf[uart_rx_bufsz] == uart_eol)
+			{
+				eol = true;
+			}
+
+			++uart_rx_bufsz;
+			if (eol)
+			{
+				// Were done
+				continue;
+			}
+
+			rc = UartErrorRxBusy;
+		}
+		else if (tc_get_ticks(TC_URX_COUNTER) > uart_rx_timeout)
+		{
+			// Timeout condition.
+			rc = UartErrorTimeout;
+			break;
+		}
+		else if (!(flags & UART_FLAG_SYNC))
+		{
+			// Coroutine returns to caller.
+			break;
 		}
 		else
 		{
-			txError = UartErrorTimeout;
-		}
-
-		if (txError == UartReady)
-		{
-			if (uart_status & UART1_STATUS_TX_READY)
-			{
-#ifdef UART_DEBUG
-				char buf[2] = { *uart_next_tx, 0 };
-				alt_putstr(buf);
-#endif // UART_DEBUG
-
-				uart1_tx(*uart_next_tx++);
-				wait_tick(100); // This is a hack. Something is wrong with the transmitter. :(
-				--uart_tx_bufsz;
-			}
-			else
-			{
-				txError = UartErrorTxBusy;
-			}
+			nop();
 		}
 	}
 
-	// RX update
-	if (uart_rx_bufsz < UART_RX_BUFSZ - 1)
-	{
-		if (uart_rx_clocks > 0)
-		{
-			--uart_rx_clocks;
-		}
-		else
-		{
-			rxError = UartErrorTimeout;
-		}
-
-		if (rxError == UartReady)
-		{
-			if (uart_status & UART1_STATUS_RX_READY)
-			{
-				++uart_rx_bufsz;
-				++uart_cur_rx;
-				*uart_cur_rx = uart1_rx();
-				wait_tick(100); // This is a hack. Something is wrong with the transmitter. :(
-
-#ifdef UART_DEBUG
-				char buf[2] = { *uart_cur_rx, 0 };
-				alt_putstr(buf);
-#endif // UART_DEBUG
-			}
-
-			if (*uart_cur_rx != uart_eol)
-			{
-				rxError = UartErrorRxBusy;
-			}
-		}
-	}
-	else
-	{
-		rxError = UartErrorBufferOverflow;
-	}
-
-	if (0 == uart_rx_bufsz)
-	{
-		status_led_off(URX_STATUS_LED);
-	}
-	else
-	{
-		status_led_on(URX_STATUS_LED);
-	}
-
-	if (0 == uart_tx_bufsz)
-	{
-		status_led_off(UTX_STATUS_LED);
-	}
-
-	uart_error = (txError > rxError) ? txError : rxError;
-	return uart_error;
-}
-
-int uart_flush()
-{
-	int error = UartReady;
-
-	// Loop until RX and TX buffers are empty or we timeout.
-	// If we can't empty them in time, set a timeout status.
-	while ((uart_tx_bufsz > 0 || uart_tx_bufsz > 0) && (uart_tx_clocks > 0 || uart_rx_clocks > 0))
-	{
-		error = uart_update();
-	}
-
-	return error;
+	uart_error = uart1_read_status();
+	return rc;
 }

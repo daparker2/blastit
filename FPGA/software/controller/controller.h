@@ -10,7 +10,7 @@
  * Test panel support
  */
 
-// #define TEST
+#define TEST
 
 #ifdef TEST
 void test(void);
@@ -29,8 +29,9 @@ void test(void);
  * Timer counter support
  */
 
-#define TC_TICK_COUNTER Tc1    // The tick counter ticks once per tick (~1ms)
+#define TC_TICK_COUNTER  Tc1   // The tick counter ticks once per tick (~1ms)
 #define TC_FRAME_COUNTER Tc2   // The frame counter ticks once every frame interval (~8ms)
+#define TC_URX_COUNTER   Tc3   // Ticks over according to the UARTRX timeout interval (~30s)
 
 void wait_tick(dword_t ticks); // Wait for ticks
 bool is_frame(void);           // Determine if we have entered a frame interval

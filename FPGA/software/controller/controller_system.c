@@ -60,6 +60,7 @@ static const dword_t LedsResetMap[] =
 
 static dword_t uart1_reset_counts = 0;
 static dword_t status_led_mask = 0;
+static bool status_led_en = false;
 
 void bcd_convert(dword_t bin, byte_t bcd[BCD_MAX])
 {
@@ -166,16 +167,35 @@ void sseg_set_bcd(dword_t addr, dword_t flags, dword_t val)
 	nop();
 }
 
+void status_led_enable(bool en)
+{
+	status_led_en = en;
+	if (status_led_en)
+	{
+		REGW(STATUS_LED_EN_BASE, status_led_mask);
+	}
+	else
+	{
+		REGW(STATUS_LED_EN_BASE, 0);
+	}
+}
+
 void status_led_on(dword_t mask)
 {
 	status_led_mask |= mask;
-	REGW(STATUS_LED_EN_BASE, status_led_mask);
+	if (status_led_en)
+	{
+		REGW(STATUS_LED_EN_BASE, status_led_mask);
+	}
 }
 
 void status_led_off(dword_t mask)
 {
 	status_led_mask &= ~mask;
-	REGW(STATUS_LED_EN_BASE, status_led_mask);
+	if (status_led_en)
+	{
+		REGW(STATUS_LED_EN_BASE, status_led_mask);
+	}
 }
 
 void tc_set_max(TcArray tc, dword_t m)
@@ -261,21 +281,22 @@ void uart1_shutdown(void)
 
 int uart1_rx(void)
 {
-	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_READY) == 0)
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_RX_EMPTY) != 0)
 	{
 		nop();
 	}
 
+	int r_data = REGR(UART1_R_DATA_BASE);
 	REGW(UART1_WR_CONTROL_BASE, UART1_WR_CONTROL_RD);
 	nop();
 	REGW(UART1_WR_CONTROL_BASE, 0);
 	nop();
-	return REGR(UART1_R_DATA_BASE);
+	return r_data;
 }
 
 void uart1_tx(char data)
 {
-	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_READY) == 0)
+	while ((REGR(UART1_STATUS_CONTROL_BASE) & UART1_STATUS_TX_FULL) != 0)
 	{
 		nop();
 	}
@@ -330,14 +351,14 @@ void uart1_print_status(dword_t status)
 		alt_putstr("TX_FULL ");
 	}
 
-	if (status & UART1_STATUS_RX_READY)
+	if (status & UART1_STATUS_RX_FULL)
 	{
-		alt_putstr("RX_READY ");
+		alt_putstr("RX_FULL ");
 	}
 
-	if (status & UART1_STATUS_TX_READY)
+	if (status & UART1_STATUS_TX_EMPTY)
 	{
-		alt_putstr("TX_READY ");
+		alt_putstr("TX_EMPTY ");
 	}
 
 	alt_putstr(")\n");
