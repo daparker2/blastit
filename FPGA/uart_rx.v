@@ -11,8 +11,7 @@ module uart_rx
 	input wire rx, s_tick,
 	output reg rx_done_tick,
 	output wire [DBIT-1:0] dout,
-	output wire e_parity, e_frame,
-	output wire [2:0] rx_status
+	output wire e_parity, e_frame
 );
 
 localparam [2:0]
@@ -139,6 +138,5 @@ always @*
 					  0;
 	assign e_parity = e_parity_reg;
 	assign e_frame = e_frame_reg;
-	assign rx_status = state_reg;
 
 endmodule

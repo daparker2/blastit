@@ -95,6 +95,7 @@ void obd2_init()
 		"\ratz\r",
 		"atsp0\r",
 		"ate0\r",
+		"atat2\r",
 		"atsh 7e0\r"
 	};
 
@@ -284,9 +285,6 @@ bool obd2_at_command(const char* command)
 
 	if (UartReady == uart_readline(str, OBD2_AT_MAX_N, UART_FLAG_SYNC))
 	{
-		OBD2_PUTSTR(str);
-		OBD2_PUTSTR("\n");
-
 		if (obd2_parse_at_response(str))
 		{
 			return true;
@@ -315,6 +313,8 @@ bool obd2_parse_pid_response(const char* str)
 	int iPid = -1, iPidEnd = 0;
 	int pidSize = 0;
 	bool digit_skipped = false;
+
+	alt_putstr(str);
 
 	//A PID response to a coded request for data
 	memset(pids, 0, sizeof(pids));

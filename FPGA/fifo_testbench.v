@@ -10,8 +10,9 @@ module fifo_testbench;
 	reg [WORD_LEN-1:0] w_data;
 	wire empty, full;
 	wire [WORD_LEN-1:0] r_data;
+	wire of, uf;
 	
-	fifo #(.B(WORD_LEN), .W(ADDR_W)) uut (.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .empty(empty), .full(full), .r_data(r_data));
+	fifo #(.B(WORD_LEN), .W(ADDR_W)) uut (.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .empty(empty), .full(full), .r_data(r_data), .of(of), .uf(uf));
 	
 	task fifo_write;
 		input reg [WORD_LEN-1:0] w;
@@ -21,7 +22,7 @@ module fifo_testbench;
 			#(T);
 			wr = 1'b0;
 			#(T);
-			$display("    wrote %x (empty=%d full=%d)", w_data, empty, full);
+			$display("    wrote %x (empty=%d full=%d of=%d uf=%d)", w_data, empty, full, of, uf);
 		end
 	endtask
 	
@@ -33,7 +34,7 @@ module fifo_testbench;
 			#(T);
 			rd = 1'b0;
 			#(T);
-			$display("    read %x (empty=%d full=%d)", r, empty, full);
+			$display("    read %x (empty=%d full=%d of=%d uf=%d)", r, empty, full, of, uf);
 		end
 	endtask
 	
@@ -49,7 +50,7 @@ module fifo_testbench;
 			wr = 1'b0;
 			rd = 1'b0;
 			#(T);
-			$display("    wrote %x, read %x (empty=%d full=%d)", w_data, r, empty, full);
+			$display("    wrote %x, read %x (empty=%d full=%d of=%d uf=%d)", w_data, r, empty, full, of, uf);
 		end
 	endtask
 		
@@ -59,7 +60,7 @@ module fifo_testbench;
 		input integer delay;
 		input integer wr;
 		begin
-			$display("=== fifo test wr_max=%d rd_max=%d delay=%d wr=%d", wr_max, rd_max, delay, wr);
+			$display("=== fifo test wr_max=%d rd_max=%d delay=%d wr=%d of=%d uf=%d", wr_max, rd_max, delay, wr, of, uf);
 		
 			if (0 != wr)
 				begin

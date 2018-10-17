@@ -14,13 +14,37 @@
 #include "obd2.h"
 #include "display.h"
 #include <stdbool.h>
-#include <string.h>
+#include <stdio.h>
 
 #ifdef TEST
 
-#define TEST_UART_ECHO_LINE
-//#define TEST_UART_ECHO
+//#define TEST_OBD2_INIT_LOOP
+//#define TEST_UART_ECHO_LINE
+#define TEST_UART_ECHO
 //#define TEST_DISPLAY
+
+#ifdef TEST_OBD2_INIT_LOOP
+
+void test()
+{
+	for (;;)
+	{
+		char dbg[(1 << 8)] = {};
+
+		obd2_init();
+		do
+		{
+			obd2_update();
+		}
+		while (obd2_state != Obd2StateCILBr);
+
+		sprintf(dbg, "OBD2 final state: boost=%f afr=%f oil=%f coolant=%f intake=%f load=%f\n", display_params.Boost, display_params.Afr, display_params.OilTemp, display_params.CoolantTemp, display_params.IntakeTemp, display_params.Load);
+		alt_putstr(dbg);
+		obd2_shutdown();
+	}
+}
+
+#endif // TEST_OBD2_INIT_LOOP
 
 #ifdef TEST_UART_ECHO_LINE
 

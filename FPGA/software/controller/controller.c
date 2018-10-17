@@ -91,7 +91,7 @@ void init() {
 
 #ifndef TEST
 	// Init business logic coroutines.
-	//obd2_init();
+	obd2_init();
 #endif // TEST
 }
 
@@ -100,7 +100,7 @@ void shutdown() {
 
 #ifndef TEST
 	// Shutdown business logic coroutines.
-	//obd2_shutdown();
+	obd2_shutdown();
 #endif // TEST
 	// Shutdown everything and go into a low power state for a few thousand MS.
 	bcd_shutdown();
