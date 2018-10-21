@@ -1,5 +1,5 @@
 # blastit
-OBD2 UART-based display controller done in Verilog based on a Cyclone3 core board and custom display.
+OBD2 UART-based display controller done in Verilog and C based on a Cyclone3 core board and custom display.
 
 Basically this addresses issues I had in my last OBD2 gauge panel thing like the display being too bright and reset times being too slow. Image of my final rev C board below as I test the display:
 
