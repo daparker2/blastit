@@ -1,15 +1,11 @@
 # blastit
-OBD2 UART-based display controller done in Verilog for an FPGA driven display circuit. 
+OBD2 UART-based display controller done in Verilog based on a Cyclone3 core board and custom display.
 
-RevA is [here](/doc/RevA.PDF). Addresses problems I had in the first proof of concept project [here](https://github.com/daparker2/Tinast_Public):
+Basically this addresses issues I had in my last OBD2 gauge panel thing like the display being too bright and reset times being too slow. Image of my final rev C board below as I test the display:
 
-1. Windows IoT core is very slow to come out of reset and hard to service since it requires an internet connection to use the console.
-2. The Bluetooth based OBD2 scantool requires a lot of setup.
-3. The display is dim is daylight conditions and this is difficult to address with off the shelf HDMI displays.
+![The thing](/thing.jpg)
 
-Replaces the IoT based proof of concept with a controller state machine implemented in Verilog using roughly this as the idea architectural stack:
+There is a UART and power input on the back which goes to a [Freematics OBD2](https://freematics.com/pages/products/freematics-obd-ii-uart-adapter-mk2/) ELM327 interface, and I have brought up the UART and display code already. FPGA is a [Waveshare Core3](https://www.waveshare.com/product/fpga-tools/altera/core/coreep3c16.htm). The code is mine and display is a pretty simple [2-layer PCB](https://github.com/daparker2/blastit/blob/master/doc/RevC.PDF) with a couple LED matrix bars and a central 20 digit readout. Now I am just writing the display task engine and OBD2 state machine and then it will just need a final mechanical enclosure which I am 3D printing; I am not totally happy with the one I have already printed.
 
-![block diagram](/doc/stack.png)
-
-The new device should be lighter and roughly the same dimensions, while solving the problems above. Still waiting on the final PCB to come in. [Rendition of 3D printable model of the thing.](https://github.com/daparker2/blastit/blob/master/doc/Enclosure/Demo.stl)
+Maybe one more update if I ever get it in my car, I have an STL file which I have 3D printed before but I will need to modify the model to make the fitment closer to the PCB and to work with an existing gauge fixture I have, cause removing double sided tape last time I reinstalled a gauge really tore up my dashboard. Haha.
 
