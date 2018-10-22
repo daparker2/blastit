@@ -22,7 +22,8 @@ static void coroutine_entry();
 #endif // TEST
 static void shutdown();
 
-int main() {
+int main()
+{
 	init();
 
 	alt_putstr("Entering event loop\n");
@@ -37,35 +38,45 @@ int main() {
 	return 0;
 }
 
-void wait_tick(dword_t ticks) {
-	if (ticks > 0) {
+void wait_tick(dword_t ticks)
+{
+	if (ticks > 0)
+	{
 		dword_t start = tc_get_ticks(TC_TICK_COUNTER);
 		dword_t end = start + ticks;
-		if (end < start) {
+		if (end < start)
+		{
 			// Overflow wrap
-			while (tc_get_ticks(TC_TICK_COUNTER) < TC_MAX) {
+			while (tc_get_ticks(TC_TICK_COUNTER) < TC_MAX)
+			{
 				nop();
 			}
 		}
 
-		while (tc_get_ticks(TC_TICK_COUNTER) < end) {
+		while (tc_get_ticks(TC_TICK_COUNTER) < end)
+		{
 			nop();
 		}
 	}
 }
 
-bool is_frame() {
+bool is_frame()
+{
 	// Meant to be called once per event loop iteration, otherwise you will see weird behavior.
 	dword_t frame = tc_get_ticks(TC_FRAME_COUNTER);
-	if (frame > 0) {
+	if (frame > 0)
+	{
 		tc_reset(TC_FRAME_COUNTER);
 		return true;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
 
-void init() {
+void init()
+{
 	int rc;
 
 	led_set_period(8000);
@@ -83,11 +94,10 @@ void init() {
 
 	// The OBD2 UART is 3.3v, 115200, 8 data, 1 stop, no parity check
 	rc = uart_open(UART_DBIT_8, UART_SBIT_ONE, UART_PARITY_NONE, 115200);
-	if (0 > rc) {
+	if (0 > rc)
+	{
 		alt_printf("uart_config failed: %d (%s)\n", rc, uart_etos(rc));
 	}
-
-	status_led_on(POWER_STATUS_LED);
 
 #ifndef TEST
 	// Init business logic coroutines.
@@ -95,7 +105,8 @@ void init() {
 #endif // TEST
 }
 
-void shutdown() {
+void shutdown()
+{
 	static const dword_t ResetTicks = CLOCK_MILLIS_TO_TICKS(5000);
 
 #ifndef TEST
@@ -117,28 +128,31 @@ void shutdown() {
 
 #ifndef TEST
 
-void coroutine_entry() {
+void coroutine_entry()
+{
 	// Entry point for coroutine manager.
 
 	bool display_initialized = false;
 
-	for (;;) {
+	for (;;)
+	{
 		// OBD2 update.
-		if (!obd2_update()) {
+		if (!obd2_update())
+		{
 			alt_putstr("Terminating coroutines based on OBD2 state.\n");
 			break;
 		}
 
-		if (Obd2StateReset == obd2_state) {
-
-		} else {
-			if (!display_initialized) {
+		if (Obd2StateReset != obd2_state)
+		{
+			if (!display_initialized)
+			{
 				display_initialized = true;
-				status_led_on(OBD2_STATUS_LED);
 				display_init();
 			}
 
-			if (is_frame()) {
+			if (is_frame())
+			{
 				display_update();
 			}
 		}

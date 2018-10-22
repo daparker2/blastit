@@ -20,8 +20,8 @@ void test(void);
  * Debug LED support
  */
 
-#define POWER_STATUS_LED STATUS_LED_0
-#define OBD2_STATUS_LED  STATUS_LED_1
+#define IGN_STATUS_LED   STATUS_LED_0
+#define ERR_STATUS_LED   STATUS_LED_1
 #define URX_STATUS_LED   STATUS_LED_2
 #define UTX_STATUS_LED   STATUS_LED_3
 

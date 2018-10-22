@@ -42,7 +42,7 @@ set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::qu
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_bcd1_bcd.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_bcd1_control.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_bcd1_bin.v"]
-set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_status_control.v"]
+set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_rx_counter.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_r_data.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_baud_control.v"]
 set_global_assignment -library "lib_controller" -name MISC_FILE [file join $::quartus(sip_path) "submodules/controller_uart1_wr_control.v"]

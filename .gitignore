@@ -59,6 +59,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.force_relink
 
 # External tool builders
 .externalToolBuilders/

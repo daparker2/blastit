@@ -17,7 +17,7 @@ module uart
 	output wire tx_full, rx_empty, tx,
 	output wire [DBIT-1:0] r_data,
 	output wire tx_done_tick, rx_done_tick,
-	output wire e_parity, e_frame, e_rxof, e_txof,
+	output wire e_parity, e_frame, e_rxof, e_txof, e_rxuf, e_txuf,
 	output wire rx_full, tx_empty
 );
 
@@ -30,10 +30,10 @@ wire rd_uart_tick, wr_uart_tick;
 // body
 mod_m_counter #(.M_BITS(DVSR_BIT)) baud_gen_unit(.clk(clk), .reset(reset), .m(dvsr), .q(), .max_tick(tick)); 
 edge_trigger uart_rx_trigger(.clk(clk), .reset(reset), .in(rd_uart), .en(1'b1), .tick(rd_uart_tick));
-fifo #(.B(DBIT), .W(FIFO_R)) fifo_rx_unit(.clk(clk), .reset(reset), .rd(rd_uart_tick), .wr(rx_done_tick), .w_data(rx_data_out), .empty(rx_empty), .full(rx_full), .r_data(fifo_r_data), .of(e_rxof));
+fifo #(.B(DBIT), .W(FIFO_R)) fifo_rx_unit(.clk(clk), .reset(reset), .rd(rd_uart_tick), .wr(rx_done_tick), .w_data(rx_data_out), .empty(rx_empty), .full(rx_full), .r_data(fifo_r_data), .of(e_rxof), .uf(e_rxuf));
 uart_rx #(.DBIT(DBIT)) uart_rx_unit(.clk(clk), .reset(reset), .dbit(dbit), .pbit(pbit), .sb_tick(sb_tick), .os_tick(os_tick), .rx(rx), .s_tick(tick), .rx_done_tick(rx_done_tick), .dout(rx_data_out), .e_parity(e_parity), .e_frame(e_frame));
 edge_trigger uart_tx_trigger(.clk(clk), .reset(reset), .in(wr_uart), .en(1'b1), .tick(wr_uart_tick));
-fifo #(.B(DBIT), .W(FIFO_W)) fifo_tx_unit(.clk(clk), .reset(reset), .rd(tx_done_tick), .wr(wr_uart_tick), .w_data(w_data), .empty(tx_empty), .full(tx_full), .r_data(tx_fifo_out), .of(e_txof));
+fifo #(.B(DBIT), .W(FIFO_W)) fifo_tx_unit(.clk(clk), .reset(reset), .rd(tx_done_tick), .wr(wr_uart_tick), .w_data(w_data), .empty(tx_empty), .full(tx_full), .r_data(tx_fifo_out), .of(e_txof), .uf(e_txuf));
 uart_tx #(.DBIT(DBIT)) uart_tx_unit(.clk(clk), .reset(reset), .dbit(dbit), .pbit(pbit), .sb_tick(sb_tick), .os_tick(os_tick), .tx_start(tx_fifo_not_empty), .s_tick(tick), .din(tx_fifo_out), .tx_done_tick(tx_done_tick), .tx(tx));
 
 assign tx_fifo_not_empty = ~tx_empty;

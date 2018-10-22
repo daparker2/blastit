@@ -64,9 +64,9 @@ always @*
 							state_next = op;
 							for (i = 0; i <= BCD_N-1; i = i + 1)
 								bcd_next[i] = 0;
-							n_next = (BCD_N * 3) + 1; // index
+							n_next = (BCD_N * 4'd3) + 1'b1; // index
 							if (sign)
-								p2s_next = ~bin + 1;
+								p2s_next = ~bin + 1'b1;
 							else
 								p2s_next = bin;   // shift register
 							state_next = op;

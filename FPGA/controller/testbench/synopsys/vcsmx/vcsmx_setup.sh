@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.10.06.18:07:26
+# ACDS 13.1 162 win32 2018.10.21.20:51:31
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -90,7 +90,7 @@ mkdir -p ./libraries/bcd1_status/
 mkdir -p ./libraries/bcd1_bcd/
 mkdir -p ./libraries/bcd1_control/
 mkdir -p ./libraries/bcd1_bin/
-mkdir -p ./libraries/uart1_status_control/
+mkdir -p ./libraries/uart1_rx_counter/
 mkdir -p ./libraries/uart1_r_data/
 mkdir -p ./libraries/uart1_baud_control/
 mkdir -p ./libraries/uart1_wr_control/
@@ -183,7 +183,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_bcd.v"                              -work bcd1_bcd                                                                   
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_control.v"                          -work bcd1_control                                                               
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_bcd1_bin.v"                              -work bcd1_bin                                                                   
-  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_status_control.v"                  -work uart1_status_control                                                       
+  vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_rx_counter.v"                      -work uart1_rx_counter                                                           
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_r_data.v"                          -work uart1_r_data                                                               
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_baud_control.v"                    -work uart1_baud_control                                                         
   vlogan +v2k           "$QSYS_SIMDIR/controller_tb/simulation/submodules/controller_uart1_wr_control.v"                      -work uart1_wr_control                                                           

@@ -15,6 +15,17 @@
 #include "uart.h"
 
 /*
+ * UART types
+ */
+
+typedef enum uart_wr_status_t
+{
+	UART_WR_STATUS_NONE,
+	UART_WR_STATUS_READ,
+	UART_WR_STATUS_WRITE
+} uart_wr_status;
+
+/*
  * UART status
  */
 
@@ -22,6 +33,7 @@
 UartError uart_error = UartReady;
 dword_t uart_status = 0;
 dword_t uart_rx_timeout = URX_TIMEOUT_DEFAULT;
+static uart_wr_status wr_status = UART_WR_STATUS_NONE;
 
 /*
  * UART settings
@@ -37,30 +49,46 @@ char uart_rx_buf[UART_RX_BUFSZ];
 dword_t uart_rx_bufsz;
 static bool eol = false;
 
+
+/*
+ * Static functions
+ */
+
+static void uart_status_read();
+static void uart_status_write();
+static void uart_status_none();
+
 /*
  * UART functions
  */
 
 const char* uart_etos(UartError error)
 {
-	switch (error)
+	if (0 >= error)
 	{
-	case UartReady:
+		switch (error)
+		{
+		case UartReady:
+			return "UartReady";
+		case UartErrorTxBusy:
+			return "UartErrorTxBusy";
+		case UartErrorRxBusy:
+			return "UartErrorRxBusy";
+		case UartErrorTimeout:
+			return "UartErrorTimeout";
+		case UartErrorRemaining:
+			return "UartErrorRemaining";
+		case UartErrorBufferOverflow:
+			return "UartErrorBufferOverflow";
+		case UartErrorInvalidArg:
+			return "UartErrorInvalidArg";
+		default:
+			return "UartUnknownError"; // Uh-oh. Shouldn't hit this.
+		}
+	}
+	else
+	{
 		return "UartReady";
-	case UartErrorTxBusy:
-		return "UartErrorTxBusy";
-	case UartErrorRxBusy:
-		return "UartErrorRxBusy";
-	case UartErrorTimeout:
-		return "UartErrorTimeout";
-	case UartErrorRemaining:
-		return "UartErrorRemaining";
-	case UartErrorBufferOverflow:
-		return "UartErrorBufferOverflow";
-	case UartErrorInvalidArg:
-		return "UartErrorInvalidArg";
-	default:
-		return "UartUnknownError"; // Uh-oh. Shouldn't hit this.
 	}
 }
 
@@ -108,8 +136,7 @@ exit:
 void uart_close(uart_flags flags)
 {
 	uart_flush(flags);
-	status_led_off(UTX_STATUS_LED);
-	status_led_off(URX_STATUS_LED);
+	uart_status_none();
 	uart_error = uart1_read_status();
 	uart1_shutdown();
 }
@@ -129,8 +156,7 @@ int uart_sendline(const char* str, uart_flags flags)
 	int i;
 	int len = strlen(str);
 
-	status_led_off(URX_STATUS_LED);
-	status_led_on(UTX_STATUS_LED);
+	uart_status_write();
 
 	if (flags & UART_FLAG_SYNC)
 	{
@@ -156,8 +182,7 @@ int uart_readline(char* str, dword_t bufsz, uart_flags flags)
 {
 	int rc = 0;
 
-	status_led_off(UTX_STATUS_LED);
-	status_led_on(URX_STATUS_LED);
+	uart_status_read();
 
 	if (flags & UART_FLAG_SYNC)
 	{
@@ -217,6 +242,7 @@ int uart_readline(char* str, dword_t bufsz, uart_flags flags)
 		else if (tc_get_ticks(TC_URX_COUNTER) > uart_rx_timeout)
 		{
 			// Timeout condition.
+			uart_status_none();
 			rc = UartErrorTimeout;
 			break;
 		}
@@ -233,4 +259,34 @@ int uart_readline(char* str, dword_t bufsz, uart_flags flags)
 
 	uart_error = uart1_read_status();
 	return rc;
+}
+
+void uart_status_none()
+{
+	if (UART_WR_STATUS_NONE != wr_status)
+	{
+		wr_status = UART_WR_STATUS_NONE;
+		status_led_off(UTX_STATUS_LED);
+		status_led_off(URX_STATUS_LED);
+	}
+}
+
+static void uart_status_read()
+{
+	if (UART_WR_STATUS_READ != wr_status)
+	{
+		wr_status = UART_WR_STATUS_READ;
+		status_led_off(UTX_STATUS_LED);
+		status_led_on(URX_STATUS_LED);
+	}
+}
+
+static void uart_status_write()
+{
+	if (UART_WR_STATUS_WRITE != wr_status)
+	{
+		wr_status = UART_WR_STATUS_WRITE;
+		status_led_off(URX_STATUS_LED);
+		status_led_on(UTX_STATUS_LED);
+	}
 }

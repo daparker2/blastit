@@ -27,7 +27,7 @@ module tick_counter
 			
 	always @*
 		begin
-			counter_next = counter_reg + (tick == 1 ? 1 : 0);
+			counter_next = counter_reg + (tick == 1'b1 ? 1'b1 : 0);
 			of_next = of_reg;
 			if (counter_next < counter_reg)
 				of_next = 1;

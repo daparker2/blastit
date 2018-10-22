@@ -20,7 +20,7 @@ module pwm
 			counter_reg <= counter_next;
 			
 	always @*
-		counter_next = counter_reg + 1;
+		counter_next = counter_reg + 1'b1;
 		
 	assign out = (counter_reg > w || w == 0) ? 0 : in;
 

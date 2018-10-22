@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.10.06.18:05:46
+# ACDS 13.1 162 win32 2018.10.21.20:48:53
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -89,7 +89,7 @@ mkdir -p ./libraries/bcd1_status/
 mkdir -p ./libraries/bcd1_bcd/
 mkdir -p ./libraries/bcd1_control/
 mkdir -p ./libraries/bcd1_bin/
-mkdir -p ./libraries/uart1_status_control/
+mkdir -p ./libraries/uart1_rx_counter/
 mkdir -p ./libraries/uart1_r_data/
 mkdir -p ./libraries/uart1_baud_control/
 mkdir -p ./libraries/uart1_wr_control/
@@ -178,7 +178,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bcd.v"                              -work bcd1_bcd                                                                    -cdslib ./cds_libs/bcd1_bcd.cds.lib                                                                   
   ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_control.v"                          -work bcd1_control                                                                -cdslib ./cds_libs/bcd1_control.cds.lib                                                               
   ncvlog     "$QSYS_SIMDIR/submodules/controller_bcd1_bin.v"                              -work bcd1_bin                                                                    -cdslib ./cds_libs/bcd1_bin.cds.lib                                                                   
-  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_status_control.v"                  -work uart1_status_control                                                        -cdslib ./cds_libs/uart1_status_control.cds.lib                                                       
+  ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_rx_counter.v"                      -work uart1_rx_counter                                                            -cdslib ./cds_libs/uart1_rx_counter.cds.lib                                                           
   ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_r_data.v"                          -work uart1_r_data                                                                -cdslib ./cds_libs/uart1_r_data.cds.lib                                                               
   ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_baud_control.v"                    -work uart1_baud_control                                                          -cdslib ./cds_libs/uart1_baud_control.cds.lib                                                         
   ncvlog     "$QSYS_SIMDIR/submodules/controller_uart1_wr_control.v"                      -work uart1_wr_control                                                            -cdslib ./cds_libs/uart1_wr_control.cds.lib                                                           

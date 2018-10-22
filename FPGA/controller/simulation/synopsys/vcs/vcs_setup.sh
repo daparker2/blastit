@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 13.1 162 win32 2018.10.06.18:05:46
+# ACDS 13.1 162 win32 2018.10.21.20:48:53
 
 # ----------------------------------------
 # vcs - auto-generated simulation script
@@ -108,7 +108,7 @@ vcs -lca -timescale=1ps/1ps -sverilog +verilog2001ext+.v -ntb_opts dtm $ELAB_OPT
   $QSYS_SIMDIR/submodules/controller_bcd1_bcd.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_control.v \
   $QSYS_SIMDIR/submodules/controller_bcd1_bin.v \
-  $QSYS_SIMDIR/submodules/controller_uart1_status_control.v \
+  $QSYS_SIMDIR/submodules/controller_uart1_rx_counter.v \
   $QSYS_SIMDIR/submodules/controller_uart1_r_data.v \
   $QSYS_SIMDIR/submodules/controller_uart1_baud_control.v \
   $QSYS_SIMDIR/submodules/controller_uart1_wr_control.v \

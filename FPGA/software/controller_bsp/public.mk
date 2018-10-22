@@ -152,9 +152,9 @@ SOPC_SYSID_FLAG += --sidp=0x11308
 ELF_PATCH_FLAG  += --sidp 0x11308
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1538874450
-SOPC_SYSID_FLAG += --timestamp=1538874450
-ELF_PATCH_FLAG  += --timestamp 1538874450
+# setting SOPC_TIMESTAMP is 1540180295
+SOPC_SYSID_FLAG += --timestamp=1540180295
+ELF_PATCH_FLAG  += --timestamp 1540180295
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 
@@ -229,7 +229,8 @@ ALT_CPPFLAGS += -DALT_USE_SMALL_DRIVERS
 # exception if a stack collision occurs with the heap or statically allocated 
 # data. If true, adds -DALT_STACK_CHECK and -fstack-check to ALT_CPPFLAGS in 
 # public.mk. none 
-# setting hal.enable_runtime_stack_checking is 0
+# setting hal.enable_runtime_stack_checking is 1
+ALT_CPPFLAGS += -DALT_STACK_CHECK -fstack-check
 
 # The BSP is compiled with optimizations to speedup HDL simulation such as 
 # initializing the cache, clearing the .bss section, and skipping long delay 

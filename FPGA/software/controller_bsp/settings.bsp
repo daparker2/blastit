@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Oct 14, 2018 6:28:45 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1539566925738</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Oct 21, 2018 8:58:40 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1540180720843</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\github\blastit\FPGA\software\controller_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\github\blastit\FPGA\controller.sopcinfo</SopcDesignFile>
@@ -722,7 +722,7 @@
                 <SettingName>hal.enable_runtime_stack_checking</SettingName>
                 <Identifier>ALT_STACK_CHECK</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Turns on HAL runtime stack checking feature. Enabling this setting causes additional code to be placed into each subroutine call to generate an exception if a stack collision occurs with the heap or statically allocated data. If true, adds -DALT_STACK_CHECK and -fstack-check to ALT_CPPFLAGS in public.mk.</Description>
@@ -830,7 +830,7 @@
                 <SettingName>hal.log_flags</SettingName>
                 <Identifier>ALT_LOG_FLAGS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>0</Value>
+                <Value>3</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>The value is assigned to ALT_LOG_FLAGS in the generated public.mk. See hal.log_port setting description. Values can be -1 through 3.</Description>

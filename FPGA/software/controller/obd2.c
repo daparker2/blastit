@@ -17,6 +17,16 @@
 #include "uart.h"
 
 /*
+ * Macros
+ */
+
+#define PID_T_MAX_N      29
+#define OBD2_AT_MAX_N    (1 << 6)
+#define OBD2_PID_MAX_N   (1 << 8)
+#define PID_STORAGE_SIZE 5
+#define BA_MODULO_N      10
+
+/*
  * Debug
  */
 
@@ -28,12 +38,11 @@
 #define OBD2_PUTSTR(X) { \
 	alt_putstr(OBD2_TOKEN); \
 	alt_putstr(X); \
+	alt_putstr("\n"); \
 }
-#define OBD2_NOTE_STATE(X) {                                                 \
-	OBD2_PRINTF("OBD2 noted state: %s\n", X);                                \
-	OBD2_PRINTF("OBD2 state: %s (%x)\n", obd2_etos(obd2_state), obd2_state); \
-	OBD2_PRINTF("UART state: %s (%x)\n", uart_etos(uart_error), uart_error); \
-}
+#define OBD2_NOTE_STATE(X) { \
+		OBD2_PRINTF("OBD2 noted state: %s\nOBD2 state: %s (%x)UART state: %s (%x)\n", X, obd2_etos(obd2_state), obd2_state, uart_etos(uart_error), uart_error); \
+	}
 #else
 #define OBD2_TOKEN
 #define OBD2_PRINTF(X, ...)
@@ -41,21 +50,14 @@
 #define OBD2_NOTE_STATE(X)
 #endif // OBD2_DEBUG
 
-
 /*
  * Data types
  */
 
-#define PID_T_MAX_N 29
-#define OBD2_AT_MAX_N (1 << 6)
-#define OBD2_PID_MAX_N (1 << 8)
-
-typedef struct Pid_t
-{
-	word_t Code;           // PID code
+typedef struct Pid_t {
+	word_t Code; // PID code
 	byte_t N[PID_T_MAX_N]; // PID parameters [0-25] -> [A-Z]
-}
-Pid;
+} Pid;
 
 /*
  * Supporting functions
@@ -76,13 +78,11 @@ static float ctof(float c);
  * Data storage
  */
 
-#define PID_STORAGE_SIZE 5
-#define BA_MODULO_N 10
-
-Obd2State obd2_state;              // State machine state
+Obd2State obd2_state; // State machine state
 static Pid pids[PID_STORAGE_SIZE]; // Pid storage, aggregate commands return up to 5 PID codes.
-static word_t ba_count;            // Count of successive BA states
-static float boost_ref;            // The boost reference in kPA
+static word_t ba_count; // Count of successive BA states
+static float boost_ref; // The boost reference in kPA
+static bool ign = false; // Ignition state
 
 /*
  * Functions definitions
@@ -92,70 +92,66 @@ void obd2_init()
 {
 	const char* AtCommands[] =
 	{
-		"\ratz\r",
+		"\rate0\r",
 		"atsp0\r",
-		"ate0\r",
-		"atat2\r",
 		"atsh 7e0\r"
 	};
 
 	int i;
 
-	OBD2_NOTE_STATE("Out of reset");
+	OBD2_PUTSTR("Out of reset");
+	wait_tick(2000); // Waiting for OBD2 interface to OOR
 	obd2_state = Obd2StateReset;
 	memset(pids, 0, sizeof(pids));
 	ba_count = 0;
 	boost_ref = 0;
 	uart_eol = '>';
 
-	for (i = 0; i < sizeof(AtCommands)/sizeof(AtCommands[0]); ++i)
+	for (i = 0; i < sizeof(AtCommands) / sizeof(AtCommands[0]); ++i)
 	{
 		if (!obd2_at_command(AtCommands[i]))
 		{
-			OBD2_PUTSTR("Failed init command\n");
-			OBD2_NOTE_STATE(AtCommands[i]);
+			OBD2_PUTSTR("Failed init command '");
+			OBD2_PUTSTR(AtCommands[i]);
+			OBD2_PUTSTR("'\n");
 		}
 	}
 
 	// Ready the coroutine.
+	ign = false;
 	obd2_state = Obd2StateCILBr;
+	obd2_state_entry();
 }
 
 void obd2_shutdown()
 {
-	int error;
+	/*
+	 * The reference design should have a separate 5V power relay
+	 * drawn off a fuse which only activates after ignition is on.
+	 * The OBD2 controller will detect the line is down and power
+	 * off automatically.
+	 */
 
-	// Perform OBD2 AT low power sequence.
-	error = uart_sendline("atlp\r",  UART_FLAG_SYNC);
-	if (error < 0)
-	{
-		OBD2_NOTE_STATE("uart_putstr failed");
-	}
+	status_led_off(IGN_STATUS_LED);
+	status_led_off(ERR_STATUS_LED);
 }
 
 bool obd2_update(void)
 {
-	if (obd2_state == Obd2StateReset)
+	char response[OBD2_PID_MAX_N];
+	int error = uart_readline(response, OBD2_PID_MAX_N, UART_FLAG_NONE);
+	if (0 <= error)
 	{
-		OBD2_NOTE_STATE("Coroutine update without successful init.");
-		return false;
+		// We got a complete response to...something. Depending on the current state
+		// parse the result and move to the next state.
+		status_led_off(ERR_STATUS_LED);
+		obd2_state_exit(response);
+		obd2_state_entry();
+		return Obd2StateReset != obd2_state;
 	}
-	else
+	else if (UartErrorRxBusy != error)
 	{
-		char response[OBD2_PID_MAX_N];
-		int error = uart_readline(response, OBD2_PID_MAX_N, UART_FLAG_NONE);
-		if (UartReady == error)
-		{
-			// We got a complete response to...something. Depending on the current state
-			// parse the result and move to the next state.
-			obd2_state_exit(response);
-			obd2_state_entry();
-			return true;
-		}
-		else if (UartErrorRxBusy != error)
-		{
-			OBD2_NOTE_STATE("uart_end_getline failed");
-		}
+		OBD2_NOTE_STATE("uart_end_getline failed");
 	}
 
 	return false;
@@ -182,11 +178,7 @@ void obd2_state_entry()
 {
 	int error = UartReady;
 
-	if (Obd2StateCILBr == obd2_state)
-	{
-		error = uart_sendline("01 05 0f 04 33\r", UART_FLAG_NONE);
-	}
-	else if (Obd2StateOil == obd2_state)
+	if (Obd2StateOil == obd2_state)
 	{
 		error = uart_sendline("21 01\r", UART_FLAG_NONE);
 	}
@@ -194,10 +186,15 @@ void obd2_state_entry()
 	{
 		error = uart_sendline("01 34 0b\r", UART_FLAG_NONE);
 	}
+	else if (Obd2StateCILBr == obd2_state)
+	{
+		error = uart_sendline("01 05 0f 04 33\r", UART_FLAG_NONE);
+	}
 	else
 	{
-		obd2_state = Obd2StateReset;
-		OBD2_NOTE_STATE("Unknown OBD2 state");
+		OBD2_PUTSTR("Unknown OBD2 state: ");
+		OBD2_PUTSTR(obd2_etos(error));
+		OBD2_PUTSTR("\n");
 	}
 
 	if (error < 0)
@@ -214,12 +211,18 @@ void obd2_state_exit(const char* response)
 		if (obd2_parse_pid_response(response))
 		{
 			// Check if we are in ignition off state. If yes, move to reset.
-			if (0 == display_params.Load)
+			if (0.1 >= display_params.Load)
 			{
+				OBD2_PUTSTR("Ignition off. Moving to reset.");
 				obd2_state = Obd2StateReset;
 			}
 			else
 			{
+				if (!ign)
+				{
+					status_led_on(IGN_STATUS_LED);
+				}
+
 				obd2_state = Obd2StateOil;
 			}
 		}
@@ -271,10 +274,10 @@ void obd2_state_exit(const char* response)
 
 bool obd2_at_command(const char* command)
 {
-	char str[OBD2_AT_MAX_N] = {};
+	char str[OBD2_AT_MAX_N] = { };
 	int error;
 
-	OBD2_NOTE_STATE(command);
+	OBD2_PUTSTR(command);
 
 	error = uart_sendline(command, UART_FLAG_SYNC);
 	if (error < 0)
@@ -283,7 +286,8 @@ bool obd2_at_command(const char* command)
 		return false;
 	}
 
-	if (UartReady == uart_readline(str, OBD2_AT_MAX_N, UART_FLAG_SYNC))
+	error = uart_readline(str, OBD2_AT_MAX_N, UART_FLAG_SYNC);
+	if (0 <= error)
 	{
 		if (obd2_parse_at_response(str))
 		{
@@ -305,7 +309,7 @@ bool obd2_at_command(const char* command)
 bool obd2_parse_at_response(const char* str)
 {
 	// A command is an "AT" directive which is either OK or fails
-	return strstr(str, "OK") != 0;
+	return strstr(str, "?") == 0 && strstr(str, "UNABLE TO CONNECT") == 0;
 }
 
 bool obd2_parse_pid_response(const char* str)
@@ -314,25 +318,32 @@ bool obd2_parse_pid_response(const char* str)
 	int pidSize = 0;
 	bool digit_skipped = false;
 
-	alt_putstr(str);
+	OBD2_PUTSTR(str);
 
 	//A PID response to a coded request for data
 	memset(pids, 0, sizeof(pids));
 
-	if (strstr(str, "UNABLE TO CONNECT") != 0)
+	if (!(strstr(str, "?") == 0 && strstr(str, "UNABLE TO CONNECT") == 0))
 	{
 		// The car is off.
+		status_led_on(ERR_STATUS_LED);
 		return false;
 	}
 	else if (strstr(str, "NO DATA") != 0)
 	{
-		// The PID is bad, but we'll try the next one without an update.
+		/*
+		 * The ECU doesn't support this PID. That is okay!
+		 */
+
+		OBD2_PUTSTR("Unsupported PID: ");
+		OBD2_PUTSTR(str);
+		OBD2_PUTSTR("\n");
 		return true;
 	}
 	else
 	{
 		// We MIGHT have our PID response.
-		char *ptr = (char*)str;
+		char *ptr = (char*) str;
 		bool start_line = true;
 		bool skip_digit = false;
 
@@ -467,7 +478,7 @@ int obd2_get_pid_result_size(int pid)
 void obd2_update_pid_values(void)
 {
 	int i;
-	for (i = 0; i < sizeof(pids)/sizeof(Pid); ++i)
+	for (i = 0; i < sizeof(pids) / sizeof(Pid); ++i)
 	{
 		if (pids[i].Code == 0x0134)
 		{

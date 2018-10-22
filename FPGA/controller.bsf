@@ -75,15 +75,15 @@ applicable agreement for further details.
 	(port
 		(pt 0 712)
 		(input)
-		(text "uart1_rx_counter_export[7..0]" (rect 0 0 119 12)(font "Arial" (font_size 8)))
-		(text "uart1_rx_counter_export[7..0]" (rect 4 701 178 712)(font "Arial" (font_size 8)))
+		(text "uart1_rx_counter_export[9..0]" (rect 0 0 119 12)(font "Arial" (font_size 8)))
+		(text "uart1_rx_counter_export[9..0]" (rect 4 701 178 712)(font "Arial" (font_size 8)))
 		(line (pt 0 712)(pt 192 712)(line_width 3))
 	)
 	(port
 		(pt 0 752)
 		(input)
-		(text "uart1_tx_counter_export[7..0]" (rect 0 0 118 12)(font "Arial" (font_size 8)))
-		(text "uart1_tx_counter_export[7..0]" (rect 4 741 178 752)(font "Arial" (font_size 8)))
+		(text "uart1_tx_counter_export[9..0]" (rect 0 0 118 12)(font "Arial" (font_size 8)))
+		(text "uart1_tx_counter_export[9..0]" (rect 4 741 178 752)(font "Arial" (font_size 8)))
 		(line (pt 0 752)(pt 192 752)(line_width 3))
 	)
 	(port

@@ -225,43 +225,59 @@
          type = "int";
       }
    }
-   element tc4_m.s1
+   element leds1_counter_of.s1
    {
       datum baseAddress
       {
-         value = "70304";
+         value = "69824";
          type = "String";
       }
    }
-   element sseg_counter_of.s1
+   element leds1_wr_val.s1
    {
       datum baseAddress
       {
-         value = "69904";
+         value = "69856";
          type = "String";
       }
    }
-   element uart1_dvsr.s1
+   element led_period.s1
    {
       datum baseAddress
       {
-         value = "69808";
+         value = "69760";
          type = "String";
       }
    }
-   element tc2_m.s1
+   element bcd1_bcd.s1
    {
       datum baseAddress
       {
-         value = "70336";
+         value = "70048";
          type = "String";
       }
    }
-   element tc1_status.s1
+   element sseg_brightness.s1
    {
       datum baseAddress
       {
-         value = "70272";
+         value = "69968";
+         type = "String";
+      }
+   }
+   element uart1_w_data.s1
+   {
+      datum baseAddress
+      {
+         value = "70208";
+         type = "String";
+      }
+   }
+   element uart1_r_data.s1
+   {
+      datum baseAddress
+      {
+         value = "70144";
          type = "String";
       }
    }
@@ -270,6 +286,94 @@
       datum baseAddress
       {
          value = "70352";
+         type = "String";
+      }
+   }
+   element bcd1_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "70032";
+         type = "String";
+      }
+   }
+   element sseg_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69920";
+         type = "String";
+      }
+   }
+   element bcd1_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70064";
+         type = "String";
+      }
+   }
+   element leds1_brightness.s1
+   {
+      datum baseAddress
+      {
+         value = "69888";
+         type = "String";
+      }
+   }
+   element tc3_m.s1
+   {
+      datum baseAddress
+      {
+         value = "70320";
+         type = "String";
+      }
+   }
+   element leds2_reset_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69744";
+         type = "String";
+      }
+   }
+   element leds2_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69712";
+         type = "String";
+      }
+   }
+   element rc1_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69792";
+         type = "String";
+      }
+   }
+   element tc4_m.s1
+   {
+      datum baseAddress
+      {
+         value = "70304";
+         type = "String";
+      }
+   }
+   element leds1_counter.s1
+   {
+      datum baseAddress
+      {
+         value = "69840";
+         type = "String";
+      }
+   }
+   element tc1_status.s1
+   {
+      datum baseAddress
+      {
+         value = "70272";
          type = "String";
       }
    }
@@ -289,51 +393,19 @@
          type = "String";
       }
    }
-   element leds2_wr_val.s1
+   element sseg_wr_val.s1
    {
       datum baseAddress
       {
-         value = "69728";
+         value = "69936";
          type = "String";
       }
    }
-   element bcd1_status.s1
+   element warn_pwm_brightness.s1
    {
       datum baseAddress
       {
-         value = "70016";
-         type = "String";
-      }
-   }
-   element bcd1_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "70032";
-         type = "String";
-      }
-   }
-   element daylight.s1
-   {
-      datum baseAddress
-      {
-         value = "70368";
-         type = "String";
-      }
-   }
-   element leds1_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "69888";
-         type = "String";
-      }
-   }
-   element sseg_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "69968";
+         value = "70000";
          type = "String";
       }
    }
@@ -345,67 +417,43 @@
          type = "String";
       }
    }
-   element leds2_reset_control.s1
+   element tc2_m.s1
    {
       datum baseAddress
       {
-         value = "69744";
+         value = "70336";
          type = "String";
       }
    }
-   element leds1_counter.s1
+   element tc4_status.s1
    {
       datum baseAddress
       {
-         value = "69840";
+         value = "70224";
          type = "String";
       }
    }
-   element uart1_w_data.s1
+   element sseg_counter_of.s1
    {
       datum baseAddress
       {
-         value = "70208";
+         value = "69904";
          type = "String";
       }
    }
-   element sseg_reset_control.s1
+   element rc1_ready.s1
    {
       datum baseAddress
       {
-         value = "69952";
+         value = "69776";
          type = "String";
       }
    }
-   element bcd1_bcd.s1
+   element uart1_wr_control.s1
    {
       datum baseAddress
       {
-         value = "70048";
-         type = "String";
-      }
-   }
-   element leds1_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69872";
-         type = "String";
-      }
-   }
-   element tc3_m.s1
-   {
-      datum baseAddress
-      {
-         value = "70320";
-         type = "String";
-      }
-   }
-   element tc_reset_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70288";
+         value = "70176";
          type = "String";
       }
    }
@@ -422,67 +470,35 @@
          type = "String";
       }
    }
-   element led_period.s1
+   element tc_reset_control.s1
    {
       datum baseAddress
       {
-         value = "69760";
+         value = "70288";
          type = "String";
       }
    }
-   element bcd1_control.s1
+   element sseg_reset_control.s1
    {
       datum baseAddress
       {
-         value = "70064";
+         value = "69952";
          type = "String";
       }
    }
-   element uart1_baud_control.s1
+   element leds1_reset_control.s1
    {
       datum baseAddress
       {
-         value = "70160";
+         value = "69872";
          type = "String";
       }
    }
-   element leds2_counter_of.s1
+   element daylight.s1
    {
       datum baseAddress
       {
-         value = "69696";
-         type = "String";
-      }
-   }
-   element leds2_counter.s1
-   {
-      datum baseAddress
-      {
-         value = "69712";
-         type = "String";
-      }
-   }
-   element warn_pwm_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69984";
-         type = "String";
-      }
-   }
-   element uart1_r_data.s1
-   {
-      datum baseAddress
-      {
-         value = "70144";
-         type = "String";
-      }
-   }
-   element rc1_ready.s1
-   {
-      datum baseAddress
-      {
-         value = "69776";
+         value = "70368";
          type = "String";
       }
    }
@@ -494,75 +510,19 @@
          type = "String";
       }
    }
-   element rc1_control.s1
-   {
-      datum baseAddress
-      {
-         value = "69792";
-         type = "String";
-      }
-   }
-   element uart1_wr_control.s1
-   {
-      datum baseAddress
-      {
-         value = "70176";
-         type = "String";
-      }
-   }
-   element bcd1_bin.s1
-   {
-      datum baseAddress
-      {
-         value = "70080";
-         type = "String";
-      }
-   }
-   element leds1_counter_of.s1
-   {
-      datum baseAddress
-      {
-         value = "69824";
-         type = "String";
-      }
-   }
-   element status_led_en.s1
-   {
-      datum baseAddress
-      {
-         value = "69632";
-         type = "String";
-      }
-   }
-   element sseg_wr_val.s1
-   {
-      datum baseAddress
-      {
-         value = "69936";
-         type = "String";
-      }
-   }
-   element onchip_ram.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element warn_pwm_brightness.s1
-   {
-      datum baseAddress
-      {
-         value = "70000";
-         type = "String";
-      }
-   }
    element leds2_brightness.s1
    {
       datum baseAddress
       {
          value = "69680";
+         type = "String";
+      }
+   }
+   element leds2_wr_val.s1
+   {
+      datum baseAddress
+      {
+         value = "69728";
          type = "String";
       }
    }
@@ -574,27 +534,67 @@
          type = "String";
       }
    }
-   element tc4_status.s1
+   element bcd1_status.s1
    {
       datum baseAddress
       {
-         value = "70224";
+         value = "70016";
          type = "String";
       }
    }
-   element sseg_counter.s1
+   element onchip_ram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element bcd1_bin.s1
    {
       datum baseAddress
       {
-         value = "69920";
+         value = "70080";
          type = "String";
       }
    }
-   element leds1_wr_val.s1
+   element status_led_en.s1
    {
       datum baseAddress
       {
-         value = "69856";
+         value = "69632";
+         type = "String";
+      }
+   }
+   element leds2_counter_of.s1
+   {
+      datum baseAddress
+      {
+         value = "69696";
+         type = "String";
+      }
+   }
+   element uart1_baud_control.s1
+   {
+      datum baseAddress
+      {
+         value = "70160";
+         type = "String";
+      }
+   }
+   element warn_pwm_control.s1
+   {
+      datum baseAddress
+      {
+         value = "69984";
+         type = "String";
+      }
+   }
+   element uart1_dvsr.s1
+   {
+      datum baseAddress
+      {
+         value = "69808";
          type = "String";
       }
    }
@@ -1080,7 +1080,7 @@
    version="13.1"
    enabled="1"
    name="jtag_uart_0">
-  <parameter name="allowMultipleConnections" value="false" />
+  <parameter name="allowMultipleConnections" value="true" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="32" />
   <parameter name="readIRQThreshold" value="8" />
@@ -1089,7 +1089,7 @@
   <parameter name="useRegistersForReadBuffer" value="false" />
   <parameter name="useRegistersForWriteBuffer" value="false" />
   <parameter name="useRelativePathForSimFile" value="false" />
-  <parameter name="writeBufferDepth" value="32" />
+  <parameter name="writeBufferDepth" value="256" />
   <parameter name="writeIRQThreshold" value="8" />
   <parameter name="avalonSpec" value="2.0" />
  </module>
@@ -1126,7 +1126,7 @@
   <parameter name="setting_HDLSimCachesCleared" value="true" />
   <parameter name="setting_HBreakTest" value="false" />
   <parameter name="setting_breakslaveoveride" value="false" />
-  <parameter name="muldiv_divider" value="false" />
+  <parameter name="muldiv_divider" value="true" />
   <parameter name="mpu_useLimit" value="false" />
   <parameter name="mpu_enabled" value="false" />
   <parameter name="mmu_enabled" value="false" />
@@ -1146,8 +1146,8 @@
   <parameter name="debug_jtagInstanceID" value="0" />
   <parameter name="resetOffset" value="0" />
   <parameter name="exceptionOffset" value="32" />
-  <parameter name="cpuID" value="0" />
-  <parameter name="cpuID_stored" value="0" />
+  <parameter name="cpuID" value="49153" />
+  <parameter name="cpuID_stored" value="49153" />
   <parameter name="breakOffset" value="32" />
   <parameter name="userDefinedSettings" value="" />
   <parameter name="resetSlave" value="Absolute" />
@@ -1167,11 +1167,11 @@
   <parameter name="mmu_tlbNumWays" value="16" />
   <parameter name="mmu_processIDNumBits" value="8" />
   <parameter name="impl" value="Tiny" />
-  <parameter name="icache_size" value="2048" />
+  <parameter name="icache_size" value="512" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="icache_ramBlockType" value="Automatic" />
   <parameter name="icache_numTCIM" value="0" />
-  <parameter name="icache_burstType" value="None" />
+  <parameter name="icache_burstType" value="Sequential" />
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_victim_buf_impl" value="ram" />
   <parameter name="debug_level" value="Level1" />
@@ -1229,7 +1229,7 @@
   <parameter name="dataWidth" value="32" />
   <parameter name="dualPort" value="false" />
   <parameter name="initMemContent" value="true" />
-  <parameter name="initializationFileName" value="onchip_iram.hex" />
+  <parameter name="initializationFileName">software\controller\mem_init\controller_onchip_ram.hex</parameter>
   <parameter name="instanceID" value="NONE" />
   <parameter name="memorySize" value="40000" />
   <parameter name="readDuringWriteMode" value="DONT_CARE" />
@@ -1495,7 +1495,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="10" />
   <parameter name="clockRate" value="50000000" />
  </module>
  <module
@@ -1513,7 +1513,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="true" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="10" />
   <parameter name="clockRate" value="50000000" />
  </module>
  <module

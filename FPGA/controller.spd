@@ -161,9 +161,9 @@
    type="VERILOG"
    library="bcd1_bin" />
  <file
-   path="controller/simulation/submodules/controller_uart1_status_control.v"
+   path="controller/simulation/submodules/controller_uart1_rx_counter.v"
    type="VERILOG"
-   library="uart1_status_control" />
+   library="uart1_rx_counter" />
  <file
    path="controller/simulation/submodules/controller_uart1_r_data.v"
    type="VERILOG"

@@ -4713,7 +4713,7 @@ defparam controller_nios2e_register_bank_b.lpm_file = "controller_nios2e_rf_ram_
     end
 
 
-  assign W_cpuid_reg = 0;
+  assign W_cpuid_reg = 49153;
   assign W_wr_data_non_zero = R_ctrl_br_cmp ? W_cmp_result :
     R_ctrl_rdctl_inst       ? W_control_rd_data :
     W_alu_result[31 : 0];

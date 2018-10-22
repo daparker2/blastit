@@ -20,28 +20,29 @@
 
 //#define TEST_OBD2_INIT_LOOP
 //#define TEST_UART_ECHO_LINE
-#define TEST_UART_ECHO
-//#define TEST_DISPLAY
+//#define TEST_UART_ECHO
+#define TEST_DISPLAY
 
 #ifdef TEST_OBD2_INIT_LOOP
 
 void test()
 {
-	for (;;)
+	obd2_init();
+	do
 	{
-		char dbg[(1 << 8)] = {};
-
-		obd2_init();
-		do
+		if (!obd2_update())
 		{
-			obd2_update();
+			alt_putstr("Test aborted\n");
+			break;
 		}
-		while (obd2_state != Obd2StateCILBr);
-
-		sprintf(dbg, "OBD2 final state: boost=%f afr=%f oil=%f coolant=%f intake=%f load=%f\n", display_params.Boost, display_params.Afr, display_params.OilTemp, display_params.CoolantTemp, display_params.IntakeTemp, display_params.Load);
-		alt_putstr(dbg);
-		obd2_shutdown();
 	}
+	while (obd2_state != Obd2StateCILBr);
+
+	alt_printf("OBD2 final state: boost=%x afr=%x oil=%x coolant=%x intake=%x load=%x\n",
+			   (int)display_params.Boost, (int)display_params.Afr, (int)display_params.OilTemp,
+			   (int)display_params.CoolantTemp, (int)display_params.IntakeTemp, (int)display_params.Load);
+
+	obd2_shutdown();
 }
 
 #endif // TEST_OBD2_INIT_LOOP
@@ -113,9 +114,7 @@ void test()
 
 void test()
 {
-	dword_t i, j, k, l;
-	dword_t status = 0;
-	dword_t new_status;
+	int i, j;
 	bool daylight = false;
 	byte_t bcd_out[BCD_MAX] = {};
 
@@ -123,7 +122,7 @@ void test()
 	warn_set_brightness(WARN_BRIGHTNESS_MAX >> 4);
 	warn_set_en(true);
 
-	status_led_en(STATUS_LED_0 | STATUS_LED_1 | STATUS_LED_2 | STATUS_LED_3);
+	status_led_on(STATUS_LED_0 | STATUS_LED_1 | STATUS_LED_2 | STATUS_LED_3);
 
 	leds_set_brightness(LedArray1, LEDS_BRIGHTNESS_MAX);
 	leds_set_brightness(LedArray2, LEDS_BRIGHTNESS_MAX);
@@ -147,7 +146,6 @@ void test()
 	alt_printf("-1234 -> -%x %x %x %x\n", bcd_out[0], bcd_out[1], bcd_out[2], bcd_out[3]);
 
 	i = 0;
-	k = 0;
 	for (;;)
 	{
 		bool new_daylight = is_daylight();
@@ -165,9 +163,10 @@ void test()
 			}
 		}
 
-		if (i % 2 == 0)
+		if (i++ % 2 == 0)
 		{
-			status_led_en(STATUS_LED_0 | STATUS_LED_2);
+			status_led_on(STATUS_LED_0 | STATUS_LED_2);
+			status_led_off(STATUS_LED_1 | STATUS_LED_3);
 
 			for (j = 0; j < LEDS_MAX; ++j)
 			{
@@ -182,7 +181,8 @@ void test()
 		}
 		else
 		{
-			status_led_en(STATUS_LED_1 | STATUS_LED_3);
+			status_led_on(STATUS_LED_1 | STATUS_LED_3);
+			status_led_off(STATUS_LED_0 | STATUS_LED_2);
 
 			for (j = 0; j < LEDS_MAX; ++j)
 			{
@@ -202,6 +202,8 @@ void test()
 				}
 			}
 		}
+
+		wait_tick(250);
 	}
 }
 

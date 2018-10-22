@@ -228,7 +228,7 @@ module blastit_main
 		        .os_tick(uart1_os_tick), .dvsr(uart1_dvsr), .rd_uart(uart1_rd_uart), .wr_uart(uart1_wr_uart), 
 				  .rx(UART_RX), .w_data(uart1_w_data), .tx_full(uart1_tx_full), .rx_empty(uart1_rx_empty),
 				  .tx(UART_TX), .r_data(uart1_r_data), .tx_done_tick(uart1_tx_done_tick), .rx_done_tick(uart1_rx_done_tick), 
-				  .e_parity(uart1_e_parity), .e_frame(uart1_e_frame), .e_rxof(uart1_e_rxof), .e_txof(uart1_e_txof),
+				  .e_parity(uart1_e_parity), .e_frame(uart1_e_frame), .e_rxof(uart1_e_rxof), .e_txof(uart1_e_txof), .e_rxuf(), .e_txuf(),
 				  .rx_full(uart1_rx_full), .tx_empty(uart1_tx_empty));
 	tick_counter #(.N(UART_RX_TICK_BITS)) uart1_rx_tc(.clk(clk), .reset(uart1_rx_tc_reset), .tick(uart1_rx_done_tick), .counter(uart1_rx_counter), .of(uart1_rx_counter_of));
 	tick_counter #(.N(UART_TX_TICK_BITS)) uart1_tx_tc(.clk(clk), .reset(uart1_tx_tc_reset), .tick(uart1_tx_done_tick), .counter(uart1_tx_counter), .of(uart1_tx_counter_of));

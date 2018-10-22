@@ -43,7 +43,7 @@ DEFINE bcd1_status                                                              
 DEFINE bcd1_bcd                                                                    ./libraries/bcd1_bcd/                                                                   
 DEFINE bcd1_control                                                                ./libraries/bcd1_control/                                                               
 DEFINE bcd1_bin                                                                    ./libraries/bcd1_bin/                                                                   
-DEFINE uart1_status_control                                                        ./libraries/uart1_status_control/                                                       
+DEFINE uart1_rx_counter                                                            ./libraries/uart1_rx_counter/                                                           
 DEFINE uart1_r_data                                                                ./libraries/uart1_r_data/                                                               
 DEFINE uart1_baud_control                                                          ./libraries/uart1_baud_control/                                                         
 DEFINE uart1_wr_control                                                            ./libraries/uart1_wr_control/                                                           
